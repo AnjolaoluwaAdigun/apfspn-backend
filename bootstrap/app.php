@@ -2,6 +2,7 @@
 
 use App\Exceptions\ApiException;
 use App\Http\Middleware\EncryptPayload;
+use App\Http\Middleware\EnsureAccessToken;
 use App\Support\JsonResponser;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -31,13 +32,9 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::prefix('api/v1')->name('v1.')->middleware('api')->group(function () {
                 Route::group([], base_path('routes/api/v1/public.php'));
 
-                Route::prefix('member')->name('member.')
-                    ->middleware(['auth:sanctum', 'abilities:member'])
-                    ->group(base_path('routes/api/v1/member.php'));
+                Route::prefix('member')->name('member.')->group(base_path('routes/api/v1/member.php'));
 
-                Route::prefix('admin')->name('admin.')
-                    ->middleware(['auth:sanctum', 'abilities:admin'])
-                    ->group(base_path('routes/api/v1/admin.php'));
+                Route::prefix('admin')->name('admin.')->group(base_path('routes/api/v1/admin.php'));
             });
         },
     )
@@ -48,6 +45,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => RoleMiddleware::class,
             'permission' => PermissionMiddleware::class,
             'role_or_permission' => RoleOrPermissionMiddleware::class,
+            'token' => EnsureAccessToken::class,
         ]);
 
         $middleware->appendToGroup('api', EncryptPayload::class);

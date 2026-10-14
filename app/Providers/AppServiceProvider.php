@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\PersonalAccessToken;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Laravel\Sanctum\Sanctum;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
             /** @var Blueprint $this */
             return $this->uuid('uuid')->primary();
         });
+
+        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
 
         $this->configureRateLimiting();
     }
@@ -30,7 +34,11 @@ class AppServiceProvider extends ServiceProvider
         ));
 
         RateLimiter::for('reset', fn (Request $request) => Limit::perMinute(3)->by(
-            $request->filled('token') ? self::tokenKey($request, 'token') : self::emailKey($request),
+            $request->filled('reset_token') ? self::tokenKey($request, 'reset_token') : self::emailKey($request),
+        ));
+
+        RateLimiter::for('refresh', fn (Request $request) => Limit::perMinute(10)->by(
+            $request->ip().'|'.hash('sha256', (string) $request->bearerToken()),
         ));
 
         RateLimiter::for('registration', fn (Request $request) => [

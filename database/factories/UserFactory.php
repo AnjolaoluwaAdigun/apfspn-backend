@@ -2,43 +2,47 @@
 
 namespace Database\Factories;
 
+use App\Enums\MemberType;
+use App\Enums\UserStatus;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends Factory<User>
  */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
+    public const PASSWORD = 'Password123';
+
     protected static ?string $password;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'phone' => fake()->unique()->numerify('080########'),
+            'password' => static::$password ??= Hash::make(self::PASSWORD),
+            'status' => UserStatus::Active,
+            'member_type' => MemberType::Individual,
+            'two_factor_enabled' => true,
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        return $this->state(fn () => ['email_verified_at' => null]);
+    }
+
+    public function withoutTwoFactor(): static
+    {
+        return $this->state(fn () => ['two_factor_enabled' => false]);
+    }
+
+    public function disabled(): static
+    {
+        return $this->state(fn () => ['status' => UserStatus::Disabled]);
     }
 }

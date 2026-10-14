@@ -46,6 +46,28 @@ return [
         'ZA' => 'Zamfara',
     ],
 
+    'auth' => [
+        'access_ttl_minutes' => (int) env('APFSPN_ACCESS_TTL_MINUTES', 60),
+        'refresh_ttl_days' => (int) env('APFSPN_REFRESH_TTL_DAYS', 30),
+        'otp_length' => 6,
+        'otp_ttl_minutes' => 10,
+        'resend_cooldown_seconds' => 60,
+        'max_sends' => 5,
+        'max_attempts' => 5,
+        'reset_token_ttl_minutes' => 15,
+        'invite_token_ttl_hours' => 72,
+        'admin_two_factor' => (bool) env('APFSPN_ADMIN_TWO_FACTOR', false),
+        'super_admin' => [
+            'name' => env('SUPER_ADMIN_NAME'),
+            'email' => env('SUPER_ADMIN_EMAIL'),
+        ],
+    ],
+
+    'frontend' => [
+        'member_url' => env('FRONTEND_MEMBER_URL', 'http://localhost:3000'),
+        'admin_url' => env('FRONTEND_ADMIN_URL', 'http://localhost:3001'),
+    ],
+
     'uploads' => [
         'disk' => 'cloudinary',
         'cloudinary_host' => 'res.cloudinary.com',
