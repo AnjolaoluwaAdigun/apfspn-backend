@@ -62,6 +62,13 @@ class AdminAuthService
         return $this->challenges->create($this->admins->findByEmail($email), Admin::class, ChallengePurpose::PasswordReset, $email);
     }
 
+    public function issueResetToken(string $email): ?string
+    {
+        $admin = $this->admins->findByEmail($email);
+
+        return $admin ? $this->resets->issueToken($admin, config('apfspn.auth.reset_token_ttl_minutes')) : null;
+    }
+
     public function resetPassword(string $resetToken, string $password): void
     {
         $this->resets->reset($resetToken, $password, $this->admins);
