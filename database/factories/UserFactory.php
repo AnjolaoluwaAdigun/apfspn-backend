@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Enums\MemberType;
 use App\Enums\UserStatus;
+use App\Models\Membership;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -26,9 +26,25 @@ class UserFactory extends Factory
             'phone' => fake()->unique()->numerify('080########'),
             'password' => static::$password ??= Hash::make(self::PASSWORD),
             'status' => UserStatus::Active,
-            'member_type' => MemberType::Individual,
+            'state_code' => 'LA',
+            'city' => 'Ikeja',
             'two_factor_enabled' => true,
+            'consent_accepted_at' => now(),
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (User $user) {
+            if (! $user->membership()->exists()) {
+                Membership::factory()->for($user)->create(['state_code' => $user->state_code ?? 'LA']);
+            }
+        });
+    }
+
+    public function pendingApproval(): static
+    {
+        return $this->has(Membership::factory()->pending());
     }
 
     public function unverified(): static

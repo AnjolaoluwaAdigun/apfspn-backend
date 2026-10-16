@@ -79,6 +79,10 @@ class TokenService
             throw new ApiException('This account has been disabled.', 403, ['code' => 'account_disabled']);
         }
 
+        if ($subject instanceof User && ! $subject->hasVerifiedEmail()) {
+            throw new ApiException('Please verify your email address before signing in.', 403, ['code' => 'email_not_verified']);
+        }
+
         if ($subject instanceof Admin && $subject->must_reset_password) {
             throw new ApiException('You must reset your password before signing in.', 403, ['code' => 'must_reset_password']);
         }

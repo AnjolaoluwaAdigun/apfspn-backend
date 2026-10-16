@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Enums\MemberType;
 use App\Enums\UserStatus;
 use App\Models\Concerns\HasUuidPrimaryKey;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -21,11 +21,17 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'phone',
         'password',
         'status',
-        'member_type',
+        'bio',
+        'photo_url',
+        'state_code',
+        'city',
+        'directory_visible',
         'two_factor_enabled',
+        'consent_accepted_at',
         'last_login_at',
     ];
 
@@ -37,12 +43,23 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'consent_accepted_at' => 'datetime',
             'last_login_at' => 'datetime',
             'password' => 'hashed',
             'status' => UserStatus::class,
-            'member_type' => MemberType::class,
+            'directory_visible' => 'boolean',
             'two_factor_enabled' => 'boolean',
         ];
+    }
+
+    public function membership(): HasOne
+    {
+        return $this->hasOne(Membership::class, 'user_uuid');
+    }
+
+    public function organisationProfile(): HasOne
+    {
+        return $this->hasOne(OrganisationProfile::class, 'user_uuid');
     }
 
     public function isActive(): bool

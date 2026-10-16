@@ -18,6 +18,7 @@ class AuthResultResource extends JsonResource
             'member' => $this->when(isset($result['member']), fn () => new MemberResource($result['member'])),
             'challenge' => $this->when(isset($result['challenge']), fn () => new ChallengeResource($result['challenge'])),
             'reset_token' => $this->when(isset($result['reset_token']), fn () => $result['reset_token']),
+            'password_token' => $this->when(isset($result['password_token']), fn () => $result['password_token']),
         ];
     }
 }

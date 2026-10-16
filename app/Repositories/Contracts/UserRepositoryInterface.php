@@ -12,5 +12,9 @@ interface UserRepositoryInterface extends AuthSubjectRepositoryInterface
 
     public function findForUpdate(string $uuid): ?User;
 
+    public function create(array $attributes): User;
+
     public function update(User $user, array $attributes): User;
+
+    public function withProfile(User $user): User;
 }

@@ -96,6 +96,6 @@ class AuthController extends Controller
 
     public function me(MeRequest $request): JsonResponse
     {
-        return JsonResponser::success(new MemberResource($request->user()));
+        return JsonResponser::success(new MemberResource($this->auth->me($request->user())));
     }
 }

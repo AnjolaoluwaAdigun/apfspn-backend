@@ -51,6 +51,34 @@ class ChallengeService
         });
     }
 
+    public function reissueWithoutSending(Model $subject, ChallengePurpose $purpose, string $email): array
+    {
+        return DB::transaction(function () use ($subject, $purpose, $email) {
+            $code = $this->generateCode();
+            $attributes = [
+                'code_hash' => Hash::make($code),
+                'attempts' => 0,
+                'expires_at' => now()->addMinutes(config('apfspn.auth.otp_ttl_minutes')),
+            ];
+
+            $existing = $this->challenges->latestActiveForUpdate($subject->getMorphClass(), self::emailHash($email), $purpose);
+
+            $challenge = $existing
+                ? $this->challenges->update($existing, $attributes + ['version' => $existing->version + 1])
+                : $this->challenges->create($attributes + [
+                    'subject_type' => $subject->getMorphClass(),
+                    'subject_uuid' => $subject->getKey(),
+                    'email_hash' => self::emailHash($email),
+                    'purpose' => $purpose,
+                    'version' => 1,
+                    'send_count' => 0,
+                    'last_sent_at' => now(),
+                ]);
+
+            return ['code' => $code, 'challenge' => $this->result($challenge, ChallengeMode::SendNew)];
+        });
+    }
+
     public function resend(string $token, string $subjectClass): array
     {
         $payload = $this->decode($token);

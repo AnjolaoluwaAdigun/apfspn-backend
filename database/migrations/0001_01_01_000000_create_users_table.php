@@ -17,8 +17,13 @@ return new class extends Migration
             $table->string('phone', 20)->nullable()->unique();
             $table->string('password');
             $table->string('status', 20)->default(UserStatus::Active->value)->index();
-            $table->string('member_type', 20)->index();
+            $table->text('bio')->nullable();
+            $table->string('photo_url')->nullable();
+            $table->string('state_code', 2)->nullable()->index();
+            $table->string('city', 100)->nullable();
+            $table->boolean('directory_visible')->default(false);
             $table->boolean('two_factor_enabled')->default(true);
+            $table->timestamp('consent_accepted_at')->nullable();
             $table->timestamp('last_login_at')->nullable();
             $table->timestamps();
         });

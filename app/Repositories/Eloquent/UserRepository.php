@@ -34,10 +34,20 @@ class UserRepository implements UserRepositoryInterface
         $subject->update(['password' => $password]);
     }
 
+    public function create(array $attributes): User
+    {
+        return User::create($attributes);
+    }
+
     public function update(User $user, array $attributes): User
     {
         $user->update($attributes);
 
         return $user;
+    }
+
+    public function withProfile(User $user): User
+    {
+        return $user->load(['membership', 'organisationProfile']);
     }
 }

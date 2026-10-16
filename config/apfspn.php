@@ -55,6 +55,7 @@ return [
         'max_sends' => 5,
         'max_attempts' => 5,
         'reset_token_ttl_minutes' => 15,
+        'password_setup_ttl_minutes' => 60,
         'invite_token_ttl_hours' => 72,
         'admin_two_factor' => (bool) env('APFSPN_ADMIN_TWO_FACTOR', false),
         'super_admin' => [
@@ -73,6 +74,11 @@ return [
         'cloudinary_host' => 'res.cloudinary.com',
         'cloud_name' => env('CLOUDINARY_URL') ? parse_url(env('CLOUDINARY_URL'), PHP_URL_HOST) : env('CLOUDINARY_CLOUD_NAME'),
         'max_base64_bytes' => 10 * 1024 * 1024,
+        'private_url_ttl_minutes' => 10,
+        'folders' => [
+            'member_photos' => 'members/photos',
+            'registration_documents' => 'members/documents',
+        ],
     ],
 
     'encryption' => [

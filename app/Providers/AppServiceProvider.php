@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Helpers\Uploads\CloudinaryPrivateFileStore;
+use App\Helpers\Uploads\PrivateFileStore;
 use App\Models\PersonalAccessToken;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,6 +15,10 @@ use Laravel\Sanctum\Sanctum;
 
 class AppServiceProvider extends ServiceProvider
 {
+    public array $bindings = [
+        PrivateFileStore::class => CloudinaryPrivateFileStore::class,
+    ];
+
     public function boot(): void
     {
         Blueprint::macro('uuidPrimary', function () {
@@ -33,9 +39,11 @@ class AppServiceProvider extends ServiceProvider
             $request->filled('challenge_token') ? self::tokenKey($request, 'challenge_token') : self::emailKey($request),
         ));
 
-        RateLimiter::for('reset', fn (Request $request) => Limit::perMinute(3)->by(
-            $request->filled('reset_token') ? self::tokenKey($request, 'reset_token') : self::emailKey($request),
-        ));
+        RateLimiter::for('reset', fn (Request $request) => Limit::perMinute(3)->by(match (true) {
+            $request->filled('reset_token') => self::tokenKey($request, 'reset_token'),
+            $request->filled('password_token') => self::tokenKey($request, 'password_token'),
+            default => self::emailKey($request),
+        }));
 
         RateLimiter::for('refresh', fn (Request $request) => Limit::perMinute(10)->by(
             $request->ip().'|'.hash('sha256', (string) $request->bearerToken()),

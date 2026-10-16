@@ -11,4 +11,5 @@ enum ChallengePurpose: string
     case MemberLogin = 'member_login';
     case AdminLogin = 'admin_login';
     case PasswordReset = 'password_reset';
+    case EmailVerification = 'email_verification';
 }

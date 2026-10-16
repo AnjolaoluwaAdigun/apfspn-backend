@@ -19,6 +19,7 @@ class OtpMail extends Mailable
     {
         return new Envelope(subject: match ($this->purpose) {
             ChallengePurpose::PasswordReset => 'Your APFSPN password reset code',
+            ChallengePurpose::EmailVerification => 'Verify your APFSPN email address',
             default => 'Your APFSPN sign-in code',
         });
     }

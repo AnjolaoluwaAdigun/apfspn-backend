@@ -90,6 +90,11 @@ class MemberAuthService
         return $this->tokens->rotate($refreshToken, TokenAudience::Member);
     }
 
+    public function me(User $user): User
+    {
+        return $this->users->withProfile($user);
+    }
+
     public function logout(PersonalAccessToken $token): void
     {
         $this->tokens->revokeSession($token);
@@ -102,7 +107,7 @@ class MemberAuthService
         return [
             'next_step' => 'authenticated',
             'tokens' => $this->tokens->issue($user, $client, TokenAudience::Member),
-            'member' => $user,
+            'member' => $this->users->withProfile($user),
         ];
     }
 }
