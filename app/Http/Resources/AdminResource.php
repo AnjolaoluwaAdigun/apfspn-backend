@@ -14,10 +14,12 @@ class AdminResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'status' => $this->status,
+            'account_state' => $this->accountState(),
             'must_reset_password' => $this->must_reset_password,
             'last_login_at' => $this->last_login_at?->toIso8601String(),
             'roles' => $this->roles->pluck('name')->values(),
             'permissions' => $this->getAllPermissions()->pluck('name')->sort()->values(),
+            'created_at' => $this->created_at?->toIso8601String(),
         ];
     }
 }

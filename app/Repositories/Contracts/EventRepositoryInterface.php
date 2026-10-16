@@ -23,6 +23,8 @@ interface EventRepositoryInterface
 
     public function uuidsEndedBefore(Carbon $moment): Collection;
 
+    public function countCreatedBy(string $adminUuid): int;
+
     public function create(array $attributes): Event;
 
     public function save(Event $event): Event;

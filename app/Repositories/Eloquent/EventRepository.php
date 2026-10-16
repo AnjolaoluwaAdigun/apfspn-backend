@@ -75,6 +75,11 @@ class EventRepository implements EventRepositoryInterface
             ->pluck('uuid');
     }
 
+    public function countCreatedBy(string $adminUuid): int
+    {
+        return Event::withTrashed()->where('created_by_admin_uuid', $adminUuid)->count();
+    }
+
     public function create(array $attributes): Event
     {
         return Event::create($attributes);

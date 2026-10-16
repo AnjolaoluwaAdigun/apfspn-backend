@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\AdminAccountState;
 use App\Enums\AdminStatus;
-use App\Models\Concerns\AuditsContentChanges;
 use App\Models\Concerns\HasUuidPrimaryKey;
 use Database\Factories\AdminFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +15,7 @@ use Spatie\Permission\Traits\HasRoles;
 class Admin extends Authenticatable
 {
     /** @use HasFactory<AdminFactory> */
-    use AuditsContentChanges, HasApiTokens, HasFactory, HasRoles, HasUuidPrimaryKey, Notifiable;
+    use HasApiTokens, HasFactory, HasRoles, HasUuidPrimaryKey, Notifiable;
 
     protected string $guard_name = 'api';
 
@@ -28,6 +28,8 @@ class Admin extends Authenticatable
         'status',
         'must_reset_password',
         'last_login_at',
+        'created_by_admin_uuid',
+        'updated_by_admin_uuid',
     ];
 
     protected $hidden = [
@@ -47,5 +49,14 @@ class Admin extends Authenticatable
     public function isActive(): bool
     {
         return $this->status === AdminStatus::Active;
+    }
+
+    public function accountState(): AdminAccountState
+    {
+        return match (true) {
+            $this->status === AdminStatus::Disabled => AdminAccountState::Disabled,
+            $this->must_reset_password => AdminAccountState::Invited,
+            default => AdminAccountState::Active,
+        };
     }
 }

@@ -80,6 +80,7 @@ return [
             'registration_documents' => 'members/documents',
             'event_images' => 'events/images',
             'event_speakers' => 'events/speakers',
+            'article_covers' => 'articles/covers',
         ],
     ],
 

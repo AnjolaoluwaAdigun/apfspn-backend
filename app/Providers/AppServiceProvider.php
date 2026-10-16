@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Helpers\Uploads\CloudinaryPrivateFileStore;
 use App\Helpers\Uploads\PrivateFileStore;
+use App\Models\Article;
 use App\Models\Event;
 use App\Models\PersonalAccessToken;
+use App\Policies\ArticlePolicy;
 use App\Policies\EventPolicy;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Schema\Blueprint;
@@ -32,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
 
         Gate::policy(Event::class, EventPolicy::class);
+        Gate::policy(Article::class, ArticlePolicy::class);
 
         $this->configureRateLimiting();
     }
@@ -53,6 +56,12 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('refresh', fn (Request $request) => Limit::perMinute(10)->by(
             $request->ip().'|'.hash('sha256', (string) $request->bearerToken()),
         ));
+
+        RateLimiter::for('invite', function (Request $request) {
+            $admin = $request->route('admin');
+
+            return Limit::perMinute(3)->by($request->ip().'|'.(is_object($admin) ? $admin->getKey() : (string) $admin));
+        });
 
         RateLimiter::for('registration', fn (Request $request) => [
             Limit::perMinute(3)->by(self::emailKey($request)),

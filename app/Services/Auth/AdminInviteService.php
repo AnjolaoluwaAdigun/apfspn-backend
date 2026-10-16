@@ -7,6 +7,7 @@ use App\Exceptions\ApiException;
 use App\Jobs\SendAdminInviteEmail;
 use App\Models\Admin;
 use App\Repositories\Contracts\AdminRepositoryInterface;
+use App\Services\Audit\AuditLogService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -15,6 +16,7 @@ class AdminInviteService
     public function __construct(
         private readonly AdminRepositoryInterface $admins,
         private readonly PasswordResetService $resets,
+        private readonly AuditLogService $audit,
     ) {}
 
     public function invite(string $name, string $email, array $roles): Admin
@@ -24,22 +26,32 @@ class AdminInviteService
                 throw new ApiException('An admin with this email already exists.', 422, ['code' => 'email_taken']);
             }
 
+            $actorUuid = $this->audit->currentAdminUuid();
+
             $admin = $this->admins->create([
                 'name' => $name,
                 'email' => Str::lower(trim($email)),
                 'password' => Str::random(64),
                 'status' => AdminStatus::Active,
                 'must_reset_password' => true,
+                'created_by_admin_uuid' => $actorUuid,
+                'updated_by_admin_uuid' => $actorUuid,
             ]);
 
             $admin->syncRoles($roles);
+            $this->audit->record('admin.invited', $admin);
 
             return $admin;
         });
 
-        SendAdminInviteEmail::dispatchSync($admin->name, $admin->email, $this->inviteLink($admin));
+        $this->sendInvite($admin);
 
         return $admin;
+    }
+
+    public function sendInvite(Admin $admin): void
+    {
+        SendAdminInviteEmail::dispatchSync($admin->name, $admin->email, $this->inviteLink($admin));
     }
 
     public function inviteLink(Admin $admin): string

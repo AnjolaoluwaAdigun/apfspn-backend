@@ -59,7 +59,9 @@ class AdminAuthService
 
     public function forgotPassword(string $email): array
     {
-        return $this->challenges->create($this->admins->findByEmail($email), Admin::class, ChallengePurpose::PasswordReset, $email);
+        $admin = $this->admins->findByEmail($email);
+
+        return $this->challenges->create($admin?->isActive() ? $admin : null, Admin::class, ChallengePurpose::PasswordReset, $email);
     }
 
     public function issueResetToken(string $email): ?string
