@@ -78,6 +78,8 @@ return [
         'folders' => [
             'member_photos' => 'members/photos',
             'registration_documents' => 'members/documents',
+            'event_images' => 'events/images',
+            'event_speakers' => 'events/speakers',
         ],
     ],
 

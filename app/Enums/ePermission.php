@@ -22,6 +22,7 @@ enum ePermission: string
     case EventsUpdate = 'events.update';
     case EventsDelete = 'events.delete';
     case EventsPublish = 'events.publish';
+    case EventsCancel = 'events.cancel';
 
     case EventRegistrationsView = 'event_registrations.view';
     case EventRegistrationsUpdate = 'event_registrations.update';

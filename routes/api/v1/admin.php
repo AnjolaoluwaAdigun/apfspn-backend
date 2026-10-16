@@ -2,6 +2,7 @@
 
 use App\Enums\ePermission;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\MemberController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,5 +37,22 @@ Route::prefix('members')->name('members.')->controller(MemberController::class)-
         Route::post('reject', 'reject')->middleware($can(ePermission::MembersApprove))->name('reject');
         Route::post('suspend', 'suspend')->middleware($can(ePermission::MembersSuspend))->name('suspend');
         Route::post('reactivate', 'reactivate')->middleware($can(ePermission::MembersSuspend))->name('reactivate');
+    });
+});
+
+Route::prefix('events')->name('events.')->controller(EventController::class)->middleware(['auth:sanctum', 'token:admin'])->group(function () use ($can) {
+    Route::get('/', 'index')->middleware($can(ePermission::EventsView))->name('index');
+    Route::post('/', 'store')->middleware($can(ePermission::EventsCreate))->name('store');
+
+    Route::prefix('{event}')->whereUuid('event')->group(function () use ($can) {
+        Route::get('/', 'show')->middleware($can(ePermission::EventsView))->name('show');
+        Route::put('/', 'update')->middleware([$can(ePermission::EventsUpdate), 'can:update,event'])->name('update');
+        Route::delete('/', 'destroy')->middleware($can(ePermission::EventsDelete))->name('destroy');
+        Route::post('publish', 'publish')->middleware($can(ePermission::EventsPublish))->name('publish');
+        Route::post('cancel', 'cancel')->middleware($can(ePermission::EventsCancel))->name('cancel');
+        Route::get('attendees', 'attendees')->middleware($can(ePermission::EventRegistrationsView))->name('attendees');
+        Route::get('attendees/export', 'export')->middleware($can(ePermission::EventRegistrationsExport))->name('attendees.export');
+        Route::post('attendees/{registration}/attend', 'markAttended')->whereUuid('registration')->middleware($can(ePermission::EventRegistrationsUpdate))->name('attendees.attend');
+        Route::get('waitlist', 'waitlist')->middleware($can(ePermission::EventRegistrationsView))->name('waitlist');
     });
 });

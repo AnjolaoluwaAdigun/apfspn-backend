@@ -4,10 +4,13 @@ namespace App\Providers;
 
 use App\Helpers\Uploads\CloudinaryPrivateFileStore;
 use App\Helpers\Uploads\PrivateFileStore;
+use App\Models\Event;
 use App\Models\PersonalAccessToken;
+use App\Policies\EventPolicy;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -27,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
+
+        Gate::policy(Event::class, EventPolicy::class);
 
         $this->configureRateLimiting();
     }

@@ -1,22 +1,10 @@
 <?php
 
 use App\Services\Membership\MemberApprovalService;
-use Illuminate\Contracts\Console\Kernel;
 
-[, $memberUuid, $startSignal] = $argv;
+[, $startSignal, $memberUuid] = $argv;
 
-require __DIR__.'/../../vendor/autoload.php';
-
-$app = require __DIR__.'/../../bootstrap/app.php';
-$app->make(Kernel::class)->bootstrap();
-
-touch($startSignal.'.ready.'.getmypid());
-
-$deadline = microtime(true) + 30;
-
-while (! file_exists($startSignal) && microtime(true) < $deadline) {
-    usleep(500);
-}
+$app = require __DIR__.'/bootstrap-worker.php';
 
 try {
     $membership = $app->make(MemberApprovalService::class)->approve($memberUuid);

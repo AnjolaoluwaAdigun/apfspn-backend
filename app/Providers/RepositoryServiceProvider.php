@@ -6,6 +6,9 @@ use App\Repositories\Contracts\AccessTokenRepositoryInterface;
 use App\Repositories\Contracts\AdminRepositoryInterface;
 use App\Repositories\Contracts\AuditLogRepositoryInterface;
 use App\Repositories\Contracts\AuthChallengeRepositoryInterface;
+use App\Repositories\Contracts\EventRegistrationRepositoryInterface;
+use App\Repositories\Contracts\EventRepositoryInterface;
+use App\Repositories\Contracts\EventSpeakerRepositoryInterface;
 use App\Repositories\Contracts\MemberIdSequenceRepositoryInterface;
 use App\Repositories\Contracts\MemberRepositoryInterface;
 use App\Repositories\Contracts\MembershipRepositoryInterface;
@@ -15,6 +18,9 @@ use App\Repositories\Eloquent\AccessTokenRepository;
 use App\Repositories\Eloquent\AdminRepository;
 use App\Repositories\Eloquent\AuditLogRepository;
 use App\Repositories\Eloquent\AuthChallengeRepository;
+use App\Repositories\Eloquent\EventRegistrationRepository;
+use App\Repositories\Eloquent\EventRepository;
+use App\Repositories\Eloquent\EventSpeakerRepository;
 use App\Repositories\Eloquent\MemberIdSequenceRepository;
 use App\Repositories\Eloquent\MemberRepository;
 use App\Repositories\Eloquent\MembershipRepository;
@@ -34,5 +40,8 @@ class RepositoryServiceProvider extends ServiceProvider
         OrganisationProfileRepositoryInterface::class => OrganisationProfileRepository::class,
         MemberRepositoryInterface::class => MemberRepository::class,
         MemberIdSequenceRepositoryInterface::class => MemberIdSequenceRepository::class,
+        EventRepositoryInterface::class => EventRepository::class,
+        EventSpeakerRepositoryInterface::class => EventSpeakerRepository::class,
+        EventRegistrationRepositoryInterface::class => EventRegistrationRepository::class,
     ];
 }

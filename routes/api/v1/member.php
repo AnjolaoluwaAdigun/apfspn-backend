@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Member\AuthController;
+use App\Http\Controllers\Member\EventController;
 use App\Http\Controllers\Member\ProfileController;
 use App\Http\Controllers\Member\RegistrationController;
 use App\Http\Controllers\Member\SecurityController;
@@ -38,4 +39,10 @@ Route::middleware(['auth:sanctum', 'token:member'])->group(function () {
 
     Route::get('security', [SecurityController::class, 'show'])->name('security.show');
     Route::put('security', [SecurityController::class, 'update'])->name('security.update');
+});
+
+Route::prefix('events')->name('events.')->controller(EventController::class)->middleware(['auth:sanctum', 'token:member'])->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('{event}/register', 'register')->whereUuid('event')->name('register');
+    Route::delete('{event}/register', 'cancel')->whereUuid('event')->name('cancel');
 });

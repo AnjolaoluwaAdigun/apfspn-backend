@@ -6,6 +6,7 @@ use App\Enums\UserStatus;
 use App\Models\Concerns\HasUuidPrimaryKey;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -63,6 +64,11 @@ class User extends Authenticatable
     public function organisationProfile(): HasOne
     {
         return $this->hasOne(OrganisationProfile::class, 'user_uuid');
+    }
+
+    public function eventRegistrations(): HasMany
+    {
+        return $this->hasMany(EventRegistration::class, 'user_uuid');
     }
 
     public function isActive(): bool

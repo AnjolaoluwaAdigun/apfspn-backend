@@ -82,6 +82,42 @@ class RolesAndPermissionsSeederTest extends TestCase
         $this->assertNotContains(ePermission::ArticlesView->value, $permissions);
     }
 
+    public function test_events_cancel_is_held_only_by_super_admin_and_events_coordinator(): void
+    {
+        $this->seed(RolesAndPermissionsSeeder::class);
+
+        $holders = Role::where('guard_name', self::GUARD)->get()
+            ->filter(fn (Role $role) => $role->hasPermissionTo(ePermission::EventsCancel->value))
+            ->pluck('name')
+            ->all();
+
+        $this->assertEqualsCanonicalizing(['super_admin', 'events_coordinator'], $holders);
+    }
+
+    public function test_events_cancel_reaches_existing_roles_without_undoing_admin_edits(): void
+    {
+        ShrinkableRoleMapSeeder::$withheld = [ePermission::EventsCancel];
+        $this->seed(ShrinkableRoleMapSeeder::class);
+
+        $this->assertNotContains(ePermission::EventsCancel->value, $this->permissionsOf('events_coordinator'));
+
+        $coordinator = $this->role('events_coordinator');
+        $coordinator->revokePermissionTo(ePermission::EventsDelete->value);
+        $this->role('editor')->givePermissionTo(ePermission::EventRegistrationsView->value);
+
+        ShrinkableRoleMapSeeder::$withheld = [];
+        $this->seed(ShrinkableRoleMapSeeder::class);
+
+        $coordinatorPermissions = $this->permissionsOf('events_coordinator');
+        $this->assertContains(ePermission::EventsCancel->value, $coordinatorPermissions);
+        $this->assertNotContains(ePermission::EventsDelete->value, $coordinatorPermissions);
+        $this->assertContains(ePermission::EventsCancel->value, $this->permissionsOf('super_admin'));
+
+        $editorPermissions = $this->permissionsOf('editor');
+        $this->assertNotContains(ePermission::EventsCancel->value, $editorPermissions);
+        $this->assertContains(ePermission::EventRegistrationsView->value, $editorPermissions);
+    }
+
     public function test_rerun_does_not_recreate_a_deleted_built_in_role(): void
     {
         $this->seed(RolesAndPermissionsSeeder::class);

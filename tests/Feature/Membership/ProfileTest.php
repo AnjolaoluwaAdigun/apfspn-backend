@@ -37,6 +37,8 @@ class ProfileTest extends TestCase
             ->assertJsonPath('data.bio', 'Pastry chef')
             ->assertJsonPath('data.state', 'Lagos')
             ->assertJsonPath('data.directory_visible', false)
+            ->assertJsonPath('data.account_status', 'active')
+            ->assertJsonMissingPath('data.status')
             ->assertJsonPath('data.membership.status', 'active')
             ->assertJsonPath('data.organisation', null);
     }

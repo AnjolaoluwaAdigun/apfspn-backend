@@ -34,7 +34,7 @@ class RolesAndPermissionsSeeder extends Seeder
             ],
             'events_coordinator' => [
                 P::DashboardView,
-                P::EventsView, P::EventsCreate, P::EventsUpdate, P::EventsDelete, P::EventsPublish,
+                P::EventsView, P::EventsCreate, P::EventsUpdate, P::EventsDelete, P::EventsPublish, P::EventsCancel,
                 P::EventRegistrationsView, P::EventRegistrationsUpdate, P::EventRegistrationsExport,
             ],
             'membership_coordinator' => [

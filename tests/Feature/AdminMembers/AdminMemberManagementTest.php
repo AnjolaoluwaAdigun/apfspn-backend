@@ -5,6 +5,7 @@ namespace Tests\Feature\AdminMembers;
 use App\Enums\MembershipStatus;
 use App\Jobs\DeletePrivateFile;
 use App\Models\AuditLog;
+use App\Models\EventRegistration;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
@@ -253,15 +254,37 @@ class AdminMemberManagementTest extends TestCase
         $this->api('DELETE', $this->memberUrl($active), [], $token)
             ->assertStatus(422)
             ->assertJsonPath('data.code', 'blocked')
-            ->assertJsonPath('data.counts', ['issued_member_ids' => 1, 'active_memberships' => 1]);
+            ->assertJsonPath('data.counts', ['issued_member_ids' => 1, 'active_memberships' => 1, 'event_registrations' => 0]);
 
         $this->api('DELETE', $this->memberUrl($suspended), [], $token)
             ->assertStatus(422)
             ->assertJsonPath('data.code', 'blocked')
-            ->assertJsonPath('data.counts', ['issued_member_ids' => 1, 'active_memberships' => 0]);
+            ->assertJsonPath('data.counts', ['issued_member_ids' => 1, 'active_memberships' => 0, 'event_registrations' => 0]);
 
         $this->assertNotSoftDeleted($active);
         $this->assertNotSoftDeleted($suspended);
+    }
+
+    public function test_delete_is_blocked_while_the_member_holds_event_registrations(): void
+    {
+        $token = $this->adminToken();
+        $active = $this->activeMember();
+        $applicant = $this->pendingMember();
+        EventRegistration::factory()->for($active)->create();
+        EventRegistration::factory()->for($applicant)->waitlisted(1)->create();
+        EventRegistration::factory()->for($applicant)->cancelled()->create();
+
+        $this->api('DELETE', $this->memberUrl($active), [], $token)
+            ->assertStatus(422)
+            ->assertJsonPath('data.counts', ['issued_member_ids' => 1, 'active_memberships' => 1, 'event_registrations' => 1]);
+
+        $this->api('DELETE', $this->memberUrl($applicant), [], $token)
+            ->assertStatus(422)
+            ->assertJsonPath('data.code', 'blocked')
+            ->assertJsonPath('message', 'This member has event registrations and cannot be deleted.')
+            ->assertJsonPath('data.counts', ['issued_member_ids' => 0, 'active_memberships' => 0, 'event_registrations' => 1]);
+
+        $this->assertNotSoftDeleted($applicant);
     }
 
     public function test_deleting_an_applicant_tombstones_the_account_and_frees_email_and_phone(): void

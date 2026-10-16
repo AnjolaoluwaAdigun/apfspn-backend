@@ -6,12 +6,14 @@ use App\Enums\MembershipStatus;
 use App\Exceptions\ApiException;
 use App\Jobs\DeletePrivateFile;
 use App\Models\User;
+use App\Repositories\Contracts\EventRegistrationRepositoryInterface;
 use App\Repositories\Contracts\MemberRepositoryInterface;
 use App\Repositories\Contracts\MembershipRepositoryInterface;
 use App\Repositories\Contracts\OrganisationProfileRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Services\Audit\AuditLogService;
 use App\Services\Auth\TokenService;
+use App\Support\CsvSanitizer;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Arr;
@@ -41,6 +43,7 @@ class AdminMemberService
         private readonly MembershipRepositoryInterface $memberships,
         private readonly UserRepositoryInterface $users,
         private readonly OrganisationProfileRepositoryInterface $organisations,
+        private readonly EventRegistrationRepositoryInterface $eventRegistrations,
         private readonly TokenService $tokens,
         private readonly AuditLogService $audit,
     ) {}
@@ -100,11 +103,20 @@ class AdminMemberService
             $user = $this->lockedUser($uuid);
             $membership = $this->memberships->findByUserForUpdate($user->getKey());
 
-            if ($membership && ($membership->member_id !== null || ! in_array($membership->status, self::DELETABLE_STATUSES, true))) {
-                throw ApiException::blocked('This member has been approved and cannot be deleted. Suspend the membership instead.', [
-                    'issued_member_ids' => $membership->member_id !== null ? 1 : 0,
-                    'active_memberships' => $membership->status === MembershipStatus::Active ? 1 : 0,
-                ]);
+            $approved = $membership && ($membership->member_id !== null || ! in_array($membership->status, self::DELETABLE_STATUSES, true));
+            $eventRegistrations = $this->eventRegistrations->countActiveForUser($user->getKey());
+
+            if ($approved || $eventRegistrations > 0) {
+                throw ApiException::blocked(
+                    $approved
+                        ? 'This member has been approved and cannot be deleted. Suspend the membership instead.'
+                        : 'This member has event registrations and cannot be deleted.',
+                    [
+                        'issued_member_ids' => $membership?->member_id !== null ? 1 : 0,
+                        'active_memberships' => $membership?->status === MembershipStatus::Active ? 1 : 0,
+                        'event_registrations' => $eventRegistrations,
+                    ],
+                );
             }
 
             $documentId = $this->organisations->findForUserForUpdate($user->getKey())?->document_public_id;
@@ -140,7 +152,7 @@ class AdminMemberService
             $organisation = $user->organisationProfile;
             $stateCode = $organisation?->state_code ?? $user->state_code;
 
-            yield array_map($this->csvSafe(...), [
+            yield CsvSanitizer::row([
                 $membership?->member_id,
                 $user->name,
                 $user->email,
@@ -166,16 +178,5 @@ class AdminMemberService
     private function perPage(array $filters): int
     {
         return (int) ($filters['per_page'] ?? self::DEFAULT_PER_PAGE);
-    }
-
-    private function csvSafe(mixed $value): ?string
-    {
-        if ($value === null) {
-            return null;
-        }
-
-        $value = (string) $value;
-
-        return $value !== '' && in_array($value[0], ['=', '+', '-', '@', "\t", "\r"], true) ? "'".$value : $value;
     }
 }
