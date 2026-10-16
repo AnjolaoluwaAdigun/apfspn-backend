@@ -51,6 +51,13 @@ class FileUploadHelper
         return self::privateStore()->temporaryUrl($publicId, now()->addMinutes($ttlMinutes ?? config('apfspn.uploads.private_url_ttl_minutes')));
     }
 
+    public static function deletePrivate(?string $publicId): void
+    {
+        if ($publicId) {
+            self::privateStore()->delete($publicId);
+        }
+    }
+
     public static function isOwnUrl(string $url): bool
     {
         $cloudName = config('apfspn.uploads.cloud_name');

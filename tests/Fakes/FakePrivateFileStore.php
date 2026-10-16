@@ -24,4 +24,9 @@ class FakePrivateFileStore implements PrivateFileStore
             'expires_at' => $expiresAt->getTimestamp(),
         ]);
     }
+
+    public function delete(string $publicId): void
+    {
+        unset($this->files[$publicId]);
+    }
 }

@@ -16,4 +16,27 @@ class MembershipRepository implements MembershipRepositoryInterface
     {
         return Membership::with('user.organisationProfile')->find($uuid);
     }
+
+    public function findByUserForUpdate(string $userUuid): ?Membership
+    {
+        return Membership::where('user_uuid', $userUuid)->whereHas('user')->lockForUpdate()->first();
+    }
+
+    public function save(Membership $membership): Membership
+    {
+        $membership->save();
+
+        return $membership;
+    }
+
+    public function countsByStatus(): array
+    {
+        return Membership::query()
+            ->whereHas('user')
+            ->selectRaw('status, count(*) as total')
+            ->groupBy('status')
+            ->pluck('total', 'status')
+            ->map(fn ($total) => (int) $total)
+            ->all();
+    }
 }

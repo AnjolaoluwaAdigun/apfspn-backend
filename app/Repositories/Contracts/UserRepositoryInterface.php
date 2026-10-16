@@ -17,4 +17,6 @@ interface UserRepositoryInterface extends AuthSubjectRepositoryInterface
     public function update(User $user, array $attributes): User;
 
     public function withProfile(User $user): User;
+
+    public function tombstone(User $user, array $attributes): void;
 }

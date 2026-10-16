@@ -3,6 +3,7 @@
 namespace App\Services\Auth;
 
 use App\Enums\AuthClient;
+use App\Enums\MembershipStatus;
 use App\Enums\TokenAudience;
 use App\Exceptions\ApiException;
 use App\Models\Admin;
@@ -85,6 +86,14 @@ class TokenService
 
         if ($subject instanceof Admin && $subject->must_reset_password) {
             throw new ApiException('You must reset your password before signing in.', 403, ['code' => 'must_reset_password']);
+        }
+
+        if ($subject instanceof User) {
+            match ($subject->membership?->status) {
+                MembershipStatus::Suspended => throw new ApiException('Your membership has been suspended. Please contact APFSPN.', 403, ['code' => 'membership_suspended']),
+                MembershipStatus::Rejected => throw new ApiException('Your membership application was not approved.', 403, ['code' => 'membership_rejected']),
+                default => null,
+            };
         }
     }
 }

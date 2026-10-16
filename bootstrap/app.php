@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 use Spatie\Permission\Middleware\RoleMiddleware;
 use Spatie\Permission\Middleware\RoleOrPermissionMiddleware;
@@ -53,6 +54,17 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo(fn () => null);
     })
     ->withExceptions(function (Exceptions $exceptions) {
+        $exceptions->dontReport([
+            ApiException::class,
+            ValidationException::class,
+            AuthenticationException::class,
+            AuthorizationException::class,
+            ModelNotFoundException::class,
+            NotFoundHttpException::class,
+            ThrottleRequestsException::class,
+            UnauthorizedException::class,
+        ]);
+
         $exceptions->render(function (Throwable $e, Request $request) {
             if (! $request->is('api/*')) {
                 return null;
@@ -68,7 +80,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 $e instanceof ApiException => JsonResponser::error($e->getMessage(), $e->status(), $e->payload()),
                 $e instanceof ValidationException => JsonResponser::error($e->validator->errors()->first(), 422, $e->errors()),
                 $e instanceof AuthenticationException => JsonResponser::error('Unauthenticated.', 401),
-                $e instanceof AuthorizationException => JsonResponser::error('You are not allowed to perform this action.', 403),
+                $e instanceof AuthorizationException, $e instanceof UnauthorizedException => JsonResponser::error('You are not allowed to perform this action.', 403),
                 $e instanceof ModelNotFoundException, $e instanceof NotFoundHttpException => JsonResponser::error('Resource not found.', 404),
                 $e instanceof ThrottleRequestsException => JsonResponser::error(
                     'Too many requests. Please try again later.',

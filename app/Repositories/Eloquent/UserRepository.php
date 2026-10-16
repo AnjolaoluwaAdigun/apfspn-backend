@@ -50,4 +50,10 @@ class UserRepository implements UserRepositoryInterface
     {
         return $user->load(['membership', 'organisationProfile']);
     }
+
+    public function tombstone(User $user, array $attributes): void
+    {
+        $user->update($attributes);
+        $user->delete();
+    }
 }

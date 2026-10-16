@@ -24,6 +24,12 @@ class Membership extends Model
         'approved_at',
         'approved_by_admin_uuid',
         'rejection_reason',
+        'rejected_at',
+        'rejected_by_admin_uuid',
+        'suspended_at',
+        'suspended_by_admin_uuid',
+        'suspension_reason',
+        'reactivated_at',
         'expires_at',
     ];
 
@@ -33,6 +39,9 @@ class Membership extends Model
             'member_type' => MemberType::class,
             'status' => MembershipStatus::class,
             'approved_at' => 'datetime',
+            'rejected_at' => 'datetime',
+            'suspended_at' => 'datetime',
+            'reactivated_at' => 'datetime',
             'expires_at' => 'datetime',
         ];
     }

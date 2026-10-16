@@ -43,4 +43,13 @@ class CloudinaryPrivateFileStore implements PrivateFileStore
             'expires_at' => $expiresAt->getTimestamp(),
         ]);
     }
+
+    public function delete(string $publicId): void
+    {
+        $this->cloudinary->uploadApi()->destroy($publicId, [
+            'type' => self::DELIVERY_TYPE,
+            'resource_type' => self::RESOURCE_TYPE,
+            'invalidate' => true,
+        ]);
+    }
 }
