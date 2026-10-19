@@ -48,7 +48,17 @@ class EventRegistrationRepository implements EventRegistrationRepositoryInterfac
         return $this->countsByStatusForEvents([$eventUuid])[$eventUuid] ?? [];
     }
 
+    public function countsByStatusForUpdate(string $eventUuid): array
+    {
+        return $this->statusCounts([$eventUuid], true)[$eventUuid] ?? [];
+    }
+
     public function countsByStatusForEvents(array $eventUuids): array
+    {
+        return $this->statusCounts($eventUuids, false);
+    }
+
+    private function statusCounts(array $eventUuids, bool $lock): array
     {
         if ($eventUuids === []) {
             return [];
@@ -58,6 +68,7 @@ class EventRegistrationRepository implements EventRegistrationRepositoryInterfac
 
         EventRegistration::query()
             ->whereIn('event_uuid', $eventUuids)
+            ->when($lock, fn (Builder $query) => $query->lockForUpdate())
             ->selectRaw('event_uuid, status, count(*) as total')
             ->groupBy('event_uuid', 'status')
             ->toBase()
@@ -74,15 +85,16 @@ class EventRegistrationRepository implements EventRegistrationRepositoryInterfac
         return EventRegistration::where('user_uuid', $userUuid)->whereIn('status', EventRegistrationStatus::active())->count();
     }
 
-    public function seatsTaken(string $eventUuid): int
+    public function seatsTakenForUpdate(string $eventUuid): int
     {
-        return EventRegistration::where('event_uuid', $eventUuid)->whereIn('status', EventRegistrationStatus::seatHolding())->count();
+        return EventRegistration::where('event_uuid', $eventUuid)->whereIn('status', EventRegistrationStatus::seatHolding())->lockForUpdate()->count();
     }
 
-    public function nextWaitlistPosition(string $eventUuid): int
+    public function nextWaitlistPositionForUpdate(string $eventUuid): int
     {
         return (int) EventRegistration::where('event_uuid', $eventUuid)
             ->where('status', EventRegistrationStatus::Waitlisted)
+            ->lockForUpdate()
             ->max('waitlist_position') + 1;
     }
 

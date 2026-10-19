@@ -24,13 +24,15 @@ interface EventRegistrationRepositoryInterface
 
     public function countsByStatus(string $eventUuid): array;
 
+    public function countsByStatusForUpdate(string $eventUuid): array;
+
     public function countsByStatusForEvents(array $eventUuids): array;
 
     public function countActiveForUser(string $userUuid): int;
 
-    public function seatsTaken(string $eventUuid): int;
+    public function seatsTakenForUpdate(string $eventUuid): int;
 
-    public function nextWaitlistPosition(string $eventUuid): int;
+    public function nextWaitlistPositionForUpdate(string $eventUuid): int;
 
     public function waitlistedForUpdate(string $eventUuid, ?int $limit): Collection;
 

@@ -212,6 +212,7 @@ php artisan scribe:generate
 - **Member activity stores field names, never values,** so the feed can say "profile updated (phone, bio)" without copying personal data into another table.
 - **Rich text is sanitised on save** with `symfony/html-sanitizer` and a strict allow-list (headings, lists, links, images, YouTube embeds). Every content save writes a revision, and revisions can be restored.
 - **Suspended and rejected members are locked out immediately.** Suspension revokes every token in the same transaction, and login, refresh and every request with an existing token re-check membership status.
+- **Lock first, count with locking reads.** Every transaction that changes a status or takes a seat locks its row as the first statement, and the counts that decide capacity and waitlist positions use `lockForUpdate()`. On MySQL, a plain read inside a transaction returns the snapshot taken at its first plain read, which let concurrent registrations overbook an event; SQLite serialises whole transactions and never showed it.
 - **Waitlists stay contiguous.** When a member cancels, the first person on the waitlist is promoted in the same transaction, and everyone behind them moves up.
 - **Docs examples come from the tests** rather than being written by hand, so an example response cannot drift from the real envelope without a test failing.
 - **No signed URL without Cloudinary.** When Cloudinary isn't configured, signed document URLs come back as `null` and the error is reported, instead of the whole member record returning a 500.

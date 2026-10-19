@@ -45,9 +45,8 @@ class EventRegistrationService
     public function register(User $user, string $eventUuid): EventRegistration
     {
         return DB::transaction(function () use ($user, $eventUuid) {
-            $this->assertActiveMember($user);
-
             $event = $this->lockedVisibleEvent($eventUuid);
+            $this->assertActiveMember($user);
             $registration = $this->registrations->findForUserForUpdate($event->getKey(), $user->getKey());
 
             if ($registration?->status->isActive()) {
@@ -56,10 +55,10 @@ class EventRegistrationService
 
             $this->assertRegistrationOpen($event);
 
-            $hasSeat = $event->capacity === null || $this->registrations->seatsTaken($event->getKey()) < $event->capacity;
+            $hasSeat = $event->capacity === null || $this->registrations->seatsTakenForUpdate($event->getKey()) < $event->capacity;
             $attributes = [
                 'status' => $hasSeat ? EventRegistrationStatus::Registered : EventRegistrationStatus::Waitlisted,
-                'waitlist_position' => $hasSeat ? null : $this->registrations->nextWaitlistPosition($event->getKey()),
+                'waitlist_position' => $hasSeat ? null : $this->registrations->nextWaitlistPositionForUpdate($event->getKey()),
                 'registered_at' => now(),
                 'promoted_at' => null,
                 'cancelled_at' => null,
@@ -126,7 +125,7 @@ class EventRegistrationService
             return 0;
         }
 
-        $limit = $event->capacity === null ? null : $event->capacity - $this->registrations->seatsTaken($event->getKey());
+        $limit = $event->capacity === null ? null : $event->capacity - $this->registrations->seatsTakenForUpdate($event->getKey());
 
         if ($limit !== null && $limit <= 0) {
             return 0;

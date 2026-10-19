@@ -155,7 +155,7 @@ class EventService
     {
         DB::transaction(function () use ($uuid) {
             $event = $this->lockedEvent($uuid);
-            $counts = $this->statusCounts($event->getKey());
+            $counts = $this->normaliseCounts($this->registrations->countsByStatusForUpdate($event->getKey()));
 
             if (array_sum($counts) > 0) {
                 throw ApiException::blocked('This event has registrations and cannot be deleted. Cancel it instead.', $counts);
@@ -259,7 +259,7 @@ class EventService
             return;
         }
 
-        $taken = $this->registrations->seatsTaken($event->getKey());
+        $taken = $this->registrations->seatsTakenForUpdate($event->getKey());
 
         if ($event->capacity < $taken) {
             throw new ApiException('Capacity cannot be lower than the number of registered attendees.', 422, [

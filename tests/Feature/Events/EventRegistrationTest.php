@@ -10,7 +10,11 @@ use App\Mail\EventRegistrationMail;
 use App\Models\Event;
 use App\Models\EventRegistration;
 use App\Services\Events\EventMailService;
+use App\Services\Events\EventRegistrationService;
+use Illuminate\Database\Events\QueryExecuted;
+use Illuminate\Database\Events\TransactionBeginning;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event as EventDispatcher;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Queue;
 use Tests\Feature\AdminMembers\InteractsWithAdminMembers;
@@ -189,6 +193,26 @@ class EventRegistrationTest extends TestCase
         $this->api('DELETE', $this->registerUrl(Event::factory()->published()->create()), [], $token)
             ->assertNotFound()
             ->assertJsonPath('data.code', 'registration_not_found');
+    }
+
+    public function test_registration_locks_the_event_row_before_any_other_read(): void
+    {
+        $member = $this->activeMember();
+        $event = Event::factory()->published()->capacity(1)->create();
+        $statements = [];
+
+        EventDispatcher::listen(TransactionBeginning::class, function () use (&$statements) {
+            $statements[] = 'BEGIN';
+        });
+        EventDispatcher::listen(QueryExecuted::class, function (QueryExecuted $query) use (&$statements) {
+            $statements[] = $query->sql;
+        });
+
+        app(EventRegistrationService::class)->register($member, $event->uuid);
+
+        $first = $statements[array_search('BEGIN', $statements, true) + 1] ?? '';
+
+        $this->assertMatchesRegularExpression('/^select .* from "events" where /', $first);
     }
 
     public function test_pending_and_expired_members_cannot_register(): void
