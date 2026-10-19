@@ -2,6 +2,8 @@
 
 namespace App\Helpers\Uploads;
 
+use App\Exceptions\ApiException;
+use Closure;
 use Cloudinary\Cloudinary;
 use DateTimeInterface;
 
@@ -11,7 +13,9 @@ class CloudinaryPrivateFileStore implements PrivateFileStore
 
     private const RESOURCE_TYPE = 'raw';
 
-    public function __construct(private readonly Cloudinary $cloudinary) {}
+    private ?Cloudinary $cloudinary = null;
+
+    public function __construct(private readonly Closure $resolveClient) {}
 
     public function put(string $publicId, string $contents): string
     {
@@ -20,7 +24,7 @@ class CloudinaryPrivateFileStore implements PrivateFileStore
         rewind($stream);
 
         try {
-            $result = $this->cloudinary->uploadApi()->upload($stream, [
+            $result = $this->client()->uploadApi()->upload($stream, [
                 'public_id' => $publicId,
                 'type' => self::DELIVERY_TYPE,
                 'resource_type' => self::RESOURCE_TYPE,
@@ -35,9 +39,19 @@ class CloudinaryPrivateFileStore implements PrivateFileStore
         return $result['public_id'];
     }
 
-    public function temporaryUrl(string $publicId, DateTimeInterface $expiresAt): string
+    public function temporaryUrl(string $publicId, DateTimeInterface $expiresAt): ?string
     {
-        return $this->cloudinary->uploadApi()->privateDownloadUrl($publicId, '', [
+        try {
+            $client = $this->client();
+        } catch (ApiException $exception) {
+            if ($exception->isUploadsUnavailable()) {
+                return null;
+            }
+
+            throw $exception;
+        }
+
+        return $client->uploadApi()->privateDownloadUrl($publicId, '', [
             'type' => self::DELIVERY_TYPE,
             'resource_type' => self::RESOURCE_TYPE,
             'expires_at' => $expiresAt->getTimestamp(),
@@ -46,10 +60,15 @@ class CloudinaryPrivateFileStore implements PrivateFileStore
 
     public function delete(string $publicId): void
     {
-        $this->cloudinary->uploadApi()->destroy($publicId, [
+        $this->client()->uploadApi()->destroy($publicId, [
             'type' => self::DELIVERY_TYPE,
             'resource_type' => self::RESOURCE_TYPE,
             'invalidate' => true,
         ]);
+    }
+
+    private function client(): Cloudinary
+    {
+        return $this->cloudinary ??= ($this->resolveClient)();
     }
 }

@@ -12,8 +12,8 @@ class OrganisationProfileResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        $canSeeDocument = $this->canSeeDocument($request);
         $ttl = config('apfspn.uploads.private_url_ttl_minutes');
+        $documentUrl = $this->canSeeDocument($request) ? FileUploadHelper::temporaryUrl($this->document_public_id, $ttl) : null;
 
         return [
             'uuid' => $this->uuid,
@@ -29,8 +29,8 @@ class OrganisationProfileResource extends JsonResource
             'state' => config('apfspn.states.'.$this->state_code),
             'city' => $this->city,
             'website' => $this->website,
-            'document_url' => $canSeeDocument ? FileUploadHelper::temporaryUrl($this->document_public_id, $ttl) : null,
-            'document_url_expires_at' => $canSeeDocument && $this->document_public_id ? now()->addMinutes($ttl)->toIso8601String() : null,
+            'document_url' => $documentUrl,
+            'document_url_expires_at' => $documentUrl !== null ? now()->addMinutes($ttl)->toIso8601String() : null,
         ];
     }
 

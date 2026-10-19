@@ -7,7 +7,6 @@ use App\Helpers\FileUploadHelper;
 use App\Helpers\Uploads\CloudinaryPrivateFileStore;
 use App\Helpers\Uploads\PrivateFileStore;
 use Cloudinary\Cloudinary;
-use Cloudinary\Exception\ConfigurationException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\Fakes\FakePrivateFileStore;
@@ -135,8 +134,9 @@ class FileUploadHelperTest extends TestCase
 
     public function test_temporary_url_is_null_when_cloudinary_is_not_configured(): void
     {
+        config(['filesystems.disks.cloudinary' => ['driver' => 'cloudinary']]);
         $this->app->forgetInstance(PrivateFileStore::class);
-        $this->app->bind(PrivateFileStore::class, fn () => throw new ConfigurationException('Invalid configuration, please set up your environment.'));
+        $this->app->forgetInstance(Cloudinary::class);
 
         $this->assertNull(FileUploadHelper::temporaryUrl('members/documents/cac.pdf'));
     }
@@ -144,7 +144,7 @@ class FileUploadHelperTest extends TestCase
     public function test_cloudinary_private_store_signs_authenticated_download_urls(): void
     {
         $this->freezeTime();
-        $store = new CloudinaryPrivateFileStore(new Cloudinary('cloudinary://key:secret@apfspn-test'));
+        $store = new CloudinaryPrivateFileStore(fn () => new Cloudinary('cloudinary://key:secret@apfspn-test'));
 
         $url = $store->temporaryUrl('documents/cac.pdf', now()->addMinutes(10));
         parse_str(parse_url($url, PHP_URL_QUERY), $query);

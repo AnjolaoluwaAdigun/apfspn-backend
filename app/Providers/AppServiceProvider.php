@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Enums\DashboardSection;
+use App\Helpers\Uploads\CloudinaryClient;
 use App\Helpers\Uploads\CloudinaryPrivateFileStore;
 use App\Helpers\Uploads\PrivateFileStore;
 use App\Models\Admin;
@@ -16,21 +17,28 @@ use App\Models\User;
 use App\Policies\ArticlePolicy;
 use App\Policies\EventPolicy;
 use App\Services\Dashboard\DashboardCache;
+use Cloudinary\Cloudinary;
+use CloudinaryLabs\CloudinaryLaravel\CloudinaryStorageAdapter;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\Sanctum;
+use League\Flysystem\Filesystem;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public array $bindings = [
-        PrivateFileStore::class => CloudinaryPrivateFileStore::class,
-    ];
+    public function register(): void
+    {
+        $this->app->singleton(Cloudinary::class, fn ($app) => CloudinaryClient::make($app['config']->get('filesystems.disks.cloudinary', [])));
+        $this->app->bind(PrivateFileStore::class, fn ($app) => new CloudinaryPrivateFileStore(fn () => $app->make(Cloudinary::class)));
+    }
 
     public function boot(): void
     {
@@ -46,6 +54,16 @@ class AppServiceProvider extends ServiceProvider
 
         $this->configureRateLimiting();
         $this->forgetDashboardCacheOnChanges();
+        $this->configureCloudinaryDisk();
+    }
+
+    private function configureCloudinaryDisk(): void
+    {
+        Storage::extend('cloudinary', function ($app, array $config) {
+            $adapter = new CloudinaryStorageAdapter(CloudinaryClient::make($config), null, $config['prefix'] ?? null);
+
+            return new FilesystemAdapter(new Filesystem($adapter, $config), $adapter, $config);
+        });
     }
 
     private function forgetDashboardCacheOnChanges(): void

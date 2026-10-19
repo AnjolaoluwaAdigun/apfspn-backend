@@ -71,7 +71,10 @@ Then run `php artisan migrate` and `php artisan db:seed --class=DemoSeeder`.
 ### Emails and uploads in local development
 
 - **Email:** `MAIL_MAILER=log` writes every email (OTP codes, invites, status notices) to `storage/logs/laravel.log`. Emails are queued, so run `php artisan queue:work` alongside the server. For quick local testing, `QUEUE_CONNECTION=sync` in `.env` sends them immediately instead.
-- **Uploads:** profile photos, event images, article covers and registration documents need Cloudinary credentials (`CLOUDINARY_URL`). Without them, everything else works, but uploads fail and signed document URLs come back as `null`. Individual registration without a photo works without Cloudinary.
+- **Uploads:** files are stored on Cloudinary (`CLOUDINARY_URL`). Without it:
+  - signed document URLs (`organisation.document_url`) come back as `null`;
+  - photo and image uploads (member photos, event images, speaker photos, article covers) and corporate and institutional registration, which need a document, return 503 with `data.code = "uploads_unavailable"`, and a warning is logged;
+  - everything else works, including individual registration without a photo.
 
 ## Demo data
 
@@ -215,7 +218,7 @@ php artisan scribe:generate
 - **Lock first, count with locking reads.** Every transaction that changes a status or takes a seat locks its row as the first statement, and the counts that decide capacity and waitlist positions use `lockForUpdate()`. On MySQL, a plain read inside a transaction returns the snapshot taken at its first plain read, which let concurrent registrations overbook an event; SQLite serialises whole transactions and never showed it.
 - **Waitlists stay contiguous.** When a member cancels, the first person on the waitlist is promoted in the same transaction, and everyone behind them moves up.
 - **Docs examples come from the tests** rather than being written by hand, so an example response cannot drift from the real envelope without a test failing.
-- **No signed URL without Cloudinary.** When Cloudinary isn't configured, signed document URLs come back as `null` and the error is reported, instead of the whole member record returning a 500.
+- **Cloudinary is optional at runtime.** The Cloudinary client is only built when a file is actually stored, signed or deleted. Without configuration, signed document URLs are `null`, uploads return 503 `uploads_unavailable`, and a warning is logged rather than an error on every request, so a server missing `CLOUDINARY_URL` is noticed without breaking member pages.
 - **The CSV exports** (members, attendees) are the only responses outside the JSON envelope. Validation and permission failures before the download starts still use it. Cells that start with `=`, `+`, `-` or `@` are escaped against formula injection.
 
 ## Not built yet (from the BRD)

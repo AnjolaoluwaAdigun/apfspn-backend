@@ -4,9 +4,11 @@ namespace App\Helpers;
 
 use App\Exceptions\ApiException;
 use App\Helpers\Uploads\PrivateFileStore;
+use Closure;
 use Cloudinary\Exception\ConfigurationException;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\Mime\MimeTypes;
@@ -24,7 +26,7 @@ class FileUploadHelper
         }
 
         if ($file instanceof UploadedFile) {
-            return self::disk()->url(self::disk()->putFile($folder, $file));
+            return self::whenAvailable(fn () => self::disk()->url(self::disk()->putFile($folder, $file)));
         }
 
         if (Str::startsWith($file, ['http://', 'https://'])) {
@@ -33,9 +35,12 @@ class FileUploadHelper
 
         [$bytes, $extension] = self::decodeBase64($file);
         $path = self::path($folder, $extension);
-        self::disk()->put($path, $bytes);
 
-        return self::disk()->url($path);
+        return self::whenAvailable(function () use ($path, $bytes) {
+            self::disk()->put($path, $bytes);
+
+            return self::disk()->url($path);
+        });
     }
 
     public static function uploadMany(array $files, string $folder): array
@@ -60,8 +65,16 @@ class FileUploadHelper
 
     public static function deletePrivate(?string $publicId): void
     {
-        if ($publicId) {
-            self::privateStore()->delete($publicId);
+        if (! $publicId) {
+            return;
+        }
+
+        try {
+            self::whenAvailable(fn () => self::privateStore()->delete($publicId));
+        } catch (ApiException $exception) {
+            if (! $exception->isUploadsUnavailable()) {
+                throw $exception;
+            }
         }
     }
 
@@ -85,7 +98,7 @@ class FileUploadHelper
 
             $extension = $file->guessExtension() ?: ($file->getClientOriginalExtension() ?: 'bin');
 
-            return self::privateStore()->put(self::path($folder, $extension), $file->get());
+            return self::whenAvailable(fn () => self::privateStore()->put(self::path($folder, $extension), $file->get()));
         }
 
         if (Str::startsWith($file, ['http://', 'https://'])) {
@@ -94,7 +107,7 @@ class FileUploadHelper
 
         [$bytes, $extension] = self::decodeBase64($file);
 
-        return self::privateStore()->put(self::path($folder, $extension), $bytes);
+        return self::whenAvailable(fn () => self::privateStore()->put(self::path($folder, $extension), $bytes));
     }
 
     private static function keepUrl(string $url): string
@@ -132,6 +145,19 @@ class FileUploadHelper
     private static function disk(): FilesystemAdapter
     {
         return Storage::disk(config('apfspn.uploads.disk'));
+    }
+
+    private static function whenAvailable(Closure $operation): mixed
+    {
+        try {
+            return $operation();
+        } catch (ApiException $exception) {
+            if ($exception->isUploadsUnavailable()) {
+                Log::warning('Cloudinary is not configured, so a file operation was refused. Set CLOUDINARY_URL to enable uploads.');
+            }
+
+            throw $exception;
+        }
     }
 
     private static function privateStore(): PrivateFileStore
