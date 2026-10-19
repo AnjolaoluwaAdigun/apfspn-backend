@@ -70,7 +70,7 @@ return new class extends Migration
             $table->string('guard_name', 125);
             $table->timestamp('applied_at');
 
-            $table->unique(['role_name', 'permission_name', 'guard_name']);
+            $table->unique(['role_name', 'permission_name', 'guard_name'], 'seeded_role_permissions_unique');
         });
 
         app('cache')

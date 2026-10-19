@@ -4,8 +4,10 @@ namespace Tests\Feature\Architecture;
 
 use App\Enums\Concerns\EnumHelpers;
 use App\Http\Requests\ApiFormRequest;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route as RouteFacade;
 use Illuminate\Support\Str;
@@ -21,6 +23,8 @@ class ConventionsTest extends TestCase
     private const TOKEN_ONLY_ADMIN = ['v1.admin.auth.refresh', 'v1.admin.auth.logout', 'v1.admin.auth.me'];
 
     private const SLUG_PARAMETERS = ['slug'];
+
+    private const MYSQL_IDENTIFIER_LIMIT = 64;
 
     public function test_every_admin_route_is_authenticated_and_permission_checked(): void
     {
@@ -152,6 +156,29 @@ class ConventionsTest extends TestCase
             }
         }
 
+        $this->assertSame([], $problems);
+    }
+
+    public function test_index_and_foreign_key_names_fit_mysql(): void
+    {
+        $blueprints = [];
+        $this->app->bind(Blueprint::class, function ($app, array $parameters) use (&$blueprints) {
+            return $blueprints[] = new Blueprint($parameters['connection'], $parameters['table'], $parameters['callback']);
+        });
+
+        Artisan::call('migrate:fresh', ['--force' => true]);
+
+        $problems = [];
+
+        foreach ($blueprints as $blueprint) {
+            foreach ($blueprint->getCommands() as $command) {
+                if (in_array($command->name, ['unique', 'index', 'foreign', 'fulltext', 'spatialIndex'], true) && strlen($command->index) > self::MYSQL_IDENTIFIER_LIMIT) {
+                    $problems[] = $blueprint->getTable().': '.$command->index.' ('.strlen($command->index).')';
+                }
+            }
+        }
+
+        $this->assertNotEmpty($blueprints);
         $this->assertSame([], $problems);
     }
 
