@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Membership;
 use App\Repositories\Contracts\MembershipRepositoryInterface;
+use Illuminate\Support\Carbon;
 
 class MembershipRepository implements MembershipRepositoryInterface
 {
@@ -22,6 +23,11 @@ class MembershipRepository implements MembershipRepositoryInterface
         return Membership::where('user_uuid', $userUuid)->whereHas('user')->lockForUpdate()->first();
     }
 
+    public function findByUser(string $userUuid): ?Membership
+    {
+        return Membership::where('user_uuid', $userUuid)->first();
+    }
+
     public function save(Membership $membership): Membership
     {
         $membership->save();
@@ -38,5 +44,10 @@ class MembershipRepository implements MembershipRepositoryInterface
             ->pluck('total', 'status')
             ->map(fn ($total) => (int) $total)
             ->all();
+    }
+
+    public function countCreatedSince(Carbon $since): int
+    {
+        return Membership::query()->whereHas('user')->where('created_at', '>=', $since)->count();
     }
 }

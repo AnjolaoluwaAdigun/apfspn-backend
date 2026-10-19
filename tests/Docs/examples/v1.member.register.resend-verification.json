@@ -1,0 +1,32 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The email field must be a valid email address.",
+            "data": {
+                "email": [
+                    "The email field must be a valid email address."
+                ]
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "If an unverified application exists for this email, a new code has been sent.",
+            "data": {
+                "challenge_token": "{challenge_token}",
+                "mode": "send_new",
+                "expires_in": 599,
+                "retry_after_seconds": 60
+            }
+        },
+        "request": {
+            "email": "ada@apfspn.test"
+        }
+    }
+}

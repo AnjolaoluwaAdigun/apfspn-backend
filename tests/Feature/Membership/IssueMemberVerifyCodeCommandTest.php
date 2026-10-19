@@ -28,7 +28,7 @@ class IssueMemberVerifyCodeCommandTest extends TestCase
         $registration = $this->register('individual')->assertCreated();
         Queue::fake();
 
-        $this->assertSame(0, Artisan::call('apfspn:member-verify-code', ['email' => 'ada@example.com']));
+        $this->assertSame(0, Artisan::call('apfspn:member-verify-code', ['email' => 'ada@apfspn.test']));
         $lines = preg_split('/\R/', trim(Artisan::output()));
 
         $this->assertCount(2, $lines);
@@ -54,8 +54,8 @@ class IssueMemberVerifyCodeCommandTest extends TestCase
         $this->app['env'] = 'local';
         $this->register('individual')->assertCreated();
 
-        $this->assertSame(0, Artisan::call('apfspn:member-verify-code', ['email' => 'ada@example.com']));
-        $this->assertSame(0, Artisan::call('apfspn:member-verify-code', ['email' => 'ada@example.com']));
+        $this->assertSame(0, Artisan::call('apfspn:member-verify-code', ['email' => 'ada@apfspn.test']));
+        $this->assertSame(0, Artisan::call('apfspn:member-verify-code', ['email' => 'ada@apfspn.test']));
     }
 
     public function test_refuses_outside_local(): void
@@ -65,7 +65,7 @@ class IssueMemberVerifyCodeCommandTest extends TestCase
         foreach (['testing', 'production', 'staging'] as $env) {
             $this->app['env'] = $env;
 
-            $this->artisan('apfspn:member-verify-code', ['email' => 'ada@example.com'])
+            $this->artisan('apfspn:member-verify-code', ['email' => 'ada@apfspn.test'])
                 ->expectsOutput('This command only runs when APP_ENV=local.')
                 ->doesntExpectOutputToContain('code:')
                 ->assertFailed();
@@ -77,7 +77,7 @@ class IssueMemberVerifyCodeCommandTest extends TestCase
         $this->app['env'] = 'local';
         $verified = User::factory()->create();
 
-        foreach (['nobody@example.com', $verified->email] as $email) {
+        foreach (['nobody@apfspn.test', $verified->email] as $email) {
             $this->artisan('apfspn:member-verify-code', ['email' => $email])
                 ->expectsOutput('No member awaiting email verification was found with that email.')
                 ->assertFailed();

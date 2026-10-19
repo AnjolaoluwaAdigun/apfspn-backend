@@ -48,7 +48,7 @@ class RegistrationTest extends TestCase
             ->assertJsonPath('data.challenge.mode', 'send_new')
             ->assertJsonMissingPath('data.tokens');
 
-        $user = User::where('email', 'ada@example.com')->firstOrFail();
+        $user = User::where('email', 'ada@apfspn.test')->firstOrFail();
         $this->assertNull($user->email_verified_at);
         $this->assertNotNull($user->consent_accepted_at);
         $this->assertSame('LA', $user->state_code);
@@ -58,7 +58,7 @@ class RegistrationTest extends TestCase
         $this->assertSame(MemberType::Individual, $user->membership->member_type);
         $this->assertNull($user->membership->member_id);
 
-        Queue::assertPushed(SendOtpEmail::class, fn (SendOtpEmail $job) => $job->email === 'ada@example.com' && $job->purpose === ChallengePurpose::EmailVerification);
+        Queue::assertPushed(SendOtpEmail::class, fn (SendOtpEmail $job) => $job->email === 'ada@apfspn.test' && $job->purpose === ChallengePurpose::EmailVerification);
         Queue::assertNotPushed(SendApplicationReceivedEmail::class);
     }
 
@@ -231,7 +231,7 @@ class RegistrationTest extends TestCase
     {
         $this->register('individual')->assertCreated();
 
-        $this->api('POST', '/api/v1/member/auth/login', ['email' => 'ada@example.com', 'password' => 'NewPassword1'])
+        $this->api('POST', '/api/v1/member/auth/login', ['email' => 'ada@apfspn.test', 'password' => 'NewPassword1'])
             ->assertStatus(401)
             ->assertJsonPath('data.code', 'invalid_credentials');
     }
@@ -309,7 +309,7 @@ class RegistrationTest extends TestCase
 
         $shapes = [];
 
-        foreach (['ada@example.com', $verified->email, 'nobody@example.com'] as $email) {
+        foreach (['ada@apfspn.test', $verified->email, 'nobody@apfspn.test'] as $email) {
             $shapes[] = array_keys($this->api('POST', '/api/v1/member/register/resend-verification', ['email' => $email])
                 ->assertOk()
                 ->assertJsonPath('data.mode', 'send_new')
@@ -318,7 +318,7 @@ class RegistrationTest extends TestCase
 
         $this->assertCount(1, array_unique($shapes, SORT_REGULAR));
         Queue::assertPushed(SendOtpEmail::class, 2);
-        Queue::assertPushed(SendOtpEmail::class, fn (SendOtpEmail $job) => $job->email === 'ada@example.com');
-        Queue::assertNotPushed(SendOtpEmail::class, fn (SendOtpEmail $job) => in_array($job->email, [$verified->email, 'nobody@example.com'], true));
+        Queue::assertPushed(SendOtpEmail::class, fn (SendOtpEmail $job) => $job->email === 'ada@apfspn.test');
+        Queue::assertNotPushed(SendOtpEmail::class, fn (SendOtpEmail $job) => in_array($job->email, [$verified->email, 'nobody@apfspn.test'], true));
     }
 }

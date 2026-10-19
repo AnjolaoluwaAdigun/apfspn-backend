@@ -52,7 +52,7 @@ class IssueAdminResetTokenCommandTest extends TestCase
     {
         $this->app['env'] = 'local';
 
-        $this->artisan('apfspn:admin-reset-token', ['email' => 'nobody@example.com'])
+        $this->artisan('apfspn:admin-reset-token', ['email' => 'nobody@apfspn.test'])
             ->expectsOutput('No admin found with that email.')
             ->assertFailed();
     }

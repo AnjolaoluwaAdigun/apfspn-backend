@@ -30,7 +30,11 @@ class RoleManagementTest extends TestCase
         $this->adminWithRole('editor');
         $this->adminWithRole('editor');
 
-        $roles = collect($this->api('GET', '/api/v1/admin/roles', [], $token)->assertOk()->json('data'))->keyBy('name');
+        $response = $this->api('GET', '/api/v1/admin/roles', [], $token)
+            ->assertOk()
+            ->assertJsonPath('data.pagination.total', 6)
+            ->assertJsonPath('data.pagination.per_page', 15);
+        $roles = collect($response->json('data.items'))->keyBy('name');
 
         $this->assertCount(6, $roles);
         $this->assertSame(2, $roles['editor']['admins_count']);
@@ -40,6 +44,21 @@ class RoleManagementTest extends TestCase
         $this->assertFalse($roles['editor']['locked']);
         $this->assertContains('articles.publish', $roles['editor']['permissions']);
         $this->assertCount(count(ePermission::cases()), $roles['super_admin']['permissions']);
+    }
+
+    public function test_roles_list_is_paginated_by_name(): void
+    {
+        $token = $this->tokenFor($this->adminWithRole('super_admin'));
+
+        $this->api('GET', '/api/v1/admin/roles?per_page=2&page=2', [], $token)
+            ->assertOk()
+            ->assertJsonCount(2, 'data.items')
+            ->assertJsonPath('data.items.0.name', 'editor')
+            ->assertJsonPath('data.pagination.last_page', 3);
+
+        $this->api('GET', '/api/v1/admin/roles?per_page=101', [], $token)
+            ->assertUnprocessable()
+            ->assertJsonPath('error', true);
     }
 
     public function test_permissions_catalogue_is_grouped_by_module(): void

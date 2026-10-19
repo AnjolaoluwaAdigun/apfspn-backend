@@ -152,7 +152,7 @@ class AdminSafetyRulesTest extends TestCase
         $admin = Admin::factory()->disabled()->create();
 
         $disabled = $this->api('POST', '/api/v1/admin/auth/forgot-password', ['email' => $admin->email])->assertOk();
-        $unknown = $this->api('POST', '/api/v1/admin/auth/forgot-password', ['email' => 'nobody@example.com'])->assertOk();
+        $unknown = $this->api('POST', '/api/v1/admin/auth/forgot-password', ['email' => 'nobody@apfspn.test'])->assertOk();
 
         $this->assertSame(array_keys($unknown->json('data')), array_keys($disabled->json('data')));
         $this->assertSame($unknown->json('data.mode'), $disabled->json('data.mode'));

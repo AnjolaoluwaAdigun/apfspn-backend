@@ -1,0 +1,57 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Article updated.",
+            "data": {
+                "uuid": "01a1451a-e189-701a-a2b8-f868bd50d16f",
+                "slug": "maiores-quia-aspernatur-blanditiis-alias-porro-dolores-voluptatibus-rxccy",
+                "title": "Fixed",
+                "excerpt": "Laboriosam minima repudiandae fugit et itaque magnam aut possimus neque rerum nisi aliquid dolores nisi esse quis.",
+                "body": "<p>Et fugiat repellendus iure reiciendis iste nobis odit repellat. Et dolorum debitis cum quasi porro corrupti libero. Quo sapiente sit odit consequatur vel explicabo et. Cupiditate a vitae blanditiis sint quia expedita et.</p>",
+                "cover_image_url": null,
+                "category": "news",
+                "category_label": "News",
+                "tags": [
+                    "hospitality"
+                ],
+                "status": "changes_requested",
+                "status_label": "Changes Requested",
+                "publish_at": null,
+                "published_at": null,
+                "archived_at": null,
+                "view_count": 0,
+                "author": {
+                    "uuid": "01a1451a-e13a-7191-9843-5db34abd76ad",
+                    "name": "Dr. Humberto Flatley I"
+                },
+                "reviewer": null,
+                "review_note": "Please add a source.",
+                "revision_count": 1,
+                "author_admin_uuid": "01a1451a-e13a-7191-9843-5db34abd76ad",
+                "created_by_admin_uuid": null,
+                "updated_by_admin_uuid": "01a1451a-e13a-7191-9843-5db34abd76ad",
+                "created_at": "2026-10-16T14:25:52+00:00",
+                "updated_at": "2026-10-16T14:25:52+00:00"
+            }
+        },
+        "request": {
+            "title": "Fixed"
+        }
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The slug cannot be changed after the article has been published.",
+            "data": {
+                "slug": [
+                    "The slug cannot be changed after the article has been published."
+                ]
+            }
+        }
+    }
+}

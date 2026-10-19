@@ -1,0 +1,47 @@
+{
+    "success": {
+        "status": 201,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Application submitted. Enter the code we sent to your email to verify it.",
+            "data": {
+                "next_step": "verify_email",
+                "challenge": {
+                    "challenge_token": "{challenge_token}",
+                    "mode": "send_new",
+                    "expires_in": 599,
+                    "retry_after_seconds": 60
+                }
+            }
+        },
+        "request": {
+            "name": "Tunde Bello",
+            "email": "tunde@apfspn.test",
+            "phone": "08039876543",
+            "company_name": "Chow Co Limited",
+            "registration_number": "RC123456",
+            "year_established": 2015,
+            "business_type": "Catering",
+            "address": "12 Allen Avenue, Ikeja",
+            "state_code": "LA",
+            "city": "Ikeja",
+            "website": "https://chowco.ng",
+            "consent": "1",
+            "registration_document": "(file)"
+        }
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The registration document field is required.",
+            "data": {
+                "registration_document": [
+                    "The registration document field is required."
+                ]
+            }
+        }
+    }
+}

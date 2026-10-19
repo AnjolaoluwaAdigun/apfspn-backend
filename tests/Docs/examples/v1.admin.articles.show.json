@@ -1,0 +1,51 @@
+{
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "You are not allowed to perform this action.",
+            "data": null
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "uuid": "01a1451b-1698-706c-b30d-4f8bf1cc5298",
+                "slug": "apfspn-welcomes-new-members-in-lagos",
+                "title": "Second title",
+                "excerpt": "A warm welcome to the newest members of the association.",
+                "body": "<h2>Welcome</h2><p>The association welcomed <strong>twenty</strong> new members this month.</p>",
+                "cover_image_url": null,
+                "category": "news",
+                "category_label": "News",
+                "tags": [
+                    "events"
+                ],
+                "status": "draft",
+                "status_label": "Draft",
+                "publish_at": null,
+                "published_at": null,
+                "archived_at": null,
+                "view_count": 0,
+                "author": {
+                    "uuid": "01a1451b-1675-7259-a060-60a033aecd8c",
+                    "name": "Lee Stoltenberg"
+                },
+                "reviewer": null,
+                "review_note": null,
+                "revision_count": 2,
+                "author_admin_uuid": "01a1451b-1675-7259-a060-60a033aecd8c",
+                "created_by_admin_uuid": "01a1451b-1675-7259-a060-60a033aecd8c",
+                "updated_by_admin_uuid": "01a1451b-1675-7259-a060-60a033aecd8c",
+                "created_at": "2026-10-16T14:26:05+00:00",
+                "updated_at": "2026-10-16T14:26:05+00:00"
+            }
+        },
+        "request": []
+    }
+}

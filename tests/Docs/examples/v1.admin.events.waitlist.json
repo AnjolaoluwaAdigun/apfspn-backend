@@ -1,0 +1,70 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "items": [
+                    {
+                        "uuid": "01a1451b-7f89-72f4-94fd-5c0c6fd8e0b0",
+                        "event_uuid": "01a1451b-7f81-7224-a56a-dcd9bd4db625",
+                        "status": "waitlisted",
+                        "status_label": "Waitlisted",
+                        "waitlist_position": 1,
+                        "registered_at": "2026-10-16T14:26:32+00:00",
+                        "promoted_at": null,
+                        "cancelled_at": null,
+                        "attended_at": null,
+                        "member": {
+                            "uuid": "01a1451b-7f88-73c3-bd78-4d6cc9cbfa76",
+                            "name": "Jamie Schiller",
+                            "email": "jakubowski.delpha@apfspn.test",
+                            "phone": "08019374781",
+                            "member_id": null,
+                            "member_type": "individual",
+                            "organisation": null
+                        }
+                    },
+                    {
+                        "uuid": "01a1451b-7f8c-715f-9abf-e95d0609dbf8",
+                        "event_uuid": "01a1451b-7f81-7224-a56a-dcd9bd4db625",
+                        "status": "waitlisted",
+                        "status_label": "Waitlisted",
+                        "waitlist_position": 2,
+                        "registered_at": "2026-10-16T14:26:32+00:00",
+                        "promoted_at": null,
+                        "cancelled_at": null,
+                        "attended_at": null,
+                        "member": {
+                            "uuid": "01a1451b-7f8a-71a1-ab3d-808663b4f462",
+                            "name": "Madilyn Dicki Jr.",
+                            "email": "little.loma@apfspn.test",
+                            "phone": "08021744983",
+                            "member_id": null,
+                            "member_type": "individual",
+                            "organisation": null
+                        }
+                    }
+                ],
+                "pagination": {
+                    "current_page": 1,
+                    "per_page": 15,
+                    "total": 3,
+                    "last_page": 1
+                }
+            }
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "You are not allowed to perform this action.",
+            "data": null
+        }
+    }
+}

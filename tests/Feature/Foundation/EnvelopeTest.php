@@ -110,10 +110,10 @@ class EnvelopeTest extends TestCase
     public function test_throttled_request_renders_429_with_retry_after(): void
     {
         foreach (range(1, 5) as $attempt) {
-            $this->postJson('/api/v1/_test/throttled', ['email' => 'a@example.com'])->assertOk();
+            $this->postJson('/api/v1/_test/throttled', ['email' => 'a@apfspn.test'])->assertOk();
         }
 
-        $this->postJson('/api/v1/_test/throttled', ['email' => 'a@example.com'])
+        $this->postJson('/api/v1/_test/throttled', ['email' => 'a@apfspn.test'])
             ->assertStatus(429)
             ->assertJson(['error' => true])
             ->assertJsonStructure(['data' => ['retry_after_seconds']]);

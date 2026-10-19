@@ -4,6 +4,7 @@ use App\Enums\ePermission;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\RoleController;
@@ -25,6 +26,10 @@ Route::prefix('auth')->name('auth.')->controller(AuthController::class)->group(f
         Route::get('me', 'me')->name('me');
     });
 });
+
+Route::get('dashboard', [DashboardController::class, 'show'])
+    ->middleware(['auth:sanctum', 'token:admin', $can(ePermission::DashboardView)])
+    ->name('dashboard');
 
 Route::prefix('members')->name('members.')->controller(MemberController::class)->middleware(['auth:sanctum', 'token:admin'])->group(function () use ($can) {
     Route::get('overview', 'overview')->middleware($can(ePermission::MembersView))->name('overview');

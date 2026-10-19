@@ -38,7 +38,7 @@ class AdminInviteService
                 'updated_by_admin_uuid' => $actorUuid,
             ]);
 
-            $admin->syncRoles($roles);
+            $this->admins->syncRoles($admin, $roles);
             $this->audit->record('admin.invited', $admin);
 
             return $admin;

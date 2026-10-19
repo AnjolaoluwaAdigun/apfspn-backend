@@ -1,0 +1,58 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Your registration has been cancelled.",
+            "data": {
+                "uuid": "01a1451b-6090-714c-9f2e-e4595ffa49a0",
+                "event_uuid": "01a1451b-6083-7399-b65c-acdb923f6792",
+                "status": "cancelled",
+                "status_label": "Cancelled",
+                "waitlist_position": null,
+                "registered_at": "2026-10-16T14:26:24+00:00",
+                "promoted_at": null,
+                "cancelled_at": "2026-10-16T14:26:24+00:00",
+                "attended_at": null,
+                "virtual_link": null,
+                "event": {
+                    "uuid": "01a1451b-6083-7399-b65c-acdb923f6792",
+                    "slug": "aut-consequatur-natus-sed-eveniet-frlvg",
+                    "title": "Aut consequatur natus sed eveniet.",
+                    "description": "Quia sint id occaecati quisquam quibusdam velit id. Mollitia quia accusantium quaerat quos numquam aut mollitia libero. Eius sunt assumenda molestias totam maxime.",
+                    "image_url": null,
+                    "starts_at": "2026-10-30T10:00:00+00:00",
+                    "ends_at": "2026-10-30T16:00:00+00:00",
+                    "venue": "Eko Hotel",
+                    "address": "Plot 1415 Adetokunbo Ademola Street, Victoria Island",
+                    "city": "Lagos",
+                    "state_code": "LA",
+                    "state": "Lagos",
+                    "is_virtual": false,
+                    "audience": "public",
+                    "members_only": false,
+                    "capacity": 1,
+                    "registration_closes_at": "2026-10-30T10:00:00+00:00",
+                    "registration_open": true,
+                    "schedule": [],
+                    "status": "published",
+                    "status_label": "Published",
+                    "cancelled_at": null
+                }
+            }
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "This event has already started.",
+            "data": {
+                "code": "event_started"
+            }
+        }
+    }
+}

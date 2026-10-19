@@ -1,0 +1,23 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The super admin role cannot be changed.",
+            "data": {
+                "code": "role_locked"
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Role deleted.",
+            "data": null
+        },
+        "request": []
+    }
+}

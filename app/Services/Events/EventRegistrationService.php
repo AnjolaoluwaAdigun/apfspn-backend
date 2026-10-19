@@ -5,6 +5,7 @@ namespace App\Services\Events;
 use App\Enums\EventNotice;
 use App\Enums\EventRegistrationStatus;
 use App\Enums\EventStatus;
+use App\Enums\MemberActivityType;
 use App\Enums\MembershipStatus;
 use App\Enums\MyEventsFilter;
 use App\Exceptions\ApiException;
@@ -14,7 +15,9 @@ use App\Models\EventRegistration;
 use App\Models\User;
 use App\Repositories\Contracts\EventRegistrationRepositoryInterface;
 use App\Repositories\Contracts\EventRepositoryInterface;
+use App\Repositories\Contracts\MembershipRepositoryInterface;
 use App\Services\Audit\AuditLogService;
+use App\Services\Membership\MemberActivityService;
 use App\Support\CsvSanitizer;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -35,6 +38,8 @@ class EventRegistrationService
         private readonly EventRepositoryInterface $events,
         private readonly EventRegistrationRepositoryInterface $registrations,
         private readonly AuditLogService $audit,
+        private readonly MemberActivityService $activities,
+        private readonly MembershipRepositoryInterface $memberships,
     ) {}
 
     public function register(User $user, string $eventUuid): EventRegistration
@@ -71,6 +76,7 @@ class EventRegistrationService
                 ]);
             }
 
+            $this->activities->record($user->getKey(), $hasSeat ? MemberActivityType::EventRegistered : MemberActivityType::EventWaitlisted, $event);
             $this->notify($registration, $hasSeat ? EventNotice::Confirmed : EventNotice::Waitlisted);
 
             return $registration->setRelation('event', $event);
@@ -100,6 +106,7 @@ class EventRegistrationService
                 'cancelled_at' => now(),
             ]);
             $this->registrations->save($registration);
+            $this->activities->record($user->getKey(), MemberActivityType::EventRegistrationCancelled, $event);
 
             if ($position !== null) {
                 $this->registrations->shiftWaitlist($event->getKey(), $position, 1);
@@ -134,6 +141,7 @@ class EventRegistrationService
                 'promoted_at' => now(),
             ]);
             $this->registrations->save($registration);
+            $this->activities->record($registration->user_uuid, MemberActivityType::EventPromoted, $event);
             $this->notify($registration, EventNotice::Promoted);
         }
 
@@ -177,6 +185,7 @@ class EventRegistrationService
             $registration->fill(['status' => EventRegistrationStatus::Attended, 'attended_at' => now()]);
             $changes = $this->audit->changeSet($registration);
             $this->registrations->save($registration);
+            $this->activities->record($registration->user_uuid, MemberActivityType::EventAttended, $event);
             $this->audit->record('event_registration.attended', $registration, $changes);
 
             return $registration;
@@ -236,7 +245,7 @@ class EventRegistrationService
 
     private function assertActiveMember(User $user): void
     {
-        $membership = $user->membership()->first();
+        $membership = $this->memberships->findByUser($user->getKey());
 
         if ($membership?->status !== MembershipStatus::Active) {
             throw new ApiException('Only active members can register for events.', 403, [

@@ -1,0 +1,111 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "items": [
+                    {
+                        "uuid": "01a1451a-4939-723f-96de-fce596753f71",
+                        "name": "Member 3",
+                        "email": "clarabelle21@apfspn.test",
+                        "phone": "08093559956",
+                        "account_status": "active",
+                        "member_type": "individual",
+                        "bio": null,
+                        "photo_url": null,
+                        "state_code": "LA",
+                        "state": "Lagos",
+                        "city": "Ikeja",
+                        "directory_visible": false,
+                        "two_factor_enabled": true,
+                        "email_verified_at": "2026-10-16T14:28:13+00:00",
+                        "last_login_at": null,
+                        "membership": {
+                            "uuid": "01a1451a-4939-723f-96de-fce5970dffc9",
+                            "member_type": "individual",
+                            "member_id": null,
+                            "status": "pending_approval",
+                            "status_label": "Pending Approval",
+                            "state_code": "LA",
+                            "approved_at": null,
+                            "expires_at": null,
+                            "rejection_reason": null,
+                            "suspension_reason": null,
+                            "approved_by_admin_uuid": null,
+                            "rejected_at": null,
+                            "rejected_by_admin_uuid": null,
+                            "suspended_at": null,
+                            "suspended_by_admin_uuid": null,
+                            "reactivated_at": null,
+                            "created_at": "2026-10-16T14:28:13+00:00"
+                        },
+                        "organisation": null
+                    },
+                    {
+                        "uuid": "01a1451a-4937-7185-a959-09d3dee2c2da",
+                        "name": "Member 2",
+                        "email": "duane.feest@apfspn.test",
+                        "phone": "08013227935",
+                        "account_status": "active",
+                        "member_type": "individual",
+                        "bio": null,
+                        "photo_url": null,
+                        "state_code": "LA",
+                        "state": "Lagos",
+                        "city": "Ikeja",
+                        "directory_visible": false,
+                        "two_factor_enabled": true,
+                        "email_verified_at": "2026-10-16T14:27:13+00:00",
+                        "last_login_at": null,
+                        "membership": {
+                            "uuid": "01a1451a-4938-73ea-a088-14f2ef4558e3",
+                            "member_type": "individual",
+                            "member_id": null,
+                            "status": "pending_approval",
+                            "status_label": "Pending Approval",
+                            "state_code": "LA",
+                            "approved_at": null,
+                            "expires_at": null,
+                            "rejection_reason": null,
+                            "suspension_reason": null,
+                            "approved_by_admin_uuid": null,
+                            "rejected_at": null,
+                            "rejected_by_admin_uuid": null,
+                            "suspended_at": null,
+                            "suspended_by_admin_uuid": null,
+                            "reactivated_at": null,
+                            "created_at": "2026-10-16T14:27:13+00:00"
+                        },
+                        "organisation": null
+                    }
+                ],
+                "pagination": {
+                    "current_page": 1,
+                    "per_page": 2,
+                    "total": 3,
+                    "last_page": 2
+                }
+            }
+        },
+        "request": {
+            "per_page": "2",
+            "page": "1"
+        }
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The per page field must not be greater than 100.",
+            "data": {
+                "per_page": [
+                    "The per page field must not be greater than 100."
+                ]
+            }
+        }
+    }
+}

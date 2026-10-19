@@ -1,0 +1,38 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Admin enabled.",
+            "data": {
+                "uuid": "01a1451a-7a63-72b2-8749-2d8cb4ea57af",
+                "name": "Mrs. Clementina Trantow MD",
+                "email": "lucio.pollich@apfspn.test",
+                "status": "active",
+                "account_state": "active",
+                "must_reset_password": false,
+                "last_login_at": null,
+                "roles": [
+                    "super_admin"
+                ],
+                "permissions": [
+                    "admins.create",
+                    "admins.delete",
+                    "admins.update"
+                ],
+                "created_at": "2026-10-16T14:25:25+00:00"
+            }
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "You are not allowed to perform this action.",
+            "data": null
+        }
+    }
+}

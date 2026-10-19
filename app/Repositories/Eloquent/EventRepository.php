@@ -75,6 +75,17 @@ class EventRepository implements EventRepositoryInterface
             ->pluck('uuid');
     }
 
+    public function upcomingPublished(int $limit): Collection
+    {
+        return Event::query()
+            ->where('status', EventStatus::Published)
+            ->where('starts_at', '>', now())
+            ->orderBy('starts_at')
+            ->orderBy('uuid')
+            ->limit($limit)
+            ->get();
+    }
+
     public function countCreatedBy(string $adminUuid): int
     {
         return Event::withTrashed()->where('created_by_admin_uuid', $adminUuid)->count();

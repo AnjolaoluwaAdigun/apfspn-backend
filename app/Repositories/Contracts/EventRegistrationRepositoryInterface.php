@@ -2,9 +2,11 @@
 
 namespace App\Repositories\Contracts;
 
+use App\Enums\EventRegistrationStatus;
 use App\Enums\MyEventsFilter;
 use App\Models\EventRegistration;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
 
@@ -43,4 +45,8 @@ interface EventRegistrationRepositoryInterface
     public function paginateForMember(string $userUuid, ?MyEventsFilter $filter, int $perPage): LengthAwarePaginator;
 
     public function notifiableUuids(string $eventUuid): LazyCollection;
+
+    public function countRegisteredSince(Carbon $since): int;
+
+    public function upcomingForMember(string $userUuid, EventRegistrationStatus $status, ?int $limit = null): Collection;
 }

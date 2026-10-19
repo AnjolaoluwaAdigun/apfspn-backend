@@ -1,0 +1,86 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Login successful.",
+            "data": {
+                "next_step": "authenticated",
+                "tokens": {
+                    "access_token": "{access_token}",
+                    "refresh_token": "{refresh_token}",
+                    "token_type": "Bearer",
+                    "expires_in": 3600,
+                    "refresh_expires_in": 2592000
+                },
+                "member": {
+                    "uuid": "01a1451b-632f-73d2-9f9c-dd83b79c617a",
+                    "name": "Prof. Elijah Kerluke Jr.",
+                    "email": "brandy.shields@apfspn.test",
+                    "phone": "08003654413",
+                    "account_status": "active",
+                    "member_type": "corporate",
+                    "bio": null,
+                    "photo_url": null,
+                    "state_code": null,
+                    "state": null,
+                    "city": null,
+                    "directory_visible": false,
+                    "two_factor_enabled": false,
+                    "email_verified_at": "2026-10-16T14:26:25+00:00",
+                    "last_login_at": "2026-10-16T14:26:25+00:00",
+                    "membership": {
+                        "uuid": "01a1451b-6330-7015-b0a9-df4f7ebb9021",
+                        "member_type": "corporate",
+                        "member_id": null,
+                        "status": "pending_approval",
+                        "status_label": "Pending Approval",
+                        "state_code": "LA",
+                        "approved_at": null,
+                        "expires_at": null,
+                        "created_at": "2026-10-16T14:26:25+00:00"
+                    },
+                    "organisation": {
+                        "uuid": "01a1451b-6331-735b-b6b4-9cfc4d2c40e7",
+                        "type": "corporate",
+                        "name": "Chow Co Limited",
+                        "registration_number": "RC123456",
+                        "year_established": null,
+                        "business_type": "Catering",
+                        "institution_type": null,
+                        "department": null,
+                        "address": "12 Allen Avenue, Ikeja",
+                        "state_code": "LA",
+                        "state": "Lagos",
+                        "city": null,
+                        "website": null,
+                        "document_url": null,
+                        "document_url_expires_at": null
+                    }
+                }
+            }
+        },
+        "request": {
+            "email": "brandy.shields@apfspn.test",
+            "password": "Password123",
+            "client": "web"
+        }
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The email field must be a valid email address.",
+            "data": {
+                "email": [
+                    "The email field must be a valid email address."
+                ],
+                "password": [
+                    "The password field is required."
+                ]
+            }
+        }
+    }
+}

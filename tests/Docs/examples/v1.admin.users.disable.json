@@ -1,0 +1,40 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "You cannot disable your own account.",
+            "data": {
+                "code": "cannot_modify_self"
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Admin disabled.",
+            "data": {
+                "uuid": "01a1451a-7c1b-7369-96ea-b8ef0c03da85",
+                "name": "Eileen Herman",
+                "email": "akris@apfspn.test",
+                "status": "disabled",
+                "account_state": "disabled",
+                "must_reset_password": false,
+                "last_login_at": "2026-10-16T14:25:26+00:00",
+                "roles": [
+                    "editor"
+                ],
+                "permissions": [
+                    "articles.archive",
+                    "articles.create",
+                    "articles.delete"
+                ],
+                "created_at": "2026-10-16T14:25:26+00:00"
+            }
+        },
+        "request": []
+    }
+}

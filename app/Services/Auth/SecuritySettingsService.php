@@ -2,15 +2,20 @@
 
 namespace App\Services\Auth;
 
+use App\Enums\MemberActivityType;
 use App\Exceptions\ApiException;
 use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Services\Membership\MemberActivityService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class SecuritySettingsService
 {
-    public function __construct(private readonly UserRepositoryInterface $users) {}
+    public function __construct(
+        private readonly UserRepositoryInterface $users,
+        private readonly MemberActivityService $activities,
+    ) {}
 
     public function show(User $user): array
     {
@@ -26,7 +31,13 @@ class SecuritySettingsService
                 throw new ApiException('Your current password is incorrect.', 422, ['code' => 'invalid_current_password']);
             }
 
-            return $this->users->update($locked, ['two_factor_enabled' => $twoFactorEnabled]);
+            $this->users->update($locked, ['two_factor_enabled' => $twoFactorEnabled]);
+
+            if ($locked->wasChanged('two_factor_enabled')) {
+                $this->activities->record($locked->getKey(), $twoFactorEnabled ? MemberActivityType::TwoFactorEnabled : MemberActivityType::TwoFactorDisabled);
+            }
+
+            return $locked;
         });
 
         return $this->show($locked);

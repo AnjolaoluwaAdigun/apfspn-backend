@@ -17,6 +17,7 @@ use Closure;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
@@ -56,6 +57,11 @@ class EventService
     public function publicList(array $filters): LengthAwarePaginator
     {
         return $this->withCounts($this->events->paginatePublic($filters, $this->perPage($filters)));
+    }
+
+    public function upcoming(int $limit): Collection
+    {
+        return $this->attachCounts($this->events->upcomingPublished($limit));
     }
 
     public function publicShow(string $slug): Event
@@ -278,11 +284,16 @@ class EventService
 
     private function withCounts(LengthAwarePaginator $events): LengthAwarePaginator
     {
-        $counts = $this->registrations->countsByStatusForEvents($events->getCollection()->modelKeys());
-
-        $events->getCollection()->each(fn (Event $event) => $event->registrationCounts = $this->normaliseCounts($counts[$event->getKey()] ?? []));
+        $this->attachCounts($events->getCollection());
 
         return $events;
+    }
+
+    private function attachCounts(Collection $events): Collection
+    {
+        $counts = $this->registrations->countsByStatusForEvents($events->modelKeys());
+
+        return $events->each(fn (Event $event) => $event->registrationCounts = $this->normaliseCounts($counts[$event->getKey()] ?? []));
     }
 
     private function withCount(Event $event): Event

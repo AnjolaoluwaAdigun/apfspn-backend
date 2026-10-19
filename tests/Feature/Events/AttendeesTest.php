@@ -142,6 +142,7 @@ class AttendeesTest extends TestCase
 
         $editor = $this->adminToken('editor');
         $this->api('GET', $this->eventUrl($event, 'attendees'), [], $editor)->assertForbidden();
+        $this->api('GET', $this->eventUrl($event, 'waitlist'), [], $editor)->assertForbidden();
         $this->api('GET', $this->eventUrl($event, 'attendees/export'), [], $editor)->assertForbidden();
 
         $manager = $this->adminToken('association_manager');

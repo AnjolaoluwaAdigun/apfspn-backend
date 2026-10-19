@@ -78,6 +78,26 @@ class ArticleRepository implements ArticleRepositoryInterface
         Article::whereKey($uuid)->toBase()->increment('view_count');
     }
 
+    public function countsByStatus(): array
+    {
+        return Article::query()
+            ->selectRaw('status, count(*) as total')
+            ->groupBy('status')
+            ->pluck('total', 'status')
+            ->map(fn ($total) => (int) $total)
+            ->all();
+    }
+
+    public function oldestInReview(int $limit): Collection
+    {
+        return Article::with('author')
+            ->where('status', ArticleStatus::InReview)
+            ->orderBy('updated_at')
+            ->orderBy('uuid')
+            ->limit($limit)
+            ->get();
+    }
+
     public function countAuthoredBy(string $adminUuid): int
     {
         return Article::withTrashed()

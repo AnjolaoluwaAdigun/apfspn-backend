@@ -1,0 +1,63 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The reason field is required.",
+            "data": {
+                "reason": [
+                    "The reason field is required."
+                ]
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Membership rejected.",
+            "data": {
+                "uuid": "01a1451a-6b08-7380-83af-dcafc64b97e5",
+                "name": "Enid Grady",
+                "email": "samir.hegmann@apfspn.test",
+                "phone": "08052777805",
+                "account_status": "active",
+                "member_type": "individual",
+                "bio": null,
+                "photo_url": null,
+                "state_code": "LA",
+                "state": "Lagos",
+                "city": "Ikeja",
+                "directory_visible": false,
+                "two_factor_enabled": true,
+                "email_verified_at": "2026-10-16T14:25:21+00:00",
+                "last_login_at": null,
+                "membership": {
+                    "uuid": "01a1451a-6b0a-7007-9c28-9e4c582fb617",
+                    "member_type": "individual",
+                    "member_id": null,
+                    "status": "rejected",
+                    "status_label": "Rejected",
+                    "state_code": "LA",
+                    "approved_at": null,
+                    "expires_at": null,
+                    "rejection_reason": "Registration document is unreadable.",
+                    "suspension_reason": null,
+                    "approved_by_admin_uuid": null,
+                    "rejected_at": "2026-10-16T14:25:21+00:00",
+                    "rejected_by_admin_uuid": "01a1451a-6bca-720b-a5d4-fb0dbc4a5c48",
+                    "suspended_at": null,
+                    "suspended_by_admin_uuid": null,
+                    "reactivated_at": null,
+                    "created_at": "2026-10-16T14:25:21+00:00"
+                },
+                "organisation": null
+            }
+        },
+        "request": {
+            "reason": "Registration document is unreadable."
+        }
+    }
+}

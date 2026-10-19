@@ -1,0 +1,110 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "items": [
+                    {
+                        "uuid": "01a1451b-9a74-73f5-8d37-5b639fba3df7",
+                        "event_uuid": "01a1451b-9a74-73f5-8d37-5b639facb5bf",
+                        "status": "attended",
+                        "status_label": "Attended",
+                        "waitlist_position": null,
+                        "registered_at": "2026-10-16T14:26:39+00:00",
+                        "promoted_at": null,
+                        "cancelled_at": null,
+                        "attended_at": "2026-10-16T14:26:39+00:00",
+                        "virtual_link": null,
+                        "event": {
+                            "uuid": "01a1451b-9a74-73f5-8d37-5b639facb5bf",
+                            "slug": "possimus-aut-quo-quvo5",
+                            "title": "Possimus aut quo.",
+                            "description": "Dolore sint necessitatibus minus delectus eligendi veritatis. Esse quas laborum provident quam et sunt. Commodi rerum repellat quo est. Et nisi molestias vitae maxime iste.",
+                            "image_url": null,
+                            "starts_at": "2026-10-14T14:26:39+00:00",
+                            "ends_at": "2026-10-14T20:26:39+00:00",
+                            "venue": "Eko Hotel",
+                            "address": "Plot 1415 Adetokunbo Ademola Street, Victoria Island",
+                            "city": "Lagos",
+                            "state_code": "LA",
+                            "state": "Lagos",
+                            "is_virtual": false,
+                            "audience": "public",
+                            "members_only": false,
+                            "capacity": null,
+                            "registration_closes_at": "2026-10-14T14:26:39+00:00",
+                            "registration_open": false,
+                            "schedule": [],
+                            "status": "completed",
+                            "status_label": "Completed",
+                            "cancelled_at": null,
+                            "speakers": []
+                        }
+                    },
+                    {
+                        "uuid": "01a1451b-9a75-73f3-aa01-9f707125c18f",
+                        "event_uuid": "01a1451b-9a75-73f3-aa01-9f707094a4dd",
+                        "status": "registered",
+                        "status_label": "Registered",
+                        "waitlist_position": null,
+                        "registered_at": "2026-10-16T14:26:39+00:00",
+                        "promoted_at": null,
+                        "cancelled_at": null,
+                        "attended_at": null,
+                        "virtual_link": null,
+                        "event": {
+                            "uuid": "01a1451b-9a75-73f3-aa01-9f707094a4dd",
+                            "slug": "cupiditate-tenetur-ad-porro-quisquam-aaxz9",
+                            "title": "Cupiditate tenetur ad porro quisquam.",
+                            "description": "Et omnis dignissimos praesentium aut facere eaque nihil. Omnis occaecati ratione amet sit repudiandae. Voluptatem assumenda mollitia eveniet odio maiores et. Dolorem harum omnis veritatis aut natus qui excepturi molestiae.",
+                            "image_url": null,
+                            "starts_at": "2026-10-14T14:26:39+00:00",
+                            "ends_at": "2026-10-14T20:26:39+00:00",
+                            "venue": "Eko Hotel",
+                            "address": "Plot 1415 Adetokunbo Ademola Street, Victoria Island",
+                            "city": "Lagos",
+                            "state_code": "LA",
+                            "state": "Lagos",
+                            "is_virtual": false,
+                            "audience": "public",
+                            "members_only": false,
+                            "capacity": null,
+                            "registration_closes_at": "2026-10-14T14:26:39+00:00",
+                            "registration_open": false,
+                            "schedule": [],
+                            "status": "completed",
+                            "status_label": "Completed",
+                            "cancelled_at": null,
+                            "speakers": []
+                        }
+                    }
+                ],
+                "pagination": {
+                    "current_page": 1,
+                    "per_page": 15,
+                    "total": 2,
+                    "last_page": 1
+                }
+            }
+        },
+        "request": {
+            "filter": "past"
+        }
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The selected filter is invalid.",
+            "data": {
+                "filter": [
+                    "The selected filter is invalid."
+                ]
+            }
+        }
+    }
+}

@@ -8,6 +8,7 @@ use App\Models\EventRegistration;
 use App\Repositories\Contracts\EventRegistrationRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
 
@@ -161,6 +162,31 @@ class EventRegistrationRepository implements EventRegistrationRepositoryInterfac
             ->whereHas('user')
             ->lazyById(500, 'uuid')
             ->map(fn (EventRegistration $registration) => $registration->getKey());
+    }
+
+    public function countRegisteredSince(Carbon $since): int
+    {
+        return EventRegistration::query()
+            ->whereHas('event')
+            ->whereIn('status', EventRegistrationStatus::active())
+            ->where('registered_at', '>=', $since)
+            ->count();
+    }
+
+    public function upcomingForMember(string $userUuid, EventRegistrationStatus $status, ?int $limit = null): Collection
+    {
+        return EventRegistration::query()
+            ->select('event_registrations.*')
+            ->join('events', 'events.uuid', '=', 'event_registrations.event_uuid')
+            ->whereNull('events.deleted_at')
+            ->with('event')
+            ->where('event_registrations.user_uuid', $userUuid)
+            ->where('event_registrations.status', $status)
+            ->where('events.ends_at', '>=', now())
+            ->orderBy('events.starts_at')
+            ->orderBy('event_registrations.uuid')
+            ->when($limit, fn (Builder $query, int $limit) => $query->limit($limit))
+            ->get();
     }
 
     private function attendees(string $eventUuid, array $filters): Builder

@@ -1,0 +1,46 @@
+{
+    "success": {
+        "status": 201,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Invite sent.",
+            "data": {
+                "uuid": "01a1451a-7f8f-73e5-a1b9-9e74e95545fa",
+                "name": "Ngozi Editor",
+                "email": "ngozi@apfspn.test",
+                "status": "active",
+                "account_state": "invited",
+                "must_reset_password": true,
+                "last_login_at": null,
+                "roles": [
+                    "editor"
+                ],
+                "permissions": [
+                    "articles.archive",
+                    "articles.create",
+                    "articles.delete"
+                ],
+                "created_at": "2026-10-16T14:25:26+00:00"
+            }
+        },
+        "request": {
+            "name": "Ngozi Editor",
+            "email": "ngozi@apfspn.test",
+            "role_uuid": "01a1451a-7f23-7178-8f97-e35111708d6b"
+        }
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The selected role uuid is invalid.",
+            "data": {
+                "role_uuid": [
+                    "The selected role uuid is invalid."
+                ]
+            }
+        }
+    }
+}

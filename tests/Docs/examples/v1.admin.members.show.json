@@ -1,0 +1,75 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "uuid": "01a1451a-4b59-715c-bfa1-54e92528e378",
+                "name": "Tunde Bello",
+                "email": "schaefer.keon@apfspn.test",
+                "phone": "08064793361",
+                "account_status": "active",
+                "member_type": "corporate",
+                "bio": null,
+                "photo_url": null,
+                "state_code": null,
+                "state": null,
+                "city": null,
+                "directory_visible": false,
+                "two_factor_enabled": true,
+                "email_verified_at": "2026-10-16T14:25:13+00:00",
+                "last_login_at": null,
+                "membership": {
+                    "uuid": "01a1451a-4b59-715c-bfa1-54e9258c47e6",
+                    "member_type": "corporate",
+                    "member_id": null,
+                    "status": "pending_approval",
+                    "status_label": "Pending Approval",
+                    "state_code": "LA",
+                    "approved_at": null,
+                    "expires_at": null,
+                    "rejection_reason": null,
+                    "suspension_reason": null,
+                    "approved_by_admin_uuid": null,
+                    "rejected_at": null,
+                    "rejected_by_admin_uuid": null,
+                    "suspended_at": null,
+                    "suspended_by_admin_uuid": null,
+                    "reactivated_at": null,
+                    "created_at": "2026-10-16T14:25:13+00:00"
+                },
+                "organisation": {
+                    "uuid": "01a1451a-4b5a-72cd-9dfb-cf02d6b2c47f",
+                    "type": "corporate",
+                    "name": "Chow Co Limited",
+                    "registration_number": "RC123456",
+                    "year_established": null,
+                    "business_type": "Catering",
+                    "institution_type": null,
+                    "department": null,
+                    "address": "12 Allen Avenue, Ikeja",
+                    "state_code": "LA",
+                    "state": "Lagos",
+                    "city": "Ikeja",
+                    "website": null,
+                    "document_url": "https://api.cloudinary.com/v1_1/apfspn-test/raw/download?public_id=members%2Fdocuments%2Fcac.pdf&type=authenticated&expires_at=1792161313",
+                    "document_url_expires_at": "2026-10-16T14:35:13+00:00"
+                }
+            }
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "This token cannot be used here.",
+            "data": {
+                "code": "wrong_audience"
+            }
+        }
+    }
+}

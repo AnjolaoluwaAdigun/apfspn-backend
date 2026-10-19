@@ -1,0 +1,42 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Attendance recorded.",
+            "data": {
+                "uuid": "01a1451b-6195-739b-a7cc-9266bf684497",
+                "event_uuid": "01a1451b-6191-71b9-9327-e117f17a5a6e",
+                "status": "attended",
+                "status_label": "Attended",
+                "waitlist_position": null,
+                "registered_at": "2026-10-16T14:26:24+00:00",
+                "promoted_at": null,
+                "cancelled_at": null,
+                "attended_at": "2026-10-16T14:26:24+00:00",
+                "member": {
+                    "uuid": "01a1451b-6192-73fa-bfb2-0ef4cbe84989",
+                    "name": "Garrick Gaylord",
+                    "email": "ewindler@apfspn.test",
+                    "phone": "08054692577",
+                    "member_id": null,
+                    "member_type": "individual",
+                    "organisation": null
+                }
+            }
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "Attendance can be recorded once the event has started.",
+            "data": {
+                "code": "event_not_started"
+            }
+        }
+    }
+}

@@ -1,0 +1,41 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Invite sent.",
+            "data": {
+                "uuid": "01a1451a-818d-7191-a60d-b94ced28a021",
+                "name": "Ms. Jodie Littel IV",
+                "email": "terrence.swift@apfspn.test",
+                "status": "active",
+                "account_state": "invited",
+                "must_reset_password": true,
+                "last_login_at": null,
+                "roles": [
+                    "author"
+                ],
+                "permissions": [
+                    "articles.create",
+                    "articles.submit",
+                    "articles.update"
+                ],
+                "created_at": "2026-10-16T14:25:27+00:00"
+            }
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "Only invited admins who have not set a password can be sent a new invite.",
+            "data": {
+                "code": "admin_not_invited",
+                "account_state": "active"
+            }
+        }
+    }
+}

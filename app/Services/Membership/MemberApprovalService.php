@@ -2,6 +2,7 @@
 
 namespace App\Services\Membership;
 
+use App\Enums\MemberActivityType;
 use App\Enums\MembershipNotice;
 use App\Enums\MembershipStatus;
 use App\Exceptions\ApiException;
@@ -23,6 +24,7 @@ class MemberApprovalService
         private readonly MemberIdGenerator $memberIds,
         private readonly AuditLogService $audit,
         private readonly TokenService $tokens,
+        private readonly MemberActivityService $activities,
     ) {}
 
     public function approve(string $memberUuid): Membership
@@ -114,6 +116,7 @@ class MemberApprovalService
 
             $changes = $this->audit->changeSet($membership);
             $this->memberships->save($membership);
+            $this->activities->record($membership->user_uuid, MemberActivityType::forMembershipNotice($notice), $membership);
             $this->audit->record('membership.'.$notice->value, $membership, $changes);
 
             SendMembershipStatusEmail::dispatch(

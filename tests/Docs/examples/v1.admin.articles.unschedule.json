@@ -1,0 +1,54 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "Only scheduled articles can be unscheduled.",
+            "data": {
+                "code": "invalid_status_transition",
+                "current_status": "draft"
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Article unscheduled.",
+            "data": {
+                "uuid": "01a1451b-2f78-734f-8627-891ce4aed598",
+                "slug": "et-incidunt-quo-nesciunt-consequatur-mu1ru",
+                "title": "Et incidunt quo nesciunt consequatur.",
+                "excerpt": "Numquam facere repellendus quisquam nisi quidem dolorem labore eum aut.",
+                "body": "<p>Non aut ex ut debitis et quibusdam. Reiciendis nobis natus sint aut quis facere. Error a aliquam est earum iure.</p>",
+                "cover_image_url": null,
+                "category": "news",
+                "category_label": "News",
+                "tags": [
+                    "hospitality"
+                ],
+                "status": "in_review",
+                "status_label": "In Review",
+                "publish_at": null,
+                "published_at": null,
+                "archived_at": null,
+                "view_count": 0,
+                "author": null,
+                "reviewer": {
+                    "uuid": "01a1451b-2f62-7375-b8f2-7e19061111ab",
+                    "name": "Mr. Terrance Wyman"
+                },
+                "review_note": null,
+                "revision_count": 0,
+                "author_admin_uuid": null,
+                "created_by_admin_uuid": null,
+                "updated_by_admin_uuid": "01a1451b-2f62-7375-b8f2-7e19061111ab",
+                "created_at": "2026-10-16T14:26:11+00:00",
+                "updated_at": "2026-10-16T14:26:12+00:00"
+            }
+        },
+        "request": []
+    }
+}

@@ -24,11 +24,15 @@ class MemberRepository implements MemberRepositoryInterface
 
     public function paginatePending(array $filters, int $perPage): LengthAwarePaginator
     {
-        return $this->filtered(['status' => MembershipStatus::PendingApproval->value] + $filters)
-            ->whereNotNull('users.email_verified_at')
+        return $this->pending($filters)
             ->orderBy('memberships.created_at')
             ->orderBy('users.uuid')
             ->paginate($perPage);
+    }
+
+    public function countPending(): int
+    {
+        return $this->pending([])->count();
     }
 
     public function lazyForExport(array $filters): LazyCollection
@@ -42,6 +46,12 @@ class MemberRepository implements MemberRepositoryInterface
     public function findWithProfile(string $uuid): User
     {
         return User::with(self::RELATIONS)->whereHas('membership')->findOrFail($uuid);
+    }
+
+    private function pending(array $filters): Builder
+    {
+        return $this->filtered(['status' => MembershipStatus::PendingApproval->value] + $filters)
+            ->whereNotNull('users.email_verified_at');
     }
 
     private function filtered(array $filters): Builder

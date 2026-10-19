@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Member\AuthController;
+use App\Http\Controllers\Member\DashboardController;
 use App\Http\Controllers\Member\EventController;
 use App\Http\Controllers\Member\ProfileController;
 use App\Http\Controllers\Member\RegistrationController;
@@ -34,6 +35,8 @@ Route::prefix('register')->name('register.')->controller(RegistrationController:
 });
 
 Route::middleware(['auth:sanctum', 'token:member'])->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'show'])->name('dashboard');
+
     Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
 

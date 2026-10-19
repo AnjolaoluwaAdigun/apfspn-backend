@@ -92,7 +92,7 @@ class AdminUserService
         DB::transaction(function () use ($uuid, $data, $actor) {
             $superAdmins = $this->admins->withRoleForUpdate(self::SUPER_ADMIN_ROLE);
             $admin = $this->locked($uuid);
-            $currentRole = $admin->roles->first();
+            $currentRole = $this->admins->currentRole($admin);
             $newRole = isset($data['role_uuid']) ? $this->role($data['role_uuid']) : null;
             $roleChanged = $newRole !== null && $newRole->getKey() !== $currentRole?->getKey();
 
@@ -125,7 +125,7 @@ class AdminUserService
             $this->admins->save($admin);
 
             if ($roleChanged) {
-                $admin->syncRoles([$newRole->name]);
+                $this->admins->syncRoles($admin, [$newRole->name]);
             }
 
             $this->audit->record('admin.updated', $admin, $changes);

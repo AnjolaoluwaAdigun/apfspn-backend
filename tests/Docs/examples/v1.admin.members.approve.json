@@ -1,0 +1,59 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The member has not verified their email address yet.",
+            "data": {
+                "code": "email_not_verified"
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Membership approved.",
+            "data": {
+                "uuid": "01a1451a-7191-7233-937d-4f4041761623",
+                "name": "Alison Schimmel",
+                "email": "nels84@apfspn.test",
+                "phone": "08070312573",
+                "account_status": "active",
+                "member_type": "individual",
+                "bio": null,
+                "photo_url": null,
+                "state_code": "LA",
+                "state": "Lagos",
+                "city": "Ikeja",
+                "directory_visible": false,
+                "two_factor_enabled": false,
+                "email_verified_at": "2026-10-16T14:25:23+00:00",
+                "last_login_at": "2026-10-16T14:25:23+00:00",
+                "membership": {
+                    "uuid": "01a1451a-7191-7233-937d-4f40418eef3c",
+                    "member_type": "individual",
+                    "member_id": "APFSPNLA001",
+                    "status": "active",
+                    "status_label": "Active",
+                    "state_code": "LA",
+                    "approved_at": "2026-10-16T14:25:23+00:00",
+                    "expires_at": "2027-10-16T14:25:23+00:00",
+                    "rejection_reason": null,
+                    "suspension_reason": null,
+                    "approved_by_admin_uuid": "01a1451a-723a-739a-8d20-ebf1628554b6",
+                    "rejected_at": null,
+                    "rejected_by_admin_uuid": null,
+                    "suspended_at": null,
+                    "suspended_by_admin_uuid": null,
+                    "reactivated_at": null,
+                    "created_at": "2026-10-16T14:25:23+00:00"
+                },
+                "organisation": null
+            }
+        },
+        "request": []
+    }
+}

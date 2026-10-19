@@ -69,7 +69,7 @@ class AdminAuthTest extends TestCase
             ->assertUnauthorized()
             ->assertExactJson($expected);
 
-        $this->api('POST', '/api/v1/admin/auth/login', ['email' => 'nobody@example.com', 'password' => 'WrongPass1'])
+        $this->api('POST', '/api/v1/admin/auth/login', ['email' => 'nobody@apfspn.test', 'password' => 'WrongPass1'])
             ->assertUnauthorized()
             ->assertExactJson($expected);
     }
@@ -135,7 +135,7 @@ class AdminAuthTest extends TestCase
 
     public function test_forgot_password_for_unknown_email_looks_the_same_and_sends_nothing(): void
     {
-        $this->api('POST', '/api/v1/admin/auth/forgot-password', ['email' => 'nobody@example.com'])
+        $this->api('POST', '/api/v1/admin/auth/forgot-password', ['email' => 'nobody@apfspn.test'])
             ->assertOk()
             ->assertJsonPath('message', 'If an account exists for this email, a reset code has been sent.')
             ->assertJsonPath('data.mode', 'send_new')

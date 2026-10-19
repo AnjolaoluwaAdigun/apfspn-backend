@@ -1,0 +1,25 @@
+{
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "Your membership has been suspended. Please contact APFSPN.",
+            "data": {
+                "code": "membership_suspended"
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "two_factor_enabled": true
+            }
+        },
+        "request": []
+    }
+}

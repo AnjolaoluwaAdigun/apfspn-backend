@@ -1,0 +1,60 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "This action is not allowed while the membership is active.",
+            "data": {
+                "code": "invalid_status_transition",
+                "current_status": "active"
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Membership reactivated.",
+            "data": {
+                "uuid": "01a1451a-778e-71f7-b4c6-3477d1f682b2",
+                "name": "Damian Stehr",
+                "email": "keven49@apfspn.test",
+                "phone": "08097443576",
+                "account_status": "active",
+                "member_type": "individual",
+                "bio": null,
+                "photo_url": null,
+                "state_code": "LA",
+                "state": "Lagos",
+                "city": "Ikeja",
+                "directory_visible": false,
+                "two_factor_enabled": false,
+                "email_verified_at": "2026-10-16T14:25:24+00:00",
+                "last_login_at": "2026-10-16T14:25:24+00:00",
+                "membership": {
+                    "uuid": "01a1451a-778f-71e0-9bc6-47f220602619",
+                    "member_type": "individual",
+                    "member_id": "APFSPNLA901",
+                    "status": "active",
+                    "status_label": "Active",
+                    "state_code": "LA",
+                    "approved_at": "2026-10-16T14:25:24+00:00",
+                    "expires_at": "2027-10-16T14:25:24+00:00",
+                    "rejection_reason": null,
+                    "suspension_reason": "Unpaid levy.",
+                    "approved_by_admin_uuid": null,
+                    "rejected_at": null,
+                    "rejected_by_admin_uuid": null,
+                    "suspended_at": "2026-10-16T14:25:25+00:00",
+                    "suspended_by_admin_uuid": "01a1451a-7840-70a0-8c55-b6a34eac9e18",
+                    "reactivated_at": "2026-10-16T14:25:25+00:00",
+                    "created_at": "2026-10-16T14:25:24+00:00"
+                },
+                "organisation": null
+            }
+        },
+        "request": []
+    }
+}

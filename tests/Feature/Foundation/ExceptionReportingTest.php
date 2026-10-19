@@ -57,7 +57,7 @@ class ExceptionReportingTest extends TestCase
         $this->api('GET', '/api/v1/does-not-exist')->assertNotFound();
 
         foreach (range(1, 6) as $attempt) {
-            $response = $this->api('POST', '/api/v1/admin/auth/login', ['email' => 'nobody@example.com', 'password' => 'wrong-password']);
+            $response = $this->api('POST', '/api/v1/admin/auth/login', ['email' => 'nobody@apfspn.test', 'password' => 'wrong-password']);
         }
 
         $response->assertStatus(429);

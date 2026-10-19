@@ -4,13 +4,13 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Role;
 use App\Repositories\Contracts\RoleRepositoryInterface;
-use Illuminate\Support\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class RoleRepository implements RoleRepositoryInterface
 {
-    public function allWithPermissions(): Collection
+    public function paginateWithPermissions(int $perPage): LengthAwarePaginator
     {
-        return Role::with('permissions')->withCount('admins')->orderBy('name')->get();
+        return Role::with('permissions')->withCount('admins')->orderBy('name')->orderBy('uuid')->paginate($perPage);
     }
 
     public function findWithPermissions(string $uuid): Role
@@ -48,5 +48,15 @@ class RoleRepository implements RoleRepositoryInterface
     public function delete(Role $role): void
     {
         $role->delete();
+    }
+
+    public function permissionNames(Role $role): array
+    {
+        return $role->permissions()->pluck('name')->sort()->values()->all();
+    }
+
+    public function syncPermissions(Role $role, array $permissions): void
+    {
+        $role->syncPermissions($permissions);
     }
 }

@@ -1,0 +1,225 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "welcome_name": "Adaobi Okafor",
+                "organisation_name": null,
+                "membership_card": {
+                    "member_type": "individual",
+                    "member_type_label": "Individual",
+                    "member_id": "APFSPNLA007",
+                    "status": "active",
+                    "status_label": "Active",
+                    "approved_at": "2025-11-16T14:26:25+00:00",
+                    "expires_at": "2026-11-15T14:26:25+00:00",
+                    "days_until_expiry": 30
+                },
+                "upcoming_events": [
+                    {
+                        "uuid": "01a1451b-62f5-725a-a83e-0c461e4b3bba",
+                        "event_uuid": "01a1451b-62cb-7388-9726-a3253e7767c1",
+                        "status": "registered",
+                        "status_label": "Registered",
+                        "waitlist_position": null,
+                        "registered_at": "2026-10-16T14:26:25+00:00",
+                        "promoted_at": null,
+                        "cancelled_at": null,
+                        "attended_at": null,
+                        "virtual_link": null,
+                        "event": {
+                            "uuid": "01a1451b-62cb-7388-9726-a3253e7767c1",
+                            "slug": "nulla-tenetur-corporis-rvocs",
+                            "title": "Nulla tenetur corporis.",
+                            "description": "Excepturi et ad blanditiis. Dolores est voluptas dignissimos culpa ut voluptate. Est doloremque consequuntur quas sit quia voluptas ut. Dicta aut recusandae quidem consequatur.",
+                            "image_url": null,
+                            "starts_at": "2026-10-17T14:26:25+00:00",
+                            "ends_at": "2026-10-17T17:26:25+00:00",
+                            "venue": "Eko Hotel",
+                            "address": "Plot 1415 Adetokunbo Ademola Street, Victoria Island",
+                            "city": "Lagos",
+                            "state_code": "LA",
+                            "state": "Lagos",
+                            "is_virtual": false,
+                            "audience": "public",
+                            "members_only": false,
+                            "capacity": null,
+                            "registration_closes_at": "2026-10-17T14:26:25+00:00",
+                            "registration_open": true,
+                            "schedule": [],
+                            "status": "published",
+                            "status_label": "Published",
+                            "cancelled_at": null
+                        }
+                    },
+                    {
+                        "uuid": "01a1451b-62ee-7386-b825-7c9fb785a360",
+                        "event_uuid": "01a1451b-62cc-72c3-8214-6498097decb9",
+                        "status": "registered",
+                        "status_label": "Registered",
+                        "waitlist_position": null,
+                        "registered_at": "2026-10-16T14:26:25+00:00",
+                        "promoted_at": null,
+                        "cancelled_at": null,
+                        "attended_at": null,
+                        "virtual_link": null,
+                        "event": {
+                            "uuid": "01a1451b-62cc-72c3-8214-6498097decb9",
+                            "slug": "dolor-officia-aut-2arde",
+                            "title": "Dolor officia aut.",
+                            "description": "Ex sed quae ut vel rem velit hic. Et non similique rerum. Velit ea asperiores facere excepturi qui. Beatae magnam aut quo dolorem quo sit.",
+                            "image_url": null,
+                            "starts_at": "2026-10-18T14:26:25+00:00",
+                            "ends_at": "2026-10-18T17:26:25+00:00",
+                            "venue": "Eko Hotel",
+                            "address": "Plot 1415 Adetokunbo Ademola Street, Victoria Island",
+                            "city": "Lagos",
+                            "state_code": "LA",
+                            "state": "Lagos",
+                            "is_virtual": false,
+                            "audience": "public",
+                            "members_only": false,
+                            "capacity": null,
+                            "registration_closes_at": "2026-10-18T14:26:25+00:00",
+                            "registration_open": true,
+                            "schedule": [],
+                            "status": "published",
+                            "status_label": "Published",
+                            "cancelled_at": null
+                        }
+                    },
+                    {
+                        "uuid": "01a1451b-62e4-7343-9293-d256cb06c092",
+                        "event_uuid": "01a1451b-62cd-72fb-9c79-e1c965157c5f",
+                        "status": "registered",
+                        "status_label": "Registered",
+                        "waitlist_position": null,
+                        "registered_at": "2026-10-16T14:26:25+00:00",
+                        "promoted_at": null,
+                        "cancelled_at": null,
+                        "attended_at": null,
+                        "virtual_link": null,
+                        "event": {
+                            "uuid": "01a1451b-62cd-72fb-9c79-e1c965157c5f",
+                            "slug": "qui-et-ullam-nesciunt-dolorem-perferendis-cwlpu",
+                            "title": "Qui et ullam nesciunt dolorem perferendis.",
+                            "description": "Facere autem similique exercitationem dolore enim eum. Autem quae dolor est. Inventore nisi ut adipisci minus.",
+                            "image_url": null,
+                            "starts_at": "2026-10-19T14:26:25+00:00",
+                            "ends_at": "2026-10-19T17:26:25+00:00",
+                            "venue": "Eko Hotel",
+                            "address": "Plot 1415 Adetokunbo Ademola Street, Victoria Island",
+                            "city": "Lagos",
+                            "state_code": "LA",
+                            "state": "Lagos",
+                            "is_virtual": false,
+                            "audience": "public",
+                            "members_only": false,
+                            "capacity": null,
+                            "registration_closes_at": "2026-10-19T14:26:25+00:00",
+                            "registration_open": true,
+                            "schedule": [],
+                            "status": "published",
+                            "status_label": "Published",
+                            "cancelled_at": null
+                        }
+                    }
+                ],
+                "waitlisted_events": [
+                    {
+                        "uuid": "01a1451b-62fd-727d-a29d-1c8b6e8c3edd",
+                        "event_uuid": "01a1451b-62d0-73c8-aa85-be73c07680cf",
+                        "status": "waitlisted",
+                        "status_label": "Waitlisted",
+                        "waitlist_position": 1,
+                        "registered_at": "2026-10-16T14:26:25+00:00",
+                        "promoted_at": null,
+                        "cancelled_at": null,
+                        "attended_at": null,
+                        "virtual_link": null,
+                        "event": {
+                            "uuid": "01a1451b-62d0-73c8-aa85-be73c07680cf",
+                            "slug": "facilis-doloremque-et-fxdix",
+                            "title": "Chefs Masterclass",
+                            "description": "Deleniti culpa ratione est eum facere dicta reprehenderit odio. Eligendi ut provident fugit in atque et. Laborum veniam sapiente nemo.",
+                            "image_url": null,
+                            "starts_at": "2026-10-30T10:00:00+00:00",
+                            "ends_at": "2026-10-30T16:00:00+00:00",
+                            "venue": "Eko Hotel",
+                            "address": "Plot 1415 Adetokunbo Ademola Street, Victoria Island",
+                            "city": "Lagos",
+                            "state_code": "LA",
+                            "state": "Lagos",
+                            "is_virtual": false,
+                            "audience": "public",
+                            "members_only": false,
+                            "capacity": 1,
+                            "registration_closes_at": "2026-10-30T10:00:00+00:00",
+                            "registration_open": true,
+                            "schedule": [],
+                            "status": "published",
+                            "status_label": "Published",
+                            "cancelled_at": null
+                        }
+                    }
+                ],
+                "recent_activity": [
+                    {
+                        "uuid": "01a1451b-62fe-72b1-a4b3-358cf98bb1be",
+                        "type": "event_waitlisted",
+                        "label": "Event Waitlisted",
+                        "subject": {
+                            "type": "event",
+                            "uuid": "01a1451b-62d0-73c8-aa85-be73c07680cf",
+                            "title": "Chefs Masterclass",
+                            "slug": "facilis-doloremque-et-fxdix"
+                        },
+                        "changed_fields": [],
+                        "created_at": "2026-10-16T14:26:25+00:00"
+                    },
+                    {
+                        "uuid": "01a1451b-62f6-72e3-a076-50ddc5106a72",
+                        "type": "event_registered",
+                        "label": "Event Registered",
+                        "subject": {
+                            "type": "event",
+                            "uuid": "01a1451b-62cb-7388-9726-a3253e7767c1",
+                            "title": "Nulla tenetur corporis.",
+                            "slug": "nulla-tenetur-corporis-rvocs"
+                        },
+                        "changed_fields": [],
+                        "created_at": "2026-10-16T14:26:25+00:00"
+                    },
+                    {
+                        "uuid": "01a1451b-62ef-7327-b62a-9b1f4048a620",
+                        "type": "event_registered",
+                        "label": "Event Registered",
+                        "subject": {
+                            "type": "event",
+                            "uuid": "01a1451b-62cc-72c3-8214-6498097decb9",
+                            "title": "Dolor officia aut.",
+                            "slug": "dolor-officia-aut-2arde"
+                        },
+                        "changed_fields": [],
+                        "created_at": "2026-10-16T14:26:25+00:00"
+                    }
+                ]
+            }
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "This token cannot be used here.",
+            "data": {
+                "code": "wrong_audience"
+            }
+        }
+    }
+}

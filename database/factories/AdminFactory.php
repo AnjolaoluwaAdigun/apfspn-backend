@@ -20,7 +20,7 @@ class AdminFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'email' => fake()->unique()->userName().'@apfspn.test',
             'password' => static::$password ??= Hash::make(self::PASSWORD),
             'status' => AdminStatus::Active,
             'must_reset_password' => false,

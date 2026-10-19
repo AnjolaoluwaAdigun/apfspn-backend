@@ -1,0 +1,70 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "items": [
+                    {
+                        "uuid": "01a1451b-7e3c-72ca-8567-d526ce6da836",
+                        "event_uuid": "01a1451b-7e32-7218-8d73-b39615f69ac2",
+                        "status": "registered",
+                        "status_label": "Registered",
+                        "waitlist_position": null,
+                        "registered_at": "2026-10-16T14:26:32+00:00",
+                        "promoted_at": null,
+                        "cancelled_at": null,
+                        "attended_at": null,
+                        "member": {
+                            "uuid": "01a1451b-7e35-7085-8d1f-8f108b482fa4",
+                            "name": "Ada Obi",
+                            "email": "xemard@apfspn.test",
+                            "phone": "08020909671",
+                            "member_id": "APFSPNLA901",
+                            "member_type": "individual",
+                            "organisation": null
+                        }
+                    },
+                    {
+                        "uuid": "01a1451b-7e42-7049-a87e-384d955c49be",
+                        "event_uuid": "01a1451b-7e32-7218-8d73-b39615f69ac2",
+                        "status": "waitlisted",
+                        "status_label": "Waitlisted",
+                        "waitlist_position": 1,
+                        "registered_at": "2026-10-16T14:26:32+00:00",
+                        "promoted_at": null,
+                        "cancelled_at": null,
+                        "attended_at": null,
+                        "member": {
+                            "uuid": "01a1451b-7e3e-737e-a05d-43289b90051d",
+                            "name": "Bola Ade",
+                            "email": "nshanahan@apfspn.test",
+                            "phone": "08042196867",
+                            "member_id": "APFSPNLA902",
+                            "member_type": "individual",
+                            "organisation": null
+                        }
+                    }
+                ],
+                "pagination": {
+                    "current_page": 1,
+                    "per_page": 15,
+                    "total": 2,
+                    "last_page": 1
+                }
+            }
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "You are not allowed to perform this action.",
+            "data": null
+        }
+    }
+}

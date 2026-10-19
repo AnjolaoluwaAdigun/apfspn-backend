@@ -64,7 +64,7 @@ class MemberAuthTest extends TestCase
             ->assertUnauthorized()
             ->assertJsonPath('data.code', 'invalid_credentials');
 
-        $this->api('POST', '/api/v1/member/auth/login', ['email' => 'ghost@example.com', 'password' => 'WrongPass1'])
+        $this->api('POST', '/api/v1/member/auth/login', ['email' => 'ghost@apfspn.test', 'password' => 'WrongPass1'])
             ->assertUnauthorized()
             ->assertJsonPath('data.code', 'invalid_credentials');
     }

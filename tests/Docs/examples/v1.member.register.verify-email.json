@@ -1,0 +1,30 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Email verified. Create your password to continue.",
+            "data": {
+                "next_step": "create_password",
+                "password_token": "{password_token}"
+            }
+        },
+        "request": {
+            "challenge_token": "{challenge_token}",
+            "code": "318672"
+        }
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The code you entered is incorrect.",
+            "data": {
+                "code": "invalid_otp",
+                "attempts_remaining": 4
+            }
+        }
+    }
+}

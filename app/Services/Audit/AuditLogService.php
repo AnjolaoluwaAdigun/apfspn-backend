@@ -2,6 +2,7 @@
 
 namespace App\Services\Audit;
 
+use App\Models\Admin;
 use App\Models\AuditLog;
 use App\Repositories\Contracts\AuditLogRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -20,9 +21,9 @@ class AuditLogService
 
     public function __construct(private readonly AuditLogRepositoryInterface $auditLogs) {}
 
-    public function record(string $action, ?Model $subject = null, ?array $changes = null): ?AuditLog
+    public function record(string $action, ?Model $subject = null, ?array $changes = null, ?Admin $actor = null): ?AuditLog
     {
-        $adminUuid = $this->currentAdminUuid();
+        $adminUuid = $actor?->getKey() ?? $this->currentAdminUuid();
 
         if ($adminUuid === null || ($changes !== null && $changes['changed_fields'] === [])) {
             return null;

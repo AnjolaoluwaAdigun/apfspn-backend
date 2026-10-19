@@ -1,0 +1,45 @@
+{
+    "success": {
+        "status": 201,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Application submitted. Enter the code we sent to your email to verify it.",
+            "data": {
+                "next_step": "verify_email",
+                "challenge": {
+                    "challenge_token": "{challenge_token}",
+                    "mode": "send_new",
+                    "expires_in": 599,
+                    "retry_after_seconds": 60
+                }
+            }
+        },
+        "request": {
+            "name": "Ada Obi",
+            "email": "kemi@apfspn.test",
+            "phone": "08031234567",
+            "bio": "Executive chef with ten years in hotel kitchens.",
+            "photo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==",
+            "state_code": "LA",
+            "city": "Ikeja",
+            "consent": true
+        }
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The state code field is required.",
+            "data": {
+                "state_code": [
+                    "The state code field is required."
+                ],
+                "city": [
+                    "The city field is required."
+                ]
+            }
+        }
+    }
+}

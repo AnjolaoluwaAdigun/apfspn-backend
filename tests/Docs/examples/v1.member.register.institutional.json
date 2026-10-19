@@ -1,0 +1,46 @@
+{
+    "success": {
+        "status": 201,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Application submitted. Enter the code we sent to your email to verify it.",
+            "data": {
+                "next_step": "verify_email",
+                "challenge": {
+                    "challenge_token": "{challenge_token}",
+                    "mode": "send_new",
+                    "expires_in": 599,
+                    "retry_after_seconds": 60
+                }
+            }
+        },
+        "request": {
+            "name": "Ngozi Eze",
+            "email": "ngozi@apfspn.test",
+            "phone": "08035551234",
+            "institution_name": "Benin Culinary Institute",
+            "institution_type": "Training institution",
+            "registration_number": "EDU-2020-114",
+            "department": "School of Hospitality",
+            "address": "4 Airport Road, Benin City",
+            "state_code": "ED",
+            "city": "Benin City",
+            "consent": "1",
+            "letter_of_authorisation": "(file)"
+        }
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The letter of authorisation field is required.",
+            "data": {
+                "letter_of_authorisation": [
+                    "The letter of authorisation field is required."
+                ]
+            }
+        }
+    }
+}

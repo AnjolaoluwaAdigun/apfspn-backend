@@ -1,0 +1,104 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "items": [
+                    {
+                        "uuid": "01a1451a-4adc-71fc-a8e9-24b2f558391f",
+                        "name": "Jedediah Adams",
+                        "email": "ryan.robbie@apfspn.test",
+                        "phone": "08015658950",
+                        "account_status": "active",
+                        "member_type": "individual",
+                        "bio": null,
+                        "photo_url": null,
+                        "state_code": "LA",
+                        "state": "Lagos",
+                        "city": "Ikeja",
+                        "directory_visible": false,
+                        "two_factor_enabled": true,
+                        "email_verified_at": "2026-10-16T14:25:13+00:00",
+                        "last_login_at": null,
+                        "membership": {
+                            "uuid": "01a1451a-4adc-71fc-a8e9-24b2f5f6fa56",
+                            "member_type": "individual",
+                            "member_id": null,
+                            "status": "pending_approval",
+                            "status_label": "Pending Approval",
+                            "state_code": "LA",
+                            "approved_at": null,
+                            "expires_at": null,
+                            "rejection_reason": null,
+                            "suspension_reason": null,
+                            "approved_by_admin_uuid": null,
+                            "rejected_at": null,
+                            "rejected_by_admin_uuid": null,
+                            "suspended_at": null,
+                            "suspended_by_admin_uuid": null,
+                            "reactivated_at": null,
+                            "created_at": "2026-10-16T14:25:13+00:00"
+                        },
+                        "organisation": null
+                    },
+                    {
+                        "uuid": "01a1451a-4add-729e-bcdb-ba0b718c2044",
+                        "name": "Prof. Ciara Upton",
+                        "email": "meffertz@apfspn.test",
+                        "phone": "08029992924",
+                        "account_status": "active",
+                        "member_type": "individual",
+                        "bio": null,
+                        "photo_url": null,
+                        "state_code": "LA",
+                        "state": "Lagos",
+                        "city": "Ikeja",
+                        "directory_visible": false,
+                        "two_factor_enabled": true,
+                        "email_verified_at": "2026-10-16T15:25:13+00:00",
+                        "last_login_at": null,
+                        "membership": {
+                            "uuid": "01a1451a-4ade-7309-923b-e069a85b0de7",
+                            "member_type": "individual",
+                            "member_id": null,
+                            "status": "pending_approval",
+                            "status_label": "Pending Approval",
+                            "state_code": "LA",
+                            "approved_at": null,
+                            "expires_at": null,
+                            "rejection_reason": null,
+                            "suspension_reason": null,
+                            "approved_by_admin_uuid": null,
+                            "rejected_at": null,
+                            "rejected_by_admin_uuid": null,
+                            "suspended_at": null,
+                            "suspended_by_admin_uuid": null,
+                            "reactivated_at": null,
+                            "created_at": "2026-10-16T15:25:13+00:00"
+                        },
+                        "organisation": null
+                    }
+                ],
+                "pagination": {
+                    "current_page": 1,
+                    "per_page": 15,
+                    "total": 2,
+                    "last_page": 1
+                }
+            }
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "You are not allowed to perform this action.",
+            "data": null
+        }
+    }
+}

@@ -1,0 +1,57 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The review note field is required.",
+            "data": {
+                "review_note": [
+                    "The review note field is required."
+                ]
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Article sent back to the author.",
+            "data": {
+                "uuid": "01a1451b-2fcc-7249-ac83-827163eae8aa",
+                "slug": "qui-veritatis-quia-quia-nostrum-quia-sit-illo-w714z",
+                "title": "Qui veritatis quia quia nostrum quia sit illo.",
+                "excerpt": "Qui aspernatur qui consequatur velit et illo consequatur quasi soluta sunt perferendis ex sit velit odio rerum libero fuga ad tempore.",
+                "body": "<p>Aut laborum doloremque sit tempore dolores impedit. Voluptatem et non aut repellendus. Delectus iure id minima numquam autem et enim. Similique et cum consequatur vel ducimus qui fugit.</p>",
+                "cover_image_url": null,
+                "category": "news",
+                "category_label": "News",
+                "tags": [
+                    "hospitality"
+                ],
+                "status": "changes_requested",
+                "status_label": "Changes Requested",
+                "publish_at": null,
+                "published_at": null,
+                "archived_at": null,
+                "view_count": 0,
+                "author": null,
+                "reviewer": {
+                    "uuid": "01a1451b-3088-7060-bd97-9a7e23fdbd71",
+                    "name": "Mr. Conner Kerluke V"
+                },
+                "review_note": "Hold this one.",
+                "revision_count": 0,
+                "author_admin_uuid": null,
+                "created_by_admin_uuid": null,
+                "updated_by_admin_uuid": "01a1451b-3088-7060-bd97-9a7e23fdbd71",
+                "created_at": "2026-10-16T14:26:12+00:00",
+                "updated_at": "2026-10-16T14:26:12+00:00"
+            }
+        },
+        "request": {
+            "review_note": "Hold this one."
+        }
+    }
+}

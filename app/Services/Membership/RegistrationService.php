@@ -4,6 +4,7 @@ namespace App\Services\Membership;
 
 use App\Enums\AuthClient;
 use App\Enums\ChallengePurpose;
+use App\Enums\MemberActivityType;
 use App\Enums\MembershipStatus;
 use App\Enums\MemberType;
 use App\Enums\TokenAudience;
@@ -28,6 +29,7 @@ class RegistrationService
         private readonly ChallengeService $challenges,
         private readonly PasswordResetService $passwords,
         private readonly TokenService $tokens,
+        private readonly MemberActivityService $activities,
     ) {}
 
     public function register(MemberType $type, array $data): array
@@ -59,12 +61,14 @@ class RegistrationService
                 ]);
             }
 
-            $this->memberships->create([
+            $membership = $this->memberships->create([
                 'user_uuid' => $user->getKey(),
                 'member_type' => $type,
                 'state_code' => $data['state_code'],
                 'status' => MembershipStatus::PendingApproval,
             ]);
+
+            $this->activities->record($user->getKey(), MemberActivityType::ApplicationSubmitted, $membership);
 
             return $user;
         });
@@ -84,6 +88,7 @@ class RegistrationService
 
             if (! $user->hasVerifiedEmail()) {
                 $this->users->update($user, ['email_verified_at' => now()]);
+                $this->activities->record($user->getKey(), MemberActivityType::EmailVerified);
                 $membership = $this->users->withProfile($user)->membership;
 
                 if ($membership) {

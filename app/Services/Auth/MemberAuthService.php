@@ -4,11 +4,13 @@ namespace App\Services\Auth;
 
 use App\Enums\AuthClient;
 use App\Enums\ChallengePurpose;
+use App\Enums\MemberActivityType;
 use App\Enums\TokenAudience;
 use App\Exceptions\ApiException;
 use App\Models\PersonalAccessToken;
 use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Services\Membership\MemberActivityService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,6 +22,7 @@ class MemberAuthService
         private readonly TokenService $tokens,
         private readonly ChallengeService $challenges,
         private readonly PasswordResetService $resets,
+        private readonly MemberActivityService $activities,
     ) {}
 
     public function login(string $email, string $password, AuthClient $client): array
@@ -82,6 +85,7 @@ class MemberAuthService
 
             $this->users->update($locked, ['password' => $password]);
             $this->tokens->revokeOthers($locked, $current);
+            $this->activities->record($locked->getKey(), MemberActivityType::PasswordChanged);
         });
     }
 

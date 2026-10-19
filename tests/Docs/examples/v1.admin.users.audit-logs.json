@@ -1,0 +1,58 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "items": [
+                    {
+                        "uuid": "01a1451a-8640-70e7-b3cc-d775f7c0c6b8",
+                        "admin_uuid": "01a1451a-863c-7379-bd1c-6c8deea5cbcd",
+                        "action": "article.published",
+                        "auditable_type": null,
+                        "auditable_uuid": null,
+                        "method": null,
+                        "path": null,
+                        "ip_address": null,
+                        "user_agent": null,
+                        "request_body": null,
+                        "changes": null,
+                        "created_at": "2026-10-16T14:25:28+00:00"
+                    },
+                    {
+                        "uuid": "01a1451a-863f-7257-9099-5a5a3f4ae37e",
+                        "admin_uuid": "01a1451a-863c-7379-bd1c-6c8deea5cbcd",
+                        "action": "article.created",
+                        "auditable_type": null,
+                        "auditable_uuid": null,
+                        "method": null,
+                        "path": null,
+                        "ip_address": null,
+                        "user_agent": null,
+                        "request_body": null,
+                        "changes": null,
+                        "created_at": "2026-10-16T14:25:28+00:00"
+                    }
+                ],
+                "pagination": {
+                    "current_page": 1,
+                    "per_page": 15,
+                    "total": 2,
+                    "last_page": 1
+                }
+            }
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "You are not allowed to perform this action.",
+            "data": null
+        }
+    }
+}

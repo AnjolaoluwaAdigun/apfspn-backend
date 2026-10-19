@@ -22,7 +22,7 @@ class RoleController extends Controller
 
     public function index(ListRolesRequest $request): JsonResponse
     {
-        return JsonResponser::success(RoleResource::collection($this->roles->list()));
+        return JsonResponser::success(RoleResource::collection($this->roles->list($request->validated())));
     }
 
     public function permissions(ListPermissionsRequest $request): JsonResponse

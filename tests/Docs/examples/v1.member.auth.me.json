@@ -1,0 +1,67 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "uuid": "01a1451b-af24-71ee-bf25-394659478faa",
+                "name": "Ngozi Eze",
+                "email": "ngozi@apfspn.test",
+                "phone": "08035551234",
+                "account_status": "active",
+                "member_type": "institutional",
+                "bio": null,
+                "photo_url": null,
+                "state_code": null,
+                "state": null,
+                "city": null,
+                "directory_visible": false,
+                "two_factor_enabled": true,
+                "email_verified_at": "2026-10-16T14:26:44+00:00",
+                "last_login_at": "2026-10-16T14:26:44+00:00",
+                "membership": {
+                    "uuid": "01a1451b-af26-71e4-8de1-d204c28923a1",
+                    "member_type": "institutional",
+                    "member_id": null,
+                    "status": "pending_approval",
+                    "status_label": "Pending Approval",
+                    "state_code": "ED",
+                    "approved_at": null,
+                    "expires_at": null,
+                    "created_at": "2026-10-16T14:26:44+00:00"
+                },
+                "organisation": {
+                    "uuid": "01a1451b-af25-7289-8f54-2fa516ec2b59",
+                    "type": "institutional",
+                    "name": "Benin Culinary Institute",
+                    "registration_number": "EDU-2020-114",
+                    "year_established": null,
+                    "business_type": null,
+                    "institution_type": "Training institution",
+                    "department": "School of Hospitality",
+                    "address": "4 Airport Road, Benin City",
+                    "state_code": "ED",
+                    "state": "Edo",
+                    "city": "Benin City",
+                    "website": null,
+                    "document_url": "https://api.cloudinary.com/v1_1/apfspn-test/raw/download?public_id=members%2Fdocuments%2Fb65d55b5-0ba7-4572-9018-5a9e25873657.pdf&type=authenticated&expires_at=1792161404",
+                    "document_url_expires_at": "2026-10-16T14:36:44+00:00"
+                }
+            }
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "Your membership has been suspended. Please contact APFSPN.",
+            "data": {
+                "code": "membership_suspended"
+            }
+        }
+    }
+}

@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Repositories\Contracts\RoleRepositoryInterface;
 use App\Services\Audit\AuditLogService;
 use Database\Seeders\RolesAndPermissionsSeeder;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,8 @@ use Illuminate\Support\Str;
 
 class RoleService
 {
+    public const DEFAULT_PER_PAGE = 15;
+
     private const TRANSACTION_ATTEMPTS = 3;
 
     public function __construct(
@@ -34,9 +37,9 @@ class RoleService
         return $name === AdminUserService::SUPER_ADMIN_ROLE;
     }
 
-    public function list(): Collection
+    public function list(array $filters): LengthAwarePaginator
     {
-        return $this->roles->allWithPermissions();
+        return $this->roles->paginateWithPermissions((int) ($filters['per_page'] ?? self::DEFAULT_PER_PAGE));
     }
 
     public function show(string $uuid): Role
@@ -66,7 +69,7 @@ class RoleService
 
         $uuid = DB::transaction(function () use ($data) {
             $role = $this->roles->create($data['name'], RolesAndPermissionsSeeder::GUARD);
-            $role->syncPermissions($data['permissions']);
+            $this->roles->syncPermissions($role, $data['permissions']);
             $this->audit->record('role.created', $role);
 
             return $role->getKey();
@@ -79,7 +82,7 @@ class RoleService
     {
         DB::transaction(function () use ($uuid, $data, $actor) {
             $role = $this->locked($uuid);
-            $current = $role->permissions()->pluck('name')->sort()->values()->all();
+            $current = $this->roles->permissionNames($role);
 
             if (isset($data['name']) && $data['name'] !== $role->name) {
                 if (self::isBuiltIn($role->name)) {
@@ -109,7 +112,7 @@ class RoleService
             $this->roles->save($role);
 
             if ($permissions !== null) {
-                $role->syncPermissions($permissions);
+                $this->roles->syncPermissions($role, $permissions);
             }
 
             $this->audit->record('role.updated', $role, $changes);

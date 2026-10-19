@@ -70,7 +70,7 @@ class AdminMemberManagementTest extends TestCase
     {
         $token = $this->adminToken();
         $byName = $this->pendingMember(['name' => 'Adaeze Okafor']);
-        $byEmail = $this->pendingMember(['email' => 'kitchen.boss@example.com']);
+        $byEmail = $this->pendingMember(['email' => 'kitchen.boss@apfspn.test']);
         $byOrganisation = $this->corporateMember([], ['name' => 'Suya Palace Limited']);
         $byMemberId = $this->activeMember([], ['member_id' => 'APFSPNOY042']);
 
@@ -219,7 +219,7 @@ class AdminMemberManagementTest extends TestCase
         $taken = $this->pendingMember();
 
         $this->api('PUT', $this->memberUrl($member), [
-            'email' => 'new@example.com',
+            'email' => 'new@apfspn.test',
             'status' => 'active',
             'member_id' => 'APFSPNLA123',
             'member_type' => 'corporate',
@@ -230,7 +230,7 @@ class AdminMemberManagementTest extends TestCase
             ->assertStatus(422)
             ->assertJsonValidationErrors(['email', 'status', 'member_id', 'member_type', 'expires_at', 'phone', 'organisation'], 'data');
 
-        $this->assertNotSame('new@example.com', $member->refresh()->email);
+        $this->assertNotSame('new@apfspn.test', $member->refresh()->email);
     }
 
     public function test_edit_enforces_organisation_type_specific_fields(): void
@@ -289,7 +289,7 @@ class AdminMemberManagementTest extends TestCase
 
     public function test_deleting_an_applicant_tombstones_the_account_and_frees_email_and_phone(): void
     {
-        $member = $this->corporateMember(['email' => 'tunde@chowco.ng', 'phone' => '08039876543', 'two_factor_enabled' => false]);
+        $member = $this->corporateMember(['email' => 'tunde@apfspn.test', 'phone' => '08039876543', 'two_factor_enabled' => false]);
         $memberToken = $this->memberTokens($member)['access_token'];
 
         $this->api('DELETE', $this->memberUrl($member), [], $this->adminToken())
@@ -301,14 +301,14 @@ class AdminMemberManagementTest extends TestCase
         $this->assertSoftDeleted($deleted);
         $this->assertSame('deleted+'.$member->uuid.'@deleted.local', $deleted->email);
         $this->assertNull($deleted->phone);
-        $this->assertSame(hash('sha256', 'tunde@chowco.ng'), $deleted->deleted_email_hash);
+        $this->assertSame(hash('sha256', 'tunde@apfspn.test'), $deleted->deleted_email_hash);
         $this->assertSame(0, PersonalAccessToken::where('tokenable_id', $member->uuid)->count());
         $this->assertSame(1, AuditLog::where('action', 'member.deleted')->where('auditable_uuid', $member->uuid)->count());
         Queue::assertPushed(DeletePrivateFile::class, fn (DeletePrivateFile $job) => $job->publicId === 'members/documents/cac.pdf');
 
         $this->api('GET', '/api/v1/member/profile', [], $memberToken)->assertUnauthorized();
 
-        $this->register('corporate', ['email' => 'tunde@chowco.ng', 'phone' => '08039876543'])->assertCreated();
+        $this->register('corporate', ['email' => 'tunde@apfspn.test', 'phone' => '08039876543'])->assertCreated();
     }
 
     public function test_deleting_a_rejected_applicant_is_allowed(): void
@@ -332,7 +332,7 @@ class AdminMemberManagementTest extends TestCase
 
     public function test_export_streams_the_filtered_list_as_csv(): void
     {
-        $active = $this->activeMember(['name' => 'Ada Obi', 'email' => 'ada@example.com', 'phone' => '+2348031234567'], ['member_id' => 'APFSPNLA001']);
+        $active = $this->activeMember(['name' => 'Ada Obi', 'email' => 'ada@apfspn.test', 'phone' => '+2348031234567'], ['member_id' => 'APFSPNLA001']);
         $this->pendingMember(['name' => 'Pending Person']);
         $this->activeMember(['name' => '=HYPERLINK("http://evil")']);
 
@@ -352,7 +352,7 @@ class AdminMemberManagementTest extends TestCase
         $this->assertNotContains('Pending Person', $names);
 
         $ada = collect($rows)->firstWhere(1, 'Ada Obi');
-        $this->assertSame(['APFSPNLA001', 'Ada Obi', 'ada@example.com', "'+2348031234567", 'individual', 'active', '', 'Lagos', 'Ikeja'], array_slice($ada, 0, 9));
+        $this->assertSame(['APFSPNLA001', 'Ada Obi', 'ada@apfspn.test', "'+2348031234567", 'individual', 'active', '', 'Lagos', 'Ikeja'], array_slice($ada, 0, 9));
         $this->assertSame($active->membership->expires_at->toIso8601String(), $ada[11]);
 
         $this->assertSame(1, AuditLog::where('action', 'member.exported')->count());

@@ -1,0 +1,28 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "This member has been approved and cannot be deleted. Suspend the membership instead.",
+            "data": {
+                "code": "blocked",
+                "counts": {
+                    "issued_member_ids": 1,
+                    "active_memberships": 1,
+                    "event_registrations": 0
+                }
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Member deleted.",
+            "data": null
+        },
+        "request": []
+    }
+}

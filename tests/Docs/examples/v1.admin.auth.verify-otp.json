@@ -1,0 +1,55 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The code you entered is incorrect.",
+            "data": {
+                "code": "invalid_otp",
+                "attempts_remaining": 4
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Code verified.",
+            "data": {
+                "next_step": "authenticated",
+                "tokens": {
+                    "access_token": "{access_token}",
+                    "refresh_token": "{refresh_token}",
+                    "token_type": "Bearer",
+                    "expires_in": 3600,
+                    "refresh_expires_in": 2592000
+                },
+                "admin": {
+                    "uuid": "01a1451b-3d79-720d-953d-98b24cb2f2eb",
+                    "name": "Ms. Calista Dietrich PhD",
+                    "email": "tyree.gottlieb@apfspn.test",
+                    "status": "active",
+                    "account_state": "active",
+                    "must_reset_password": false,
+                    "last_login_at": "2026-10-16T14:26:15+00:00",
+                    "roles": [
+                        "super_admin"
+                    ],
+                    "permissions": [
+                        "admins.create",
+                        "admins.delete",
+                        "admins.update"
+                    ],
+                    "created_at": "2026-10-16T14:26:15+00:00"
+                }
+            }
+        },
+        "request": {
+            "challenge_token": "{challenge_token}",
+            "code": "084422",
+            "client": "web"
+        }
+    }
+}

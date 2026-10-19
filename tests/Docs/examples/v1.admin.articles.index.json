@@ -1,0 +1,96 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "items": [
+                    {
+                        "uuid": "01a1451a-e654-7206-be1f-6ba9c964b85d",
+                        "slug": "velit-non-aut-quia-autem-vel-nhna2",
+                        "title": "Velit non aut quia autem vel.",
+                        "excerpt": "Esse non dolorem excepturi voluptatum cupiditate ea sunt odit facere quisquam autem.",
+                        "cover_image_url": null,
+                        "category": "news",
+                        "category_label": "News",
+                        "tags": [
+                            "hospitality"
+                        ],
+                        "status": "draft",
+                        "status_label": "Draft",
+                        "publish_at": null,
+                        "published_at": null,
+                        "archived_at": null,
+                        "view_count": 0,
+                        "author": {
+                            "uuid": "01a1451a-e652-7133-86e5-b7d68792cdab",
+                            "name": "Dr. Randal Bode II"
+                        },
+                        "reviewer": null,
+                        "review_note": null,
+                        "revision_count": 0,
+                        "author_admin_uuid": "01a1451a-e652-7133-86e5-b7d68792cdab",
+                        "created_by_admin_uuid": null,
+                        "updated_by_admin_uuid": null,
+                        "created_at": "2026-10-16T14:25:53+00:00",
+                        "updated_at": "2026-10-16T14:25:53+00:00"
+                    },
+                    {
+                        "uuid": "01a1451a-e654-7206-be1f-6ba9c8e153ea",
+                        "slug": "consectetur-voluptatem-corporis-blanditiis-et-esse-sit-du0oe",
+                        "title": "Consectetur voluptatem corporis blanditiis et esse sit.",
+                        "excerpt": "Iste qui doloremque est sed ut ea porro ad odit minus totam aspernatur iusto eos accusantium dolorum nihil vel vitae consequuntur ipsum.",
+                        "cover_image_url": null,
+                        "category": "news",
+                        "category_label": "News",
+                        "tags": [
+                            "hospitality"
+                        ],
+                        "status": "draft",
+                        "status_label": "Draft",
+                        "publish_at": null,
+                        "published_at": null,
+                        "archived_at": null,
+                        "view_count": 0,
+                        "author": {
+                            "uuid": "01a1451a-e652-7133-86e5-b7d68792cdab",
+                            "name": "Dr. Randal Bode II"
+                        },
+                        "reviewer": null,
+                        "review_note": null,
+                        "revision_count": 0,
+                        "author_admin_uuid": "01a1451a-e652-7133-86e5-b7d68792cdab",
+                        "created_by_admin_uuid": null,
+                        "updated_by_admin_uuid": null,
+                        "created_at": "2026-10-16T14:25:53+00:00",
+                        "updated_at": "2026-10-16T14:25:53+00:00"
+                    }
+                ],
+                "pagination": {
+                    "current_page": 1,
+                    "per_page": 15,
+                    "total": 2,
+                    "last_page": 1
+                }
+            }
+        },
+        "request": {
+            "author_uuid": "01a1451a-e652-7133-86e5-b7d68792cdab"
+        }
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The selected status is invalid.",
+            "data": {
+                "status": [
+                    "The selected status is invalid."
+                ]
+            }
+        }
+    }
+}

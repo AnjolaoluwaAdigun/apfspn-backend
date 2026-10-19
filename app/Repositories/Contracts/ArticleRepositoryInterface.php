@@ -29,6 +29,10 @@ interface ArticleRepositoryInterface
 
     public function countAuthoredBy(string $adminUuid): int;
 
+    public function countsByStatus(): array;
+
+    public function oldestInReview(int $limit): Collection;
+
     public function save(Article $article): Article;
 
     public function delete(Article $article): void;

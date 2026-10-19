@@ -1,0 +1,57 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "Archived articles must be unarchived instead of published.",
+            "data": {
+                "code": "invalid_status_transition",
+                "current_status": "archived"
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Article published.",
+            "data": {
+                "uuid": "01a1451b-34a4-7211-9964-f5a8bd78d6ad",
+                "slug": "rerum-consectetur-ut-ut-5brez",
+                "title": "Rerum consectetur ut ut.",
+                "excerpt": "Minima molestiae accusamus temporibus rem dolores facilis velit dolorem est omnis iusto.",
+                "body": "<p>Et rerum similique voluptatibus neque cupiditate aut. Aut fugiat est similique placeat nisi. Dignissimos nisi ipsam et illo.</p>",
+                "cover_image_url": null,
+                "category": "news",
+                "category_label": "News",
+                "tags": [
+                    "hospitality"
+                ],
+                "status": "published",
+                "status_label": "Published",
+                "publish_at": null,
+                "published_at": "2026-10-16T14:26:13+00:00",
+                "archived_at": null,
+                "view_count": 0,
+                "author": {
+                    "uuid": "01a1451b-34a1-72e1-8ff7-c779ac3a4d1f",
+                    "name": "Kelton Schmeler"
+                },
+                "reviewer": {
+                    "uuid": "01a1451b-34a1-72e1-8ff7-c779ac3a4d1f",
+                    "name": "Kelton Schmeler"
+                },
+                "review_note": null,
+                "revision_count": 0,
+                "author_admin_uuid": "01a1451b-34a1-72e1-8ff7-c779ac3a4d1f",
+                "created_by_admin_uuid": null,
+                "updated_by_admin_uuid": "01a1451b-34a1-72e1-8ff7-c779ac3a4d1f",
+                "created_at": "2026-10-16T14:26:13+00:00",
+                "updated_at": "2026-10-16T14:26:13+00:00"
+            }
+        },
+        "request": []
+    }
+}

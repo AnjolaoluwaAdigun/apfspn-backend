@@ -1,0 +1,21 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Logged out.",
+            "data": null
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 401,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "Unauthenticated.",
+            "data": null
+        }
+    }
+}

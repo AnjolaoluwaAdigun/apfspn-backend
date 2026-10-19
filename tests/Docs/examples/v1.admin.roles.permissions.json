@@ -1,0 +1,68 @@
+{
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "You are not allowed to perform this action.",
+            "data": null
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": [
+                {
+                    "module": "dashboard",
+                    "label": "Dashboard",
+                    "permissions": [
+                        {
+                            "name": "dashboard.view",
+                            "label": "Dashboard View"
+                        }
+                    ]
+                },
+                {
+                    "module": "members",
+                    "label": "Members",
+                    "permissions": [
+                        {
+                            "name": "members.view",
+                            "label": "Members View"
+                        },
+                        {
+                            "name": "members.update",
+                            "label": "Members Update"
+                        },
+                        {
+                            "name": "members.approve",
+                            "label": "Members Approve"
+                        }
+                    ]
+                },
+                {
+                    "module": "events",
+                    "label": "Events",
+                    "permissions": [
+                        {
+                            "name": "events.view",
+                            "label": "Events View"
+                        },
+                        {
+                            "name": "events.create",
+                            "label": "Events Create"
+                        },
+                        {
+                            "name": "events.update",
+                            "label": "Events Update"
+                        }
+                    ]
+                }
+            ]
+        },
+        "request": []
+    }
+}

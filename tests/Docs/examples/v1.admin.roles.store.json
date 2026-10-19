@@ -1,0 +1,47 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The name field format is invalid.",
+            "data": {
+                "name": [
+                    "The name field format is invalid."
+                ],
+                "permissions.0": [
+                    "The selected permissions.0 is invalid."
+                ]
+            }
+        }
+    },
+    "success": {
+        "status": 201,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Role created.",
+            "data": {
+                "uuid": "01a1451a-d593-7387-b582-6c053a13a5d0",
+                "name": "press_officer",
+                "label": "Press Officer",
+                "built_in": false,
+                "locked": false,
+                "permissions": [
+                    "articles.publish",
+                    "articles.view"
+                ],
+                "admins_count": 0,
+                "created_at": "2026-10-16T14:25:48+00:00",
+                "updated_at": "2026-10-16T14:25:48+00:00"
+            }
+        },
+        "request": {
+            "name": "press_officer",
+            "permissions": [
+                "articles.view",
+                "articles.publish"
+            ]
+        }
+    }
+}

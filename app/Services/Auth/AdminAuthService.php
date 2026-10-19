@@ -8,6 +8,9 @@ use App\Enums\TokenAudience;
 use App\Models\Admin;
 use App\Models\PersonalAccessToken;
 use App\Repositories\Contracts\AdminRepositoryInterface;
+use App\Services\Audit\AuditLogService;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class AdminAuthService
 {
@@ -17,6 +20,7 @@ class AdminAuthService
         private readonly TokenService $tokens,
         private readonly ChallengeService $challenges,
         private readonly PasswordResetService $resets,
+        private readonly AuditLogService $audit,
     ) {}
 
     public function login(string $email, string $password, AuthClient $client): array
@@ -73,7 +77,15 @@ class AdminAuthService
 
     public function resetPassword(string $resetToken, string $password): void
     {
-        $this->resets->reset($resetToken, $password, $this->admins);
+        DB::transaction(function () use ($resetToken, $password) {
+            $admin = $this->resets->reset($resetToken, $password, $this->admins);
+            $changed = array_values(array_diff(array_keys($admin->getChanges()), ['updated_at']));
+
+            $this->audit->record('admin.password_reset', $admin, [
+                'changed_fields' => $changed,
+                'previous' => $this->audit->sanitise(Arr::only($admin->getPrevious(), $changed)),
+            ], $admin);
+        });
     }
 
     public function refresh(PersonalAccessToken $refreshToken): array
@@ -83,7 +95,10 @@ class AdminAuthService
 
     public function logout(PersonalAccessToken $token): void
     {
-        $this->tokens->revokeSession($token);
+        DB::transaction(function () use ($token) {
+            $this->audit->record('admin.logout', $token->tokenable, actor: $token->tokenable);
+            $this->tokens->revokeSession($token);
+        });
     }
 
     public function me(Admin $admin): Admin
@@ -93,11 +108,16 @@ class AdminAuthService
 
     private function authenticate(Admin $admin, AuthClient $client): array
     {
-        $this->admins->update($admin, ['last_login_at' => now()]);
+        $tokens = DB::transaction(function () use ($admin, $client) {
+            $this->admins->update($admin, ['last_login_at' => now()]);
+            $this->audit->record('admin.login', $admin, actor: $admin);
+
+            return $this->tokens->issue($admin, $client, TokenAudience::Admin);
+        });
 
         return [
             'next_step' => 'authenticated',
-            'tokens' => $this->tokens->issue($admin, $client, TokenAudience::Admin),
+            'tokens' => $tokens,
             'admin' => $admin->load('roles'),
         ];
     }

@@ -19,7 +19,7 @@ class AuditLogServiceTest extends TestCase
             'name' => 'Ada',
             'password' => 'secret123',
             'challenge_token' => 'abc',
-            'email' => 'Ada@Example.com',
+            'email' => 'Ada@APFSPN.test',
             'contact' => ['phone' => '08012345678'],
             'photo' => 'data:image/png;base64,iVBORw0KGgo=',
         ]);
@@ -27,7 +27,7 @@ class AuditLogServiceTest extends TestCase
         $this->assertSame('Ada', $clean['name']);
         $this->assertSame('[REDACTED]', $clean['password']);
         $this->assertSame('[REDACTED]', $clean['challenge_token']);
-        $this->assertSame('sha256:'.hash('sha256', 'ada@example.com'), $clean['email']);
+        $this->assertSame('sha256:'.hash('sha256', 'ada@apfspn.test'), $clean['email']);
         $this->assertSame('sha256:'.hash('sha256', '08012345678'), $clean['contact']['phone']);
         $this->assertArrayNotHasKey('photo', $clean);
     }

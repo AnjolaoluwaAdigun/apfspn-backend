@@ -43,8 +43,8 @@ class ArticleSanitizingTest extends TestCase
                 '<h2>T</h2><h3>S</h3><h4>U</h4><p>A<br />B</p><ul><li><strong>x</strong></li></ul><ol><li><em>y</em></li></ol><blockquote>q</blockquote>',
             ],
             'safe links get rel' => [
-                '<a href="https://apfspn.org" target="_blank">Site</a><a href="mailto:info@apfspn.org">Mail</a>',
-                '<a href="https://apfspn.org" rel="noopener noreferrer nofollow">Site</a><a href="mailto:info&#64;apfspn.org" rel="noopener noreferrer nofollow">Mail</a>',
+                '<a href="https://apfspn.org" target="_blank">Site</a><a href="mailto:info@apfspn.test">Mail</a>',
+                '<a href="https://apfspn.org" rel="noopener noreferrer nofollow">Site</a><a href="mailto:info&#64;apfspn.test" rel="noopener noreferrer nofollow">Mail</a>',
             ],
             'youtube embeds survive' => [
                 '<iframe src="https://www.youtube-nocookie.com/embed/abc" width="560" height="315" allowfullscreen></iframe>',

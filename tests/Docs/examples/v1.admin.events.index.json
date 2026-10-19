@@ -1,0 +1,106 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "items": [
+                    {
+                        "uuid": "01a1451b-7ba2-7218-92bd-81e79991bd33",
+                        "slug": "quos-eum-quibusdam-omnis-voluptas-tzmp3",
+                        "title": "Quos eum quibusdam omnis voluptas.",
+                        "description": "Eaque non quisquam natus asperiores ea in tenetur. Cumque autem quasi excepturi enim aut repellendus. Exercitationem eum soluta excepturi sint quam alias similique. Voluptas iste aut qui voluptatem harum qui architecto.",
+                        "image_url": null,
+                        "starts_at": "2026-10-30T10:00:00+00:00",
+                        "ends_at": "2026-10-30T16:00:00+00:00",
+                        "venue": "Eko Hotel",
+                        "address": "Plot 1415 Adetokunbo Ademola Street, Victoria Island",
+                        "city": "Lagos",
+                        "state_code": "LA",
+                        "state": "Lagos",
+                        "is_virtual": false,
+                        "virtual_link": null,
+                        "audience": "public",
+                        "members_only": false,
+                        "capacity": null,
+                        "seats_left": null,
+                        "registration_closes_at": "2026-10-30T10:00:00+00:00",
+                        "registration_open": true,
+                        "schedule": [],
+                        "status": "published",
+                        "status_label": "Published",
+                        "cancellation_reason": null,
+                        "cancelled_at": null,
+                        "registered_count": 0,
+                        "waitlisted_count": 0,
+                        "attended_count": 0,
+                        "published_at": "2026-10-16T14:26:31+00:00",
+                        "created_by_admin_uuid": null,
+                        "updated_by_admin_uuid": null,
+                        "created_at": "2026-10-16T14:26:31+00:00",
+                        "updated_at": "2026-10-16T14:26:31+00:00",
+                        "speakers": []
+                    },
+                    {
+                        "uuid": "01a1451b-7ba2-7218-92bd-81e798b888c6",
+                        "slug": "voluptatem-et-et-quisquam-doloribus-e1q0p",
+                        "title": "Voluptatem et et quisquam doloribus.",
+                        "description": "Vero numquam a voluptatem quas quis. Dolores nihil ipsam omnis quo eius eaque est eum. Fugit dignissimos fuga impedit cupiditate dignissimos qui veritatis. Rerum ut nam accusantium perspiciatis repellat.",
+                        "image_url": null,
+                        "starts_at": "2026-10-30T10:00:00+00:00",
+                        "ends_at": "2026-10-30T16:00:00+00:00",
+                        "venue": "Eko Hotel",
+                        "address": "Plot 1415 Adetokunbo Ademola Street, Victoria Island",
+                        "city": "Lagos",
+                        "state_code": "LA",
+                        "state": "Lagos",
+                        "is_virtual": false,
+                        "virtual_link": null,
+                        "audience": "public",
+                        "members_only": false,
+                        "capacity": null,
+                        "seats_left": null,
+                        "registration_closes_at": "2026-10-30T10:00:00+00:00",
+                        "registration_open": false,
+                        "schedule": [],
+                        "status": "draft",
+                        "status_label": "Draft",
+                        "cancellation_reason": null,
+                        "cancelled_at": null,
+                        "registered_count": 0,
+                        "waitlisted_count": 0,
+                        "attended_count": 0,
+                        "published_at": null,
+                        "created_by_admin_uuid": null,
+                        "updated_by_admin_uuid": null,
+                        "created_at": "2026-10-16T14:26:31+00:00",
+                        "updated_at": "2026-10-16T14:26:31+00:00",
+                        "speakers": []
+                    }
+                ],
+                "pagination": {
+                    "current_page": 1,
+                    "per_page": 15,
+                    "total": 2,
+                    "last_page": 1
+                }
+            }
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The selected status is invalid.",
+            "data": {
+                "status": [
+                    "The selected status is invalid."
+                ]
+            }
+        }
+    }
+}

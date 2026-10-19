@@ -64,6 +64,12 @@ return [
         ],
     ],
 
+    'reporting_timezone' => 'Africa/Lagos',
+
+    'dashboard' => [
+        'cache_ttl_seconds' => 60,
+    ],
+
     'frontend' => [
         'member_url' => env('FRONTEND_MEMBER_URL', 'http://localhost:3000'),
         'admin_url' => env('FRONTEND_ADMIN_URL', 'http://localhost:3001'),

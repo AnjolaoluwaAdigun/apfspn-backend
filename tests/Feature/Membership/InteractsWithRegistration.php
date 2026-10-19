@@ -45,7 +45,7 @@ trait InteractsWithRegistration
     {
         return array_merge([
             'name' => 'Ada Obi',
-            'email' => 'ada@example.com',
+            'email' => 'ada@apfspn.test',
             'phone' => '08031234567',
             'bio' => 'Executive chef with ten years in hotel kitchens.',
             'photo' => 'data:image/png;base64,'.self::PNG,
@@ -59,7 +59,7 @@ trait InteractsWithRegistration
     {
         return array_merge([
             'name' => 'Tunde Bello',
-            'email' => 'tunde@chowco.ng',
+            'email' => 'tunde@apfspn.test',
             'phone' => '08039876543',
             'company_name' => 'Chow Co Limited',
             'registration_number' => 'RC123456',
@@ -78,7 +78,7 @@ trait InteractsWithRegistration
     {
         return array_merge([
             'name' => 'Ngozi Eze',
-            'email' => 'ngozi@culinary.edu.ng',
+            'email' => 'ngozi@apfspn.test',
             'phone' => '08035551234',
             'institution_name' => 'Benin Culinary Institute',
             'institution_type' => 'Training institution',

@@ -1,0 +1,89 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The selected speakers.0.uuid is invalid.",
+            "data": {
+                "speakers.0.uuid": [
+                    "The selected speakers.0.uuid is invalid."
+                ]
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Event updated.",
+            "data": {
+                "uuid": "01a1451b-6816-73e2-8d3f-9e78f7969c82",
+                "slug": "explicabo-delectus-dolores-est-dicta-magnam-vb1da",
+                "title": "Renamed Summit",
+                "description": "Repellat est placeat neque quia occaecati quam modi. Enim quos aut excepturi odio ducimus. Quia debitis dicta saepe pariatur non. Est quisquam praesentium similique pariatur reprehenderit dolor. Explicabo quo omnis cum quaerat.",
+                "image_url": null,
+                "starts_at": "2026-10-30T10:00:00+00:00",
+                "ends_at": "2026-10-30T16:00:00+00:00",
+                "venue": "Eko Hotel",
+                "address": "Plot 1415 Adetokunbo Ademola Street, Victoria Island",
+                "city": "Lagos",
+                "state_code": "LA",
+                "state": "Lagos",
+                "is_virtual": false,
+                "virtual_link": null,
+                "audience": "public",
+                "members_only": false,
+                "capacity": null,
+                "seats_left": null,
+                "registration_closes_at": "2026-10-30T10:00:00+00:00",
+                "registration_open": false,
+                "schedule": [],
+                "status": "draft",
+                "status_label": "Draft",
+                "cancellation_reason": null,
+                "cancelled_at": null,
+                "registered_count": 0,
+                "waitlisted_count": 0,
+                "attended_count": 0,
+                "published_at": null,
+                "created_by_admin_uuid": null,
+                "updated_by_admin_uuid": "01a1451b-6895-71b0-9499-a887f0f2e1bd",
+                "created_at": "2026-10-16T14:26:26+00:00",
+                "updated_at": "2026-10-16T14:26:26+00:00",
+                "speakers": [
+                    {
+                        "uuid": "01a1451b-68c0-704c-94ee-3be9677ca2ab",
+                        "name": "New Speaker",
+                        "title": "Nutritionist",
+                        "bio": null,
+                        "photo_url": null,
+                        "sort_order": 0
+                    },
+                    {
+                        "uuid": "01a1451b-6816-73e2-8d3f-9e78f8272599",
+                        "name": "Chef Tolu Eros",
+                        "title": null,
+                        "bio": null,
+                        "photo_url": null,
+                        "sort_order": 1
+                    }
+                ]
+            }
+        },
+        "request": {
+            "title": "Renamed Summit",
+            "speakers": [
+                {
+                    "name": "New Speaker",
+                    "title": "Nutritionist"
+                },
+                {
+                    "uuid": "01a1451b-6816-73e2-8d3f-9e78f8272599",
+                    "name": "Chef Tolu Eros"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,88 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Profile updated.",
+            "data": {
+                "uuid": "01a1451b-abcf-706b-bf68-652a63f8eaf6",
+                "name": "Tunde Bello",
+                "email": "tunde@apfspn.test",
+                "phone": "08039876543",
+                "account_status": "active",
+                "member_type": "corporate",
+                "bio": null,
+                "photo_url": null,
+                "state_code": null,
+                "state": null,
+                "city": null,
+                "directory_visible": false,
+                "two_factor_enabled": true,
+                "email_verified_at": "2026-10-16T14:26:43+00:00",
+                "last_login_at": "2026-10-16T14:26:43+00:00",
+                "membership": {
+                    "uuid": "01a1451b-abd1-735a-835c-19e4b40082d1",
+                    "member_type": "corporate",
+                    "member_id": null,
+                    "status": "pending_approval",
+                    "status_label": "Pending Approval",
+                    "state_code": "LA",
+                    "approved_at": null,
+                    "expires_at": null,
+                    "created_at": "2026-10-16T14:26:43+00:00"
+                },
+                "organisation": {
+                    "uuid": "01a1451b-abd0-725a-bad9-148f7ea272b6",
+                    "type": "corporate",
+                    "name": "Chow Co Limited",
+                    "registration_number": "RC123456",
+                    "year_established": 2015,
+                    "business_type": "Restaurant",
+                    "institution_type": null,
+                    "department": null,
+                    "address": "5 Awolowo Road, Ikoyi",
+                    "state_code": "LA",
+                    "state": "Lagos",
+                    "city": "Ikoyi",
+                    "website": "https://chowco.ng",
+                    "document_url": "https://api.cloudinary.com/v1_1/apfspn-test/raw/download?public_id=members%2Fdocuments%2F1e246476-0821-4085-b9e7-083e1ef2e808.pdf&type=authenticated&expires_at=1792161403",
+                    "document_url_expires_at": "2026-10-16T14:36:43+00:00"
+                }
+            }
+        },
+        "request": {
+            "address": "5 Awolowo Road, Ikoyi",
+            "business_type": "Restaurant",
+            "city": "Ikoyi"
+        }
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The name field is prohibited.",
+            "data": {
+                "name": [
+                    "The name field is prohibited."
+                ],
+                "email": [
+                    "The email field is prohibited."
+                ],
+                "membership_status": [
+                    "The membership status field is prohibited."
+                ],
+                "member_id": [
+                    "The member id field is prohibited."
+                ],
+                "state_code": [
+                    "The state code field is prohibited."
+                ],
+                "address": [
+                    "The address field is prohibited."
+                ]
+            }
+        }
+    }
+}

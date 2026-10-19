@@ -92,7 +92,7 @@ class ProfileTest extends TestCase
         $user = User::factory()->withoutTwoFactor()->create();
 
         $this->api('PUT', '/api/v1/member/profile', [
-            'email' => 'new@example.com',
+            'email' => 'new@apfspn.test',
             'name' => 'Someone Else',
             'member_id' => 'APFSPNLA001',
             'membership_status' => 'active',

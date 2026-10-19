@@ -1,0 +1,40 @@
+{
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "This account has been disabled.",
+            "data": {
+                "code": "account_disabled"
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "uuid": "01a1451b-4572-717d-a29a-a24f445d634b",
+                "name": "Miss Brigitte Dare DDS",
+                "email": "tyrel.metz@apfspn.test",
+                "status": "active",
+                "account_state": "active",
+                "must_reset_password": false,
+                "last_login_at": "2026-10-16T14:26:17+00:00",
+                "roles": [
+                    "super_admin"
+                ],
+                "permissions": [
+                    "admins.create",
+                    "admins.delete",
+                    "admins.update"
+                ],
+                "created_at": "2026-10-16T14:26:17+00:00"
+            }
+        },
+        "request": []
+    }
+}

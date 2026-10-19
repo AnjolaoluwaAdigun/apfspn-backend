@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Enums\AdminAccountState;
 use App\Enums\AdminStatus;
 use App\Models\Admin;
+use App\Models\Role;
 use App\Repositories\Contracts\AdminRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
@@ -94,5 +95,20 @@ class AdminRepository implements AdminRepositoryInterface
     {
         $admin->syncRoles([]);
         $admin->delete();
+    }
+
+    public function currentRole(Admin $admin): ?Role
+    {
+        return $admin->roles()->first();
+    }
+
+    public function syncRoles(Admin $admin, array $roleNames): void
+    {
+        $admin->syncRoles($roleNames);
+    }
+
+    public function permissionNames(Admin $admin): array
+    {
+        return $admin->getAllPermissions()->pluck('name')->all();
     }
 }

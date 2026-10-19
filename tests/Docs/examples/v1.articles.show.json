@@ -1,0 +1,38 @@
+{
+    "failure": {
+        "status": 404,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "Resource not found.",
+            "data": null
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "uuid": "01a1451b-36e2-736e-8198-44b7e7738bee",
+                "slug": "iusto-laboriosam-deleniti-ut-cupiditate-et-autem-q9wh5",
+                "title": "Iusto laboriosam deleniti ut cupiditate et autem.",
+                "excerpt": "Fuga nesciunt est hic reiciendis quibusdam eum ullam eaque fuga unde officia.",
+                "body": "<p>Non autem ipsam repudiandae sunt rerum excepturi incidunt. Nam ratione nihil sit cupiditate laboriosam ullam non quo. Aperiam voluptates aliquam animi tempora. Dolor accusantium qui optio sint et alias.</p>",
+                "cover_image_url": null,
+                "category": "news",
+                "category_label": "News",
+                "tags": [
+                    "hospitality"
+                ],
+                "published_at": "2026-10-16T14:26:13+00:00",
+                "view_count": 1,
+                "author": {
+                    "name": "Lily Sanford II"
+                }
+            }
+        },
+        "request": []
+    }
+}

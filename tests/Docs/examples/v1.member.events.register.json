@@ -1,0 +1,58 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "The event is full. You have been added to the waitlist.",
+            "data": {
+                "uuid": "01a1451b-96d7-72af-af26-d87164695779",
+                "event_uuid": "01a1451b-96bb-72c8-85cc-6f70fb08a48b",
+                "status": "waitlisted",
+                "status_label": "Waitlisted",
+                "waitlist_position": 1,
+                "registered_at": "2026-10-16T14:26:38+00:00",
+                "promoted_at": null,
+                "cancelled_at": null,
+                "attended_at": null,
+                "virtual_link": null,
+                "event": {
+                    "uuid": "01a1451b-96bb-72c8-85cc-6f70fb08a48b",
+                    "slug": "officia-consectetur-eligendi-est-reprehenderit-dolores-rff2i",
+                    "title": "Officia consectetur eligendi est reprehenderit dolores.",
+                    "description": "Aliquid qui error impedit maiores. Est et voluptatem adipisci deleniti numquam. Ut labore voluptatum at quidem est sed. Quisquam voluptatem corporis molestiae aperiam beatae magnam commodi.",
+                    "image_url": null,
+                    "starts_at": "2026-10-30T10:00:00+00:00",
+                    "ends_at": "2026-10-30T16:00:00+00:00",
+                    "venue": "Eko Hotel",
+                    "address": "Plot 1415 Adetokunbo Ademola Street, Victoria Island",
+                    "city": "Lagos",
+                    "state_code": "LA",
+                    "state": "Lagos",
+                    "is_virtual": false,
+                    "audience": "public",
+                    "members_only": false,
+                    "capacity": 1,
+                    "registration_closes_at": "2026-10-30T10:00:00+00:00",
+                    "registration_open": true,
+                    "schedule": [],
+                    "status": "published",
+                    "status_label": "Published",
+                    "cancelled_at": null
+                }
+            }
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "Registration for this event is closed.",
+            "data": {
+                "code": "registration_closed"
+            }
+        }
+    }
+}

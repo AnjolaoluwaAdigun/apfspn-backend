@@ -1,0 +1,54 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Login successful.",
+            "data": {
+                "next_step": "authenticated",
+                "tokens": {
+                    "access_token": "{access_token}",
+                    "refresh_token": "{refresh_token}",
+                    "token_type": "Bearer",
+                    "expires_in": 3600,
+                    "refresh_expires_in": 2592000
+                },
+                "admin": {
+                    "uuid": "01a1451b-02d3-7338-8684-7ea8ba3bb976",
+                    "name": "Mrs. Freida Hettinger DVM",
+                    "email": "rachel.wunsch@apfspn.test",
+                    "status": "active",
+                    "account_state": "active",
+                    "must_reset_password": false,
+                    "last_login_at": "2026-10-16T14:26:00+00:00",
+                    "roles": [
+                        "events_coordinator"
+                    ],
+                    "permissions": [
+                        "dashboard.view",
+                        "event_registrations.export",
+                        "event_registrations.update"
+                    ],
+                    "created_at": "2026-10-16T14:26:00+00:00"
+                }
+            }
+        },
+        "request": {
+            "email": "rachel.wunsch@apfspn.test",
+            "password": "Password123",
+            "client": "web"
+        }
+    },
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "This account has been disabled.",
+            "data": {
+                "code": "account_disabled"
+            }
+        }
+    }
+}

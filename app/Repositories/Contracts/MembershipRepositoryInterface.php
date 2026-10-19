@@ -3,6 +3,7 @@
 namespace App\Repositories\Contracts;
 
 use App\Models\Membership;
+use Illuminate\Support\Carbon;
 
 interface MembershipRepositoryInterface
 {
@@ -12,7 +13,11 @@ interface MembershipRepositoryInterface
 
     public function findByUserForUpdate(string $userUuid): ?Membership;
 
+    public function findByUser(string $userUuid): ?Membership;
+
     public function save(Membership $membership): Membership;
 
     public function countsByStatus(): array;
+
+    public function countCreatedSince(Carbon $since): int;
 }

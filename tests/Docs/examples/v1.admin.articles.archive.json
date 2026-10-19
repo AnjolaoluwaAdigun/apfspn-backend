@@ -1,0 +1,51 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "Only published articles can be archived.",
+            "data": {
+                "code": "invalid_status_transition",
+                "current_status": "draft"
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Article archived.",
+            "data": {
+                "uuid": "01a1451b-3153-7085-8c57-f61da1fb92b5",
+                "slug": "placeat-inventore-dolores-sint-quis-voluptatum-labore-autem-ccj7m",
+                "title": "Placeat inventore dolores sint quis voluptatum labore autem.",
+                "excerpt": "Ut aut ducimus deserunt veniam quia alias quis dolor cumque consequuntur voluptate praesentium sed quam sed molestiae quos et.",
+                "body": "<p>Culpa voluptate et repellat et ut pariatur. Ut nostrum magni assumenda accusantium ex. Ut non quis rerum ut consequatur at in. Ab aut ut incidunt ipsa ipsum nobis labore et.</p>",
+                "cover_image_url": null,
+                "category": "news",
+                "category_label": "News",
+                "tags": [
+                    "hospitality"
+                ],
+                "status": "archived",
+                "status_label": "Archived",
+                "publish_at": null,
+                "published_at": "2026-10-16T13:26:12+00:00",
+                "archived_at": "2026-10-16T14:26:12+00:00",
+                "view_count": 0,
+                "author": null,
+                "reviewer": null,
+                "review_note": null,
+                "revision_count": 0,
+                "author_admin_uuid": null,
+                "created_by_admin_uuid": null,
+                "updated_by_admin_uuid": "01a1451b-314a-716c-9431-0d02e432ac21",
+                "created_at": "2026-10-16T14:26:12+00:00",
+                "updated_at": "2026-10-16T14:26:12+00:00"
+            }
+        },
+        "request": []
+    }
+}

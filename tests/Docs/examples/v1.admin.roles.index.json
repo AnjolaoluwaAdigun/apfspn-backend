@@ -1,0 +1,67 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The per page field must not be greater than 100.",
+            "data": {
+                "per_page": [
+                    "The per page field must not be greater than 100."
+                ]
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "items": [
+                    {
+                        "uuid": "01a1451a-d355-70ef-b999-b629809cd8c2",
+                        "name": "editor",
+                        "label": "Editor",
+                        "built_in": true,
+                        "locked": false,
+                        "permissions": [
+                            "articles.archive",
+                            "articles.create",
+                            "articles.delete"
+                        ],
+                        "admins_count": 0,
+                        "created_at": "2026-10-16T14:25:48+00:00",
+                        "updated_at": "2026-10-16T14:25:48+00:00"
+                    },
+                    {
+                        "uuid": "01a1451a-d364-7385-8034-0795b329e3d1",
+                        "name": "events_coordinator",
+                        "label": "Events Coordinator",
+                        "built_in": true,
+                        "locked": false,
+                        "permissions": [
+                            "dashboard.view",
+                            "event_registrations.export",
+                            "event_registrations.update"
+                        ],
+                        "admins_count": 0,
+                        "created_at": "2026-10-16T14:25:48+00:00",
+                        "updated_at": "2026-10-16T14:25:48+00:00"
+                    }
+                ],
+                "pagination": {
+                    "current_page": 2,
+                    "per_page": 2,
+                    "total": 6,
+                    "last_page": 3
+                }
+            }
+        },
+        "request": {
+            "per_page": "2",
+            "page": "2"
+        }
+    }
+}

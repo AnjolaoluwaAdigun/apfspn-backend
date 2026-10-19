@@ -76,7 +76,7 @@ class ChallengeServiceTest extends TestCase
 
     public function test_decoy_challenge_for_unknown_email_never_verifies_and_sends_nothing(): void
     {
-        $result = $this->challenges->create(null, User::class, ChallengePurpose::PasswordReset, 'ghost@example.com');
+        $result = $this->challenges->create(null, User::class, ChallengePurpose::PasswordReset, 'ghost@apfspn.test');
 
         Queue::assertNotPushed(SendOtpEmail::class);
 

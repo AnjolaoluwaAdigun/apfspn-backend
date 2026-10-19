@@ -1,0 +1,64 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "items": [
+                    {
+                        "uuid": "01a1451b-35f6-737e-b9be-767cbb0a02a5",
+                        "slug": "doloribus-adipisci-libero-veritatis-illo-a-dacin",
+                        "title": "Doloribus adipisci libero veritatis illo a.",
+                        "excerpt": "Fugiat provident itaque tempora sequi ea et possimus sapiente expedita culpa voluptas quos.",
+                        "cover_image_url": null,
+                        "category": "news",
+                        "category_label": "News",
+                        "tags": [
+                            "hospitality"
+                        ],
+                        "published_at": "2026-10-15T14:26:13+00:00",
+                        "view_count": 0,
+                        "author": null
+                    },
+                    {
+                        "uuid": "01a1451b-35f4-7248-8a98-e37faea7c1d6",
+                        "slug": "facilis-ad-consectetur-dolorum-omnis-o9i8t",
+                        "title": "Facilis ad consectetur dolorum omnis.",
+                        "excerpt": "Error ex deserunt voluptatem id voluptates voluptatem laudantium cum consequuntur inventore consequatur voluptatem iusto porro laborum laborum unde qui.",
+                        "cover_image_url": null,
+                        "category": "news",
+                        "category_label": "News",
+                        "tags": [
+                            "hospitality"
+                        ],
+                        "published_at": "2026-10-13T14:26:13+00:00",
+                        "view_count": 0,
+                        "author": null
+                    }
+                ],
+                "pagination": {
+                    "current_page": 1,
+                    "per_page": 15,
+                    "total": 2,
+                    "last_page": 1
+                }
+            }
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The selected category is invalid.",
+            "data": {
+                "category": [
+                    "The selected category is invalid."
+                ]
+            }
+        }
+    }
+}

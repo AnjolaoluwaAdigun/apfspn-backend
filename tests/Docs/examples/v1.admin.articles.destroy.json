@@ -1,0 +1,24 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "Only draft or archived articles can be deleted.",
+            "data": {
+                "code": "invalid_status_transition",
+                "current_status": "in_review"
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Article deleted.",
+            "data": null
+        },
+        "request": []
+    }
+}

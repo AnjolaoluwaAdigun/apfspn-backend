@@ -11,6 +11,7 @@ use App\Repositories\Contracts\AuthChallengeRepositoryInterface;
 use App\Repositories\Contracts\EventRegistrationRepositoryInterface;
 use App\Repositories\Contracts\EventRepositoryInterface;
 use App\Repositories\Contracts\EventSpeakerRepositoryInterface;
+use App\Repositories\Contracts\MemberActivityRepositoryInterface;
 use App\Repositories\Contracts\MemberIdSequenceRepositoryInterface;
 use App\Repositories\Contracts\MemberRepositoryInterface;
 use App\Repositories\Contracts\MembershipRepositoryInterface;
@@ -26,6 +27,7 @@ use App\Repositories\Eloquent\AuthChallengeRepository;
 use App\Repositories\Eloquent\EventRegistrationRepository;
 use App\Repositories\Eloquent\EventRepository;
 use App\Repositories\Eloquent\EventSpeakerRepository;
+use App\Repositories\Eloquent\MemberActivityRepository;
 use App\Repositories\Eloquent\MemberIdSequenceRepository;
 use App\Repositories\Eloquent\MemberRepository;
 use App\Repositories\Eloquent\MembershipRepository;
@@ -52,5 +54,6 @@ class RepositoryServiceProvider extends ServiceProvider
         ArticleRepositoryInterface::class => ArticleRepository::class,
         ArticleRevisionRepositoryInterface::class => ArticleRevisionRepository::class,
         RoleRepositoryInterface::class => RoleRepository::class,
+        MemberActivityRepositoryInterface::class => MemberActivityRepository::class,
     ];
 }

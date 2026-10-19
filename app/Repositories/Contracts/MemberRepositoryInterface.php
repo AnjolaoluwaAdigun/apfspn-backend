@@ -12,6 +12,8 @@ interface MemberRepositoryInterface
 
     public function paginatePending(array $filters, int $perPage): LengthAwarePaginator;
 
+    public function countPending(): int;
+
     public function lazyForExport(array $filters): LazyCollection;
 
     public function findWithProfile(string $uuid): User;

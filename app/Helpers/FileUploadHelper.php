@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Exceptions\ApiException;
 use App\Helpers\Uploads\PrivateFileStore;
+use Cloudinary\Exception\ConfigurationException;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -48,7 +49,13 @@ class FileUploadHelper
             return null;
         }
 
-        return self::privateStore()->temporaryUrl($publicId, now()->addMinutes($ttlMinutes ?? config('apfspn.uploads.private_url_ttl_minutes')));
+        try {
+            return self::privateStore()->temporaryUrl($publicId, now()->addMinutes($ttlMinutes ?? config('apfspn.uploads.private_url_ttl_minutes')));
+        } catch (ConfigurationException $exception) {
+            report($exception);
+
+            return null;
+        }
     }
 
     public static function deletePrivate(?string $publicId): void

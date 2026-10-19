@@ -1,0 +1,23 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "You cannot delete your own account.",
+            "data": {
+                "code": "cannot_modify_self"
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Admin deleted.",
+            "data": null
+        },
+        "request": []
+    }
+}

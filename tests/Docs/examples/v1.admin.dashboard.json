@@ -1,0 +1,146 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "members": {
+                    "counts_by_status": {
+                        "all": 0,
+                        "pending_approval": 0,
+                        "active": 0,
+                        "rejected": 0,
+                        "suspended": 0,
+                        "expired": 0
+                    },
+                    "pending_approvals": 0,
+                    "new_registrations": {
+                        "this_week": 0,
+                        "this_month": 0
+                    }
+                },
+                "events": {
+                    "upcoming": [
+                        {
+                            "uuid": "01a1451b-56c1-7314-b03c-d4a2fe606f39",
+                            "slug": "adipisci-magni-culpa-in-es1dj",
+                            "title": "Adipisci magni culpa in.",
+                            "starts_at": "2026-10-28T10:00:00+00:00",
+                            "ends_at": "2026-10-28T16:00:00+00:00",
+                            "venue": "Eko Hotel",
+                            "is_virtual": false,
+                            "audience": "public",
+                            "capacity": null,
+                            "registered_count": 0,
+                            "waitlisted_count": 0,
+                            "seats_left": null
+                        },
+                        {
+                            "uuid": "01a1451b-56c1-7314-b03c-d4a2ff40f693",
+                            "slug": "quis-et-ducimus-non-innwv",
+                            "title": "Quis et ducimus non.",
+                            "starts_at": "2026-10-28T10:00:00+00:00",
+                            "ends_at": "2026-10-28T16:00:00+00:00",
+                            "venue": "Eko Hotel",
+                            "is_virtual": false,
+                            "audience": "public",
+                            "capacity": null,
+                            "registered_count": 0,
+                            "waitlisted_count": 0,
+                            "seats_left": null
+                        },
+                        {
+                            "uuid": "01a1451b-56c2-73d7-9454-daa77989cb67",
+                            "slug": "omnis-eaque-natus-hktnz",
+                            "title": "Omnis eaque natus.",
+                            "starts_at": "2026-10-28T10:00:00+00:00",
+                            "ends_at": "2026-10-28T16:00:00+00:00",
+                            "venue": "Eko Hotel",
+                            "is_virtual": false,
+                            "audience": "public",
+                            "capacity": null,
+                            "registered_count": 0,
+                            "waitlisted_count": 0,
+                            "seats_left": null
+                        }
+                    ],
+                    "registrations_this_week": 0
+                },
+                "articles": {
+                    "counts_by_status": {
+                        "all": 0,
+                        "draft": 0,
+                        "in_review": 0,
+                        "changes_requested": 0,
+                        "scheduled": 0,
+                        "published": 0,
+                        "archived": 0
+                    },
+                    "awaiting_review": {
+                        "total": 0,
+                        "items": []
+                    }
+                },
+                "recent_activity": [
+                    {
+                        "uuid": "01a1451b-5744-7279-980d-7e2b9c95cc28",
+                        "action": "event.published",
+                        "description": "Event published",
+                        "admin": {
+                            "uuid": "01a1451b-56b4-714d-81c6-a0f0bcc61adf",
+                            "name": "Marilyne Runte V"
+                        },
+                        "subject": {
+                            "type": "event",
+                            "uuid": "01a1451b-56c4-710a-a60a-e3b5b67cb78a",
+                            "label": "Quos temporibus neque sint."
+                        },
+                        "created_at": "2026-10-14T12:00:00+00:00"
+                    },
+                    {
+                        "uuid": "01a1451b-573f-723a-b742-5f18620ca8c5",
+                        "action": "event.published",
+                        "description": "Event published",
+                        "admin": {
+                            "uuid": "01a1451b-56b4-714d-81c6-a0f0bcc61adf",
+                            "name": "Marilyne Runte V"
+                        },
+                        "subject": {
+                            "type": "event",
+                            "uuid": "01a1451b-56c4-710a-a60a-e3b5b64e6451",
+                            "label": "Quo reprehenderit omnis rerum."
+                        },
+                        "created_at": "2026-10-14T12:00:00+00:00"
+                    },
+                    {
+                        "uuid": "01a1451b-5738-71ca-a7b4-a19a52f0f869",
+                        "action": "event.published",
+                        "description": "Event published",
+                        "admin": {
+                            "uuid": "01a1451b-56b4-714d-81c6-a0f0bcc61adf",
+                            "name": "Marilyne Runte V"
+                        },
+                        "subject": {
+                            "type": "event",
+                            "uuid": "01a1451b-56c3-73c0-8efa-0be12c8fc83a",
+                            "label": "Facilis dolorem eligendi consectetur et."
+                        },
+                        "created_at": "2026-10-14T12:00:00+00:00"
+                    }
+                ]
+            }
+        },
+        "request": []
+    },
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "You are not allowed to perform this action.",
+            "data": null
+        }
+    }
+}

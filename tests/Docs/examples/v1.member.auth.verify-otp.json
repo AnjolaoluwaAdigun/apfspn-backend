@@ -1,0 +1,30 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The code you entered is incorrect.",
+            "data": {
+                "code": "invalid_otp",
+                "attempts_remaining": 4
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Code verified.",
+            "data": {
+                "next_step": "reset_password",
+                "reset_token": "{reset_token}"
+            }
+        },
+        "request": {
+            "challenge_token": "{challenge_token}",
+            "code": "356256"
+        }
+    }
+}

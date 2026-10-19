@@ -1,0 +1,19 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "text/csv; charset=UTF-8",
+        "body": null,
+        "request": {
+            "status": "registered"
+        }
+    },
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "You are not allowed to perform this action.",
+            "data": null
+        }
+    }
+}

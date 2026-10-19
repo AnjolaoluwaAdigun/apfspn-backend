@@ -1,0 +1,103 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Member updated.",
+            "data": {
+                "uuid": "01a1451a-4c74-7307-ad5c-04ae818129ce",
+                "name": "New Name",
+                "email": "colton.abbott@apfspn.test",
+                "phone": "08031111111",
+                "account_status": "active",
+                "member_type": "corporate",
+                "bio": null,
+                "photo_url": null,
+                "state_code": null,
+                "state": null,
+                "city": null,
+                "directory_visible": false,
+                "two_factor_enabled": true,
+                "email_verified_at": "2026-10-16T14:25:13+00:00",
+                "last_login_at": null,
+                "membership": {
+                    "uuid": "01a1451a-4c74-7307-ad5c-04ae82155230",
+                    "member_type": "corporate",
+                    "member_id": null,
+                    "status": "pending_approval",
+                    "status_label": "Pending Approval",
+                    "state_code": "LA",
+                    "approved_at": null,
+                    "expires_at": null,
+                    "rejection_reason": null,
+                    "suspension_reason": null,
+                    "approved_by_admin_uuid": null,
+                    "rejected_at": null,
+                    "rejected_by_admin_uuid": null,
+                    "suspended_at": null,
+                    "suspended_by_admin_uuid": null,
+                    "reactivated_at": null,
+                    "created_at": "2026-10-16T14:25:13+00:00"
+                },
+                "organisation": {
+                    "uuid": "01a1451a-4c75-7376-bc35-5e9324b4e6ac",
+                    "type": "corporate",
+                    "name": "Chow Co Nigeria Limited",
+                    "registration_number": "RC123456",
+                    "year_established": null,
+                    "business_type": "Catering",
+                    "institution_type": null,
+                    "department": null,
+                    "address": "12 Allen Avenue, Ikeja",
+                    "state_code": "ED",
+                    "state": "Edo",
+                    "city": "Benin City",
+                    "website": null,
+                    "document_url": "https://api.cloudinary.com/v1_1/apfspn-test/raw/download?public_id=members%2Fdocuments%2Fcac.pdf&type=authenticated&expires_at=1792161313",
+                    "document_url_expires_at": "2026-10-16T14:35:13+00:00"
+                }
+            }
+        },
+        "request": {
+            "name": "New Name",
+            "phone": "08031111111",
+            "organisation": {
+                "state_code": "ED",
+                "name": "Chow Co Nigeria Limited",
+                "city": "Benin City"
+            }
+        }
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The member id field is prohibited.",
+            "data": {
+                "member_id": [
+                    "The member id field is prohibited."
+                ],
+                "member_type": [
+                    "The member type field is prohibited."
+                ],
+                "status": [
+                    "The status field is prohibited."
+                ],
+                "expires_at": [
+                    "The expires at field is prohibited."
+                ],
+                "email": [
+                    "The email field is prohibited."
+                ],
+                "phone": [
+                    "The phone has already been taken."
+                ],
+                "organisation": [
+                    "The organisation field is prohibited."
+                ]
+            }
+        }
+    }
+}

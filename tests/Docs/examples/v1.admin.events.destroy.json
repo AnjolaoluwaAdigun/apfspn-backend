@@ -1,0 +1,28 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "This event has registrations and cannot be deleted. Cancel it instead.",
+            "data": {
+                "code": "blocked",
+                "counts": {
+                    "registered": 1,
+                    "waitlisted": 1,
+                    "attended": 0
+                }
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Event deleted.",
+            "data": null
+        },
+        "request": []
+    }
+}

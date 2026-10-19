@@ -1,0 +1,51 @@
+{
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "Your membership has been suspended. Please contact APFSPN.",
+            "data": {
+                "code": "membership_suspended"
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "uuid": "01a1451a-765f-7168-84d8-a9b56a171aee",
+                "name": "Ms. Katherine Corwin",
+                "email": "rico.prohaska@apfspn.test",
+                "phone": "08098807494",
+                "account_status": "active",
+                "member_type": "individual",
+                "bio": null,
+                "photo_url": null,
+                "state_code": "LA",
+                "state": "Lagos",
+                "city": "Ikeja",
+                "directory_visible": false,
+                "two_factor_enabled": false,
+                "email_verified_at": "2026-10-16T14:25:24+00:00",
+                "last_login_at": "2026-10-16T14:25:24+00:00",
+                "membership": {
+                    "uuid": "01a1451a-7661-725c-904a-b50489f194a4",
+                    "member_type": "individual",
+                    "member_id": "APFSPNLA901",
+                    "status": "active",
+                    "status_label": "Active",
+                    "state_code": "LA",
+                    "approved_at": "2026-10-16T14:25:24+00:00",
+                    "expires_at": "2027-10-16T14:25:24+00:00",
+                    "created_at": "2026-10-16T14:25:24+00:00"
+                },
+                "organisation": null
+            }
+        },
+        "request": []
+    }
+}

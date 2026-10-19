@@ -1,0 +1,63 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The reason field is required.",
+            "data": {
+                "reason": [
+                    "The reason field is required."
+                ]
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Membership suspended.",
+            "data": {
+                "uuid": "01a1451a-7317-7015-9aad-8661f312dbdd",
+                "name": "Lyla Leffler",
+                "email": "alana.heidenreich@apfspn.test",
+                "phone": "08021976941",
+                "account_status": "active",
+                "member_type": "individual",
+                "bio": null,
+                "photo_url": null,
+                "state_code": "LA",
+                "state": "Lagos",
+                "city": "Ikeja",
+                "directory_visible": false,
+                "two_factor_enabled": false,
+                "email_verified_at": "2026-10-16T14:25:23+00:00",
+                "last_login_at": "2026-10-16T14:25:23+00:00",
+                "membership": {
+                    "uuid": "01a1451a-7318-7358-88e1-eb7fd25231ac",
+                    "member_type": "individual",
+                    "member_id": "APFSPNLA901",
+                    "status": "suspended",
+                    "status_label": "Suspended",
+                    "state_code": "LA",
+                    "approved_at": "2026-10-16T14:25:23+00:00",
+                    "expires_at": "2027-10-16T14:25:23+00:00",
+                    "rejection_reason": null,
+                    "suspension_reason": "Code of conduct breach.",
+                    "approved_by_admin_uuid": null,
+                    "rejected_at": null,
+                    "rejected_by_admin_uuid": null,
+                    "suspended_at": "2026-10-16T14:25:23+00:00",
+                    "suspended_by_admin_uuid": "01a1451a-73cf-706f-880e-1da8fc8a3d75",
+                    "reactivated_at": null,
+                    "created_at": "2026-10-16T14:25:23+00:00"
+                },
+                "organisation": null
+            }
+        },
+        "request": {
+            "reason": "Code of conduct breach."
+        }
+    }
+}

@@ -1,0 +1,54 @@
+{
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "You are not allowed to perform this action.",
+            "data": null
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "items": [
+                    {
+                        "uuid": "01a1451b-16a0-71d8-a4b5-04c9f3a93a12",
+                        "article_uuid": "01a1451b-1698-706c-b30d-4f8bf1cc5298",
+                        "title": "Second title",
+                        "excerpt": "A warm welcome to the newest members of the association.",
+                        "body": "<h2>Welcome</h2><p>The association welcomed <strong>twenty</strong> new members this month.</p>",
+                        "edited_by": {
+                            "uuid": "01a1451b-1675-7259-a060-60a033aecd8c",
+                            "name": "Lee Stoltenberg"
+                        },
+                        "created_at": "2026-10-16T14:26:05+00:00"
+                    },
+                    {
+                        "uuid": "01a1451b-1698-706c-b30d-4f8bf2a532e2",
+                        "article_uuid": "01a1451b-1698-706c-b30d-4f8bf1cc5298",
+                        "title": "APFSPN Welcomes New Members in Lagos",
+                        "excerpt": "A warm welcome to the newest members of the association.",
+                        "body": "<h2>Welcome</h2><p>The association welcomed <strong>twenty</strong> new members this month.</p>",
+                        "edited_by": {
+                            "uuid": "01a1451b-1675-7259-a060-60a033aecd8c",
+                            "name": "Lee Stoltenberg"
+                        },
+                        "created_at": "2026-10-16T14:26:05+00:00"
+                    }
+                ],
+                "pagination": {
+                    "current_page": 1,
+                    "per_page": 15,
+                    "total": 2,
+                    "last_page": 1
+                }
+            }
+        },
+        "request": []
+    }
+}

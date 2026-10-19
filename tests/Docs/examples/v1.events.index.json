@@ -1,0 +1,88 @@
+{
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Request successful.",
+            "data": {
+                "items": [
+                    {
+                        "uuid": "01a1451b-9aec-732c-bf36-dcaf4fbfc9ab",
+                        "slug": "veniam-cum-omnis-optio-nihil-583w4",
+                        "title": "Sooner",
+                        "description": "Neque quis quos corrupti id vitae ratione. Laboriosam aut amet architecto repellendus maiores. Mollitia magni iusto consequuntur aspernatur sed ab.",
+                        "image_url": null,
+                        "starts_at": "2026-10-21T14:26:39+00:00",
+                        "ends_at": "2026-10-21T17:26:39+00:00",
+                        "venue": "Eko Hotel",
+                        "address": "Plot 1415 Adetokunbo Ademola Street, Victoria Island",
+                        "city": "Lagos",
+                        "state_code": "LA",
+                        "state": "Lagos",
+                        "is_virtual": false,
+                        "audience": "public",
+                        "members_only": false,
+                        "capacity": null,
+                        "seats_left": null,
+                        "registration_closes_at": "2026-10-21T14:26:39+00:00",
+                        "registration_open": true,
+                        "schedule": [],
+                        "status": "published",
+                        "status_label": "Published",
+                        "cancelled_at": null,
+                        "speakers": []
+                    },
+                    {
+                        "uuid": "01a1451b-9aeb-7129-ba46-497ddfd57017",
+                        "slug": "et-quisquam-harum-quidem-50wfg",
+                        "title": "Later",
+                        "description": "Earum vero magni alias dolore. Quia harum nesciunt nesciunt nihil. Doloremque est aliquid velit laboriosam fugit. Voluptatum ea dolorum iste voluptas.",
+                        "image_url": null,
+                        "starts_at": "2026-11-05T14:26:39+00:00",
+                        "ends_at": "2026-11-05T17:26:39+00:00",
+                        "venue": "Eko Hotel",
+                        "address": "Plot 1415 Adetokunbo Ademola Street, Victoria Island",
+                        "city": "Lagos",
+                        "state_code": "LA",
+                        "state": "Lagos",
+                        "is_virtual": false,
+                        "audience": "public",
+                        "members_only": false,
+                        "capacity": null,
+                        "seats_left": null,
+                        "registration_closes_at": "2026-11-05T14:26:39+00:00",
+                        "registration_open": true,
+                        "schedule": [],
+                        "status": "published",
+                        "status_label": "Published",
+                        "cancelled_at": null,
+                        "speakers": []
+                    }
+                ],
+                "pagination": {
+                    "current_page": 1,
+                    "per_page": 15,
+                    "total": 2,
+                    "last_page": 1
+                }
+            }
+        },
+        "request": {
+            "when": "upcoming"
+        }
+    },
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "The selected when is invalid.",
+            "data": {
+                "when": [
+                    "The selected when is invalid."
+                ]
+            }
+        }
+    }
+}

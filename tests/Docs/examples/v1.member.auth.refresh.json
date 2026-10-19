@@ -1,0 +1,29 @@
+{
+    "failure": {
+        "status": 403,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "Your membership has been suspended. Please contact APFSPN.",
+            "data": {
+                "code": "membership_suspended"
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Tokens refreshed.",
+            "data": {
+                "access_token": "{access_token}",
+                "refresh_token": "{refresh_token}",
+                "token_type": "Bearer",
+                "expires_in": 3600,
+                "refresh_expires_in": 2592000
+            }
+        },
+        "request": []
+    }
+}

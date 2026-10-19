@@ -3,10 +3,13 @@
 namespace App\Http\Requests\Member\Security;
 
 use App\Http\Requests\ApiFormRequest;
+use App\Http\Requests\Concerns\AccountFieldRules;
 use Illuminate\Validation\Rule;
 
 class UpdateSecurityRequest extends ApiFormRequest
 {
+    use AccountFieldRules;
+
     public function rules(): array
     {
         return [
@@ -17,6 +20,6 @@ class UpdateSecurityRequest extends ApiFormRequest
                 'string',
                 'max:255',
             ],
-        ];
+        ] + $this->prohibitedMemberAccountRules(['two_factor_enabled']);
     }
 }

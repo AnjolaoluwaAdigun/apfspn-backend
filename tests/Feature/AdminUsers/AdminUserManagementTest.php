@@ -28,18 +28,18 @@ class AdminUserManagementTest extends TestCase
 
         $uuid = $this->api('POST', '/api/v1/admin/users', [
             'name' => 'Ngozi Editor',
-            'email' => ' Ngozi@Example.com ',
+            'email' => ' Ngozi@APFSPN.test ',
             'role_uuid' => $this->role('editor')->uuid,
         ], $this->tokenFor($actor))
             ->assertCreated()
-            ->assertJsonPath('data.email', 'ngozi@example.com')
+            ->assertJsonPath('data.email', 'ngozi@apfspn.test')
             ->assertJsonPath('data.account_state', 'invited')
             ->assertJsonPath('data.roles', ['editor'])
             ->json('data.uuid');
 
         $invited = Admin::findOrFail($uuid);
         $this->assertSame($actor->uuid, $invited->created_by_admin_uuid);
-        Queue::assertPushed(SendAdminInviteEmail::class, fn (SendAdminInviteEmail $job) => $job->email === 'ngozi@example.com');
+        Queue::assertPushed(SendAdminInviteEmail::class, fn (SendAdminInviteEmail $job) => $job->email === 'ngozi@apfspn.test');
         $this->assertDatabaseHas('audit_logs', ['action' => 'admin.invited', 'auditable_uuid' => $uuid, 'admin_uuid' => $actor->uuid]);
         $this->assertStringStartsWith('sha256:', AuditLog::where('action', 'admin.invited')->first()->request_body['email']);
     }
@@ -47,24 +47,24 @@ class AdminUserManagementTest extends TestCase
     public function test_invite_validates_role_and_duplicate_email(): void
     {
         $token = $this->tokenFor($this->adminWithRole('super_admin'));
-        Admin::factory()->create(['email' => 'taken@example.com']);
+        Admin::factory()->create(['email' => 'taken@apfspn.test']);
 
-        $this->api('POST', '/api/v1/admin/users', ['name' => 'X', 'email' => 'new@example.com', 'role_uuid' => fake()->uuid()], $token)
+        $this->api('POST', '/api/v1/admin/users', ['name' => 'X', 'email' => 'new@apfspn.test', 'role_uuid' => fake()->uuid()], $token)
             ->assertUnprocessable()
             ->assertJsonStructure(['data' => ['role_uuid']]);
 
-        $this->api('POST', '/api/v1/admin/users', ['name' => 'X', 'email' => 'new@example.com'], $token)
+        $this->api('POST', '/api/v1/admin/users', ['name' => 'X', 'email' => 'new@apfspn.test'], $token)
             ->assertUnprocessable()
             ->assertJsonStructure(['data' => ['role_uuid']]);
 
         $this->api('POST', '/api/v1/admin/users', [
-            'name' => 'X', 'email' => 'new@example.com', 'role_uuid' => $this->role('editor')->uuid,
+            'name' => 'X', 'email' => 'new@apfspn.test', 'role_uuid' => $this->role('editor')->uuid,
             'password' => 'Secret123!', 'status' => 'active', 'roles' => ['super_admin'],
         ], $token)
             ->assertUnprocessable()
             ->assertJsonStructure(['data' => ['password', 'status', 'roles']]);
 
-        $this->api('POST', '/api/v1/admin/users', ['name' => 'X', 'email' => 'taken@example.com', 'role_uuid' => $this->role('editor')->uuid], $token)
+        $this->api('POST', '/api/v1/admin/users', ['name' => 'X', 'email' => 'taken@apfspn.test', 'role_uuid' => $this->role('editor')->uuid], $token)
             ->assertUnprocessable()
             ->assertJsonPath('data.code', 'email_taken');
     }
@@ -89,7 +89,7 @@ class AdminUserManagementTest extends TestCase
     public function test_list_filters_by_state_role_and_search(): void
     {
         $actor = $this->adminWithRole('super_admin', ['name' => 'Aaa Root']);
-        $this->adminWithRole('editor', ['name' => 'Bola Editor', 'email' => 'bola@example.com']);
+        $this->adminWithRole('editor', ['name' => 'Bola Editor', 'email' => 'bola@apfspn.test']);
         $this->adminWithRole('author', ['must_reset_password' => true]);
         $this->adminWithRole('author', ['status' => 'disabled']);
         $token = $this->tokenFor($actor);
@@ -139,7 +139,7 @@ class AdminUserManagementTest extends TestCase
         $this->api('PUT', $this->userUrl($admin), ['name' => 'New Name'], $token)->assertOk();
         $this->assertSame(1, AuditLog::where('action', 'admin.updated')->count());
 
-        $this->api('PUT', $this->userUrl($admin), ['email' => 'x@example.com'], $token)
+        $this->api('PUT', $this->userUrl($admin), ['email' => 'x@apfspn.test'], $token)
             ->assertUnprocessable()
             ->assertJsonStructure(['data' => ['email']]);
     }
@@ -190,10 +190,10 @@ class AdminUserManagementTest extends TestCase
         $actor = tap(Admin::factory()->create())->assignRole('people_manager');
         $token = $this->tokenFor($actor);
 
-        $this->api('POST', '/api/v1/admin/users', ['name' => 'Escalate', 'email' => 'esc@example.com', 'role_uuid' => $this->role('super_admin')->uuid], $token)
+        $this->api('POST', '/api/v1/admin/users', ['name' => 'Escalate', 'email' => 'esc@apfspn.test', 'role_uuid' => $this->role('super_admin')->uuid], $token)
             ->assertForbidden()
             ->assertJsonPath('data.code', 'role_exceeds_own_permissions');
-        $this->assertDatabaseMissing('admins', ['email' => 'esc@example.com']);
+        $this->assertDatabaseMissing('admins', ['email' => 'esc@apfspn.test']);
 
         $editor = $this->adminWithRole('editor');
         $this->api('POST', $this->userUrl($editor, 'disable'), [], $token)

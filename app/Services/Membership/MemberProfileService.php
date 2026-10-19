@@ -2,6 +2,7 @@
 
 namespace App\Services\Membership;
 
+use App\Enums\MemberActivityType;
 use App\Helpers\FileUploadHelper;
 use App\Models\User;
 use App\Repositories\Contracts\OrganisationProfileRepositoryInterface;
@@ -18,6 +19,7 @@ class MemberProfileService
     public function __construct(
         private readonly UserRepositoryInterface $users,
         private readonly OrganisationProfileRepositoryInterface $organisations,
+        private readonly MemberActivityService $activities,
     ) {}
 
     public function show(User $user): User
@@ -36,9 +38,17 @@ class MemberProfileService
             $organisation = $this->organisations->findForUserForUpdate($locked->getKey());
 
             $this->users->update($locked, Arr::only($data, $organisation ? self::USER_FIELDS : [...self::USER_FIELDS, 'city']) + ['photo_url' => $photo]);
+            $changed = array_keys($locked->getChanges());
 
             if ($organisation) {
                 $this->organisations->update($organisation, Arr::only($data, [...self::ORGANISATION_FIELDS, 'city']));
+                $changed = [...$changed, ...array_map(fn (string $field) => 'organisation.'.$field, array_keys($organisation->getChanges()))];
+            }
+
+            $changed = array_values(array_diff($changed, ['updated_at', 'organisation.updated_at']));
+
+            if ($changed !== []) {
+                $this->activities->record($locked->getKey(), MemberActivityType::ProfileUpdated, changedFields: $changed);
             }
         });
 

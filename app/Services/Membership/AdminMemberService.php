@@ -2,6 +2,7 @@
 
 namespace App\Services\Membership;
 
+use App\Enums\MemberActivityType;
 use App\Enums\MembershipStatus;
 use App\Exceptions\ApiException;
 use App\Jobs\DeletePrivateFile;
@@ -46,6 +47,7 @@ class AdminMemberService
         private readonly EventRegistrationRepositoryInterface $eventRegistrations,
         private readonly TokenService $tokens,
         private readonly AuditLogService $audit,
+        private readonly MemberActivityService $activities,
     ) {}
 
     public function overview(): array
@@ -92,6 +94,10 @@ class AdminMemberService
 
             $this->users->update($user, []);
             $this->audit->record('member.updated', $user, $changes);
+
+            if ($changes['changed_fields'] !== []) {
+                $this->activities->record($user->getKey(), MemberActivityType::ProfileUpdatedByAdmin, changedFields: $changes['changed_fields']);
+            }
         });
 
         return $this->members->findWithProfile($uuid);

@@ -67,7 +67,7 @@ class ArticleWorkflowTest extends TestCase
         Queue::assertPushed(SendArticleNoticeEmail::class, fn (SendArticleNoticeEmail $job) => $job->notice === ArticleNotice::Published);
         $this->assertEqualsCanonicalizing(
             ['article.created', 'article.submitted', 'article.sent_back', 'article.updated', 'article.submitted', 'article.published'],
-            AuditLog::pluck('action')->all(),
+            AuditLog::where('action', 'like', 'article.%')->pluck('action')->all(),
         );
     }
 
@@ -104,7 +104,7 @@ class ArticleWorkflowTest extends TestCase
             ->assertOk()
             ->assertJsonPath('data.review_note', 'Please add a source.');
 
-        $this->assertSame(0, AuditLog::count());
+        $this->assertSame(0, AuditLog::where('action', 'like', 'article.%')->count());
         Queue::assertNothingPushed();
     }
 

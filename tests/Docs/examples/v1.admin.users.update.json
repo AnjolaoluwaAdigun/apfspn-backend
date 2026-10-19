@@ -1,0 +1,42 @@
+{
+    "failure": {
+        "status": 422,
+        "content_type": "application/json",
+        "body": {
+            "error": true,
+            "message": "You cannot change your own role.",
+            "data": {
+                "code": "cannot_modify_self"
+            }
+        }
+    },
+    "success": {
+        "status": 200,
+        "content_type": "application/json",
+        "body": {
+            "error": false,
+            "message": "Admin updated.",
+            "data": {
+                "uuid": "01a1451a-857e-7092-a71e-63e239bfcc9c",
+                "name": "Renamed Me",
+                "email": "jarrod.nicolas@apfspn.test",
+                "status": "active",
+                "account_state": "active",
+                "must_reset_password": false,
+                "last_login_at": "2026-10-16T14:25:28+00:00",
+                "roles": [
+                    "super_admin"
+                ],
+                "permissions": [
+                    "admins.create",
+                    "admins.delete",
+                    "admins.update"
+                ],
+                "created_at": "2026-10-16T14:25:28+00:00"
+            }
+        },
+        "request": {
+            "name": "Renamed Me"
+        }
+    }
+}

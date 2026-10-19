@@ -25,21 +25,21 @@ class AdminInviteTest extends TestCase
 
     public function test_invite_creates_admin_requiring_reset_and_sends_email_synchronously(): void
     {
-        $admin = app(AdminInviteService::class)->invite('Ada Admin', 'Ada@Example.com', ['editor']);
+        $admin = app(AdminInviteService::class)->invite('Ada Admin', 'Ada@APFSPN.test', ['editor']);
 
-        $this->assertSame('ada@example.com', $admin->email);
+        $this->assertSame('ada@apfspn.test', $admin->email);
         $this->assertTrue($admin->must_reset_password);
         $this->assertTrue($admin->hasRole('editor'));
 
-        Mail::assertSent(AdminInviteMail::class, fn (AdminInviteMail $mail) => $mail->hasTo('ada@example.com')
+        Mail::assertSent(AdminInviteMail::class, fn (AdminInviteMail $mail) => $mail->hasTo('ada@apfspn.test')
             && str_starts_with($mail->link, config('apfspn.frontend.admin_url').'/reset-password?token='));
     }
 
     public function test_invited_admin_cannot_log_in_until_reset_then_can(): void
     {
-        app(AdminInviteService::class)->invite('Ada Admin', 'ada@example.com', ['editor']);
+        app(AdminInviteService::class)->invite('Ada Admin', 'ada@apfspn.test', ['editor']);
 
-        $this->api('POST', '/api/v1/admin/auth/login', ['email' => 'ada@example.com', 'password' => 'Anything123'])
+        $this->api('POST', '/api/v1/admin/auth/login', ['email' => 'ada@apfspn.test', 'password' => 'Anything123'])
             ->assertUnauthorized();
 
         $link = Mail::sent(AdminInviteMail::class)->first()->link;
@@ -51,7 +51,7 @@ class AdminInviteTest extends TestCase
             'password_confirmation' => 'NewPassword1',
         ])->assertOk();
 
-        $this->api('POST', '/api/v1/admin/auth/login', ['email' => 'ada@example.com', 'password' => 'NewPassword1'])
+        $this->api('POST', '/api/v1/admin/auth/login', ['email' => 'ada@apfspn.test', 'password' => 'NewPassword1'])
             ->assertOk()
             ->assertJsonPath('data.admin.must_reset_password', false)
             ->assertJsonPath('data.admin.roles', ['editor']);
@@ -59,22 +59,22 @@ class AdminInviteTest extends TestCase
 
     public function test_invite_rejects_duplicate_email(): void
     {
-        Admin::factory()->create(['email' => 'ada@example.com']);
+        Admin::factory()->create(['email' => 'ada@apfspn.test']);
 
         $this->expectExceptionMessage('An admin with this email already exists.');
 
-        app(AdminInviteService::class)->invite('Ada Admin', 'ada@example.com', ['editor']);
+        app(AdminInviteService::class)->invite('Ada Admin', 'ada@apfspn.test', ['editor']);
     }
 
     public function test_super_admin_seeder_invites_once_from_config(): void
     {
-        config(['apfspn.auth.super_admin' => ['name' => 'Root Admin', 'email' => 'root@apfspn.org']]);
+        config(['apfspn.auth.super_admin' => ['name' => 'Root Admin', 'email' => 'root@apfspn.test']]);
 
         $this->seed(SuperAdminSeeder::class);
         $this->seed(SuperAdminSeeder::class);
 
-        $this->assertSame(1, Admin::where('email', 'root@apfspn.org')->count());
-        $this->assertTrue(Admin::where('email', 'root@apfspn.org')->first()->hasRole('super_admin'));
+        $this->assertSame(1, Admin::where('email', 'root@apfspn.test')->count());
+        $this->assertTrue(Admin::where('email', 'root@apfspn.test')->first()->hasRole('super_admin'));
         Mail::assertSent(AdminInviteMail::class, 1);
     }
 

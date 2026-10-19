@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Concerns\HasUuidPrimaryKey;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class AuditLog extends Model
@@ -31,6 +32,11 @@ class AuditLog extends Model
             'request_body' => 'array',
             'changes' => 'array',
         ];
+    }
+
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class, 'admin_uuid');
     }
 
     public function auditable(): MorphTo
