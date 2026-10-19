@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Enums\EventRegistrationStatus;
+use App\Enums\EventStatus;
 use App\Enums\MyEventsFilter;
 use App\Models\EventRegistration;
 use App\Repositories\Contracts\EventRegistrationRepositoryInterface;
@@ -161,7 +162,7 @@ class EventRegistrationRepository implements EventRegistrationRepositoryInterfac
             ->where('event_registrations.user_uuid', $userUuid)
             ->whereIn('event_registrations.status', $statuses)
             ->when($ended === true, fn (Builder $query) => $query->where('events.ends_at', '<', $now))
-            ->when($ended === false, fn (Builder $query) => $query->where('events.ends_at', '>=', $now))
+            ->when($ended === false, fn (Builder $query) => $this->upcomingEvents($query))
             ->orderBy('events.starts_at', $direction)
             ->orderBy('event_registrations.uuid')
             ->paginate($perPage);
@@ -194,11 +195,16 @@ class EventRegistrationRepository implements EventRegistrationRepositoryInterfac
             ->with('event')
             ->where('event_registrations.user_uuid', $userUuid)
             ->where('event_registrations.status', $status)
-            ->where('events.ends_at', '>=', now())
+            ->tap(fn (Builder $query) => $this->upcomingEvents($query))
             ->orderBy('events.starts_at')
             ->orderBy('event_registrations.uuid')
             ->when($limit, fn (Builder $query, int $limit) => $query->limit($limit))
             ->get();
+    }
+
+    private function upcomingEvents(Builder $query): Builder
+    {
+        return $query->where('events.status', EventStatus::Published)->where('events.ends_at', '>=', now());
     }
 
     private function attendees(string $eventUuid, array $filters): Builder

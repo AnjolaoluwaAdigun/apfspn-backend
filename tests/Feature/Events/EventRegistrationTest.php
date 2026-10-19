@@ -277,6 +277,31 @@ class EventRegistrationTest extends TestCase
             ->assertJsonPath('data.event.members_only', true);
     }
 
+    public function test_upcoming_and_waitlisted_filters_leave_out_cancelled_events(): void
+    {
+        $member = $this->activeMember();
+        $live = EventRegistration::factory()->for($member)->for(Event::factory()->published())->create();
+        $liveWaitlist = EventRegistration::factory()->for($member)->for(Event::factory()->published())->waitlisted(1)->create();
+        $cancelled = EventRegistration::factory()->for($member)->for(Event::factory()->cancelled())->create();
+        $cancelledWaitlist = EventRegistration::factory()->for($member)->for(Event::factory()->cancelled())->waitlisted(1)->create();
+        $token = $this->memberToken($member);
+
+        $this->assertEqualsCanonicalizing(
+            [$live->uuid, $liveWaitlist->uuid],
+            array_column($this->api('GET', '/api/v1/member/events?filter=upcoming', [], $token)->assertOk()->json('data.items'), 'uuid'),
+        );
+        $this->assertSame(
+            [$liveWaitlist->uuid],
+            array_column($this->api('GET', '/api/v1/member/events?filter=waitlisted', [], $token)->assertOk()->json('data.items'), 'uuid'),
+        );
+
+        $all = collect($this->api('GET', '/api/v1/member/events', [], $token)->assertOk()->json('data.items'))->keyBy('uuid');
+
+        $this->assertCount(4, $all);
+        $this->assertSame('cancelled', $all[$cancelled->uuid]['event']['status']);
+        $this->assertSame('cancelled', $all[$cancelledWaitlist->uuid]['event']['status']);
+    }
+
     public function test_my_events_filters(): void
     {
         $member = $this->activeMember();

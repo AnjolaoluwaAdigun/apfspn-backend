@@ -71,6 +71,22 @@ class MemberDashboardTest extends TestCase
             ->assertJsonPath('data.recent_activity.0.subject.title', 'Chefs Masterclass');
     }
 
+    public function test_cancelled_and_ended_events_are_left_out(): void
+    {
+        $member = User::factory()->withoutTwoFactor()->create();
+        $upcoming = Event::factory()->published()->create(['title' => 'Still On']);
+        EventRegistration::factory()->create(['user_uuid' => $member->uuid, 'event_uuid' => $upcoming->uuid]);
+        EventRegistration::factory()->create(['user_uuid' => $member->uuid, 'event_uuid' => Event::factory()->cancelled()->create()->uuid]);
+        EventRegistration::factory()->waitlisted(1)->create(['user_uuid' => $member->uuid, 'event_uuid' => Event::factory()->cancelled()->create()->uuid]);
+        EventRegistration::factory()->create(['user_uuid' => $member->uuid, 'event_uuid' => Event::factory()->published()->past()->create()->uuid]);
+
+        $this->api('GET', self::URL, [], $this->memberTokens($member)['access_token'])
+            ->assertOk()
+            ->assertJsonCount(1, 'data.upcoming_events')
+            ->assertJsonPath('data.upcoming_events.0.event.title', 'Still On')
+            ->assertJsonPath('data.waitlisted_events', []);
+    }
+
     public function test_pending_corporate_member_sees_pending_card(): void
     {
         $member = User::factory()->withoutTwoFactor()
