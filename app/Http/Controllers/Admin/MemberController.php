@@ -61,7 +61,9 @@ class MemberController extends Controller
 
     public function show(ShowMemberRequest $request, string $member): JsonResponse
     {
-        return JsonResponser::success(new MemberResource($this->members->show($member)));
+        $member = $this->members->show($member);
+
+        return JsonResponser::success(new MemberResource($member));
     }
 
     public function update(UpdateMemberRequest $request, string $member): JsonResponse
